@@ -4,8 +4,9 @@
   "type": "commonjs",
   "scripts": {
     "build": "node build.js",
-    "news": "node fetch-news.js",
-    "bookmarks": "node fetch-bookmarks.js"
+    "news": "node fetch-news.js && node tag-news.js",
+    "bookmarks": "node fetch-bookmarks.js",
+    "tag-news": "node tag-news.js"
   },
   "dependencies": {
     "marked": "^18.1.3"

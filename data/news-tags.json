@@ -1,0 +1,1113 @@
+[
+ {
+  "tag": "カスタマーハラスメント",
+  "type": "topic",
+  "entry": "customer-harassment",
+  "match": [
+   "カスハラ",
+   "カスタマーハラスメント"
+  ]
+ },
+ {
+  "tag": "チャットボット",
+  "type": "topic",
+  "entry": "chatbot",
+  "match": [
+   "チャットボット"
+  ]
+ },
+ {
+  "tag": "ボイスボット",
+  "type": "topic",
+  "entry": "voicebot",
+  "match": [
+   "ボイスボット",
+   "音声ボット",
+   "AIオペレーター"
+  ]
+ },
+ {
+  "tag": "生成AI・オペレーター支援",
+  "type": "topic",
+  "entry": "genai-assist",
+  "match": [
+   "生成AI",
+   "オペレーター支援",
+   "回答案"
+  ]
+ },
+ {
+  "tag": "音声認識・文字起こし",
+  "type": "topic",
+  "entry": "voice-recognition",
+  "match": [
+   "音声認識",
+   "文字起こし",
+   "通話要約",
+   "自動要約"
+  ]
+ },
+ {
+  "tag": "IVR",
+  "type": "topic",
+  "entry": "ivr",
+  "match": [
+   "IVR",
+   "音声自動応答"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "ACD",
+  "type": "topic",
+  "entry": "acd",
+  "match": [
+   "ACD",
+   "着信呼自動分配"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "CTI",
+  "type": "topic",
+  "entry": "cti",
+  "match": [
+   "CTI"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "CCaaS",
+  "type": "topic",
+  "entry": "ccaas",
+  "match": [
+   "CCaaS",
+   "クラウド型コンタクトセンター",
+   "クラウドコンタクトセンター",
+   "クラウド型コールセンター"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "オムニチャネル",
+  "type": "topic",
+  "entry": "omnichannel",
+  "match": [
+   "オムニチャネル",
+   "マルチチャネル"
+  ]
+ },
+ {
+  "tag": "コールバック",
+  "type": "topic",
+  "entry": "callback",
+  "match": [
+   "コールバック",
+   "折り返し電話"
+  ]
+ },
+ {
+  "tag": "AHT・処理時間",
+  "type": "topic",
+  "entry": "aht",
+  "match": [
+   "AHT",
+   "平均処理時間"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "ACW・後処理",
+  "type": "topic",
+  "entry": "acw",
+  "match": [
+   "ACW",
+   "後処理"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "一次解決率",
+  "type": "topic",
+  "entry": "fcr",
+  "match": [
+   "一次解決率",
+   "FCR"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "顧客満足度(CSAT)",
+  "type": "topic",
+  "entry": "csat",
+  "match": [
+   "CSAT",
+   "顧客満足度"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "NPS",
+  "type": "topic",
+  "entry": "nps",
+  "match": [
+   "NPS"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "応答率",
+  "type": "topic",
+  "entry": "response-rate",
+  "match": [
+   "応答率",
+   "サービスレベル"
+  ]
+ },
+ {
+  "tag": "放棄呼",
+  "type": "topic",
+  "entry": "abandon-rate",
+  "match": [
+   "放棄呼",
+   "あきらめ呼"
+  ]
+ },
+ {
+  "tag": "稼働率・占有率",
+  "type": "topic",
+  "entry": "occupancy-utilization",
+  "match": [
+   "稼働率",
+   "占有率"
+  ]
+ },
+ {
+  "tag": "KPI",
+  "type": "topic",
+  "entry": "kpi-design",
+  "match": [
+   "KPI",
+   "KGI"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "呼量予測",
+  "type": "topic",
+  "entry": "call-forecast",
+  "match": [
+   "呼量予測",
+   "着信予測",
+   "入電予測"
+  ]
+ },
+ {
+  "tag": "WFM・シフト管理",
+  "type": "topic",
+  "entry": "wfm-shift",
+  "match": [
+   "WFM",
+   "ワークフォース",
+   "シフト管理"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "応対品質評価",
+  "type": "topic",
+  "entry": "qa-monitoring",
+  "match": [
+   "応対品質",
+   "品質評価",
+   "通話モニタリング",
+   "通話評価"
+  ]
+ },
+ {
+  "tag": "コーチング",
+  "type": "topic",
+  "entry": "coaching",
+  "match": [
+   "コーチング",
+   "フィードバック面談"
+  ]
+ },
+ {
+  "tag": "研修・育成",
+  "type": "topic",
+  "entry": "training",
+  "match": [
+   "研修",
+   "新人教育",
+   "オペレーター育成"
+  ]
+ },
+ {
+  "tag": "スーパーバイザー",
+  "type": "topic",
+  "entry": "supervisor",
+  "match": [
+   "スーパーバイザー",
+   "SV"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "ナレッジ・FAQ",
+  "type": "topic",
+  "entry": "knowledge-management",
+  "match": [
+   "ナレッジ",
+   "FAQ"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "VoC(顧客の声)",
+  "type": "topic",
+  "entry": "voc",
+  "match": [
+   "VoC",
+   "VOC",
+   "顧客の声"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "トークスクリプト",
+  "type": "topic",
+  "entry": "talk-script",
+  "match": [
+   "トークスクリプト",
+   "スクリプト"
+  ]
+ },
+ {
+  "tag": "エスカレーション",
+  "type": "topic",
+  "entry": "escalation",
+  "match": [
+   "エスカレーション"
+  ]
+ },
+ {
+  "tag": "クレーム・苦情",
+  "type": "topic",
+  "entry": "complaint-claim",
+  "match": [
+   "クレーム",
+   "苦情"
+  ]
+ },
+ {
+  "tag": "離職",
+  "type": "topic",
+  "entry": "attrition",
+  "match": [
+   "離職",
+   "早期退職"
+  ]
+ },
+ {
+  "tag": "採用・人手不足",
+  "type": "topic",
+  "entry": "recruiting",
+  "match": [
+   "人手不足",
+   "採用難",
+   "オペレーターの採用",
+   "オペレーター採用"
+  ]
+ },
+ {
+  "tag": "在宅・テレワーク",
+  "type": "topic",
+  "entry": "remote-contact-center",
+  "match": [
+   "在宅",
+   "テレワーク"
+  ]
+ },
+ {
+  "tag": "BCP・災害",
+  "type": "topic",
+  "entry": "bcp",
+  "match": [
+   "BCP",
+   "事業継続",
+   "災害対応"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "BPO・アウトソーシング",
+  "type": "topic",
+  "entry": "bpo-outsourcing",
+  "match": [
+   "BPO",
+   "アウトソーシング",
+   "業務委託"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "夜間・休日対応",
+  "type": "topic",
+  "entry": "after-hours",
+  "match": [
+   "夜間",
+   "24時間",
+   "休日対応"
+  ]
+ },
+ {
+  "tag": "拠点・誘致",
+  "type": "topic",
+  "entry": "site-location",
+  "match": [
+   "誘致",
+   "拠点開設"
+  ]
+ },
+ {
+  "tag": "通話録音",
+  "type": "topic",
+  "entry": "call-recording",
+  "match": [
+   "通話録音",
+   "録音"
+  ]
+ },
+ {
+  "tag": "個人情報・漏えい",
+  "type": "topic",
+  "entry": "data-breach-report",
+  "match": [
+   "漏えい",
+   "漏洩",
+   "情報流出",
+   "個人情報"
+  ]
+ },
+ {
+  "tag": "委託先の監督",
+  "type": "topic",
+  "entry": "outsourcing-supervision",
+  "match": [
+   "委託先",
+   "委託元"
+  ]
+ },
+ {
+  "tag": "開示請求",
+  "type": "topic",
+  "entry": "personal-data-disclosure",
+  "match": [
+   "開示請求"
+  ]
+ },
+ {
+  "tag": "休憩",
+  "type": "topic",
+  "entry": "rest-break",
+  "match": [
+   "休憩時間"
+  ]
+ },
+ {
+  "tag": "時間外労働",
+  "type": "topic",
+  "entry": "overtime-limit",
+  "match": [
+   "時間外労働",
+   "36協定",
+   "残業"
+  ]
+ },
+ {
+  "tag": "ストレスチェック・メンタルヘルス",
+  "type": "topic",
+  "entry": "stress-check",
+  "match": [
+   "ストレスチェック",
+   "メンタルヘルス"
+  ]
+ },
+ {
+  "tag": "派遣・請負",
+  "type": "topic",
+  "entry": "haken-ukeoi",
+  "match": [
+   "偽装請負",
+   "労働者派遣"
+  ]
+ },
+ {
+  "tag": "同一労働同一賃金",
+  "type": "topic",
+  "entry": "part-time-act",
+  "match": [
+   "同一労働同一賃金",
+   "パートタイム・有期雇用"
+  ]
+ },
+ {
+  "tag": "障害者差別解消法・合理的配慮",
+  "type": "topic",
+  "entry": "disability-discrimination-act",
+  "match": [
+   "合理的配慮",
+   "障害者差別"
+  ]
+ },
+ {
+  "tag": "電話リレーサービス",
+  "type": "topic",
+  "entry": "telephone-relay-service",
+  "match": [
+   "電話リレー"
+  ]
+ },
+ {
+  "tag": "特定商取引法",
+  "type": "topic",
+  "entry": "tokushoho-telemarketing",
+  "match": [
+   "特定商取引",
+   "電話勧誘"
+  ]
+ },
+ {
+  "tag": "通信販売",
+  "type": "topic",
+  "entry": "mail-order",
+  "match": [
+   "通信販売",
+   "通販"
+  ]
+ },
+ {
+  "tag": "消費者契約法",
+  "type": "topic",
+  "entry": "consumer-contract-act",
+  "match": [
+   "消費者契約法"
+  ]
+ },
+ {
+  "tag": "ステマ規制",
+  "type": "topic",
+  "entry": "stealth-marketing",
+  "match": [
+   "ステルスマーケティング",
+   "ステマ"
+  ]
+ },
+ {
+  "tag": "AI事業者ガイドライン",
+  "type": "topic",
+  "entry": "ai-business-guidelines",
+  "match": [
+   "AI事業者ガイドライン"
+  ]
+ },
+ {
+  "tag": "AI導入の失敗",
+  "type": "topic",
+  "entry": "ai-failure",
+  "match": [
+   "AI導入"
+  ]
+ },
+ {
+  "tag": "ISDN・INSネット",
+  "type": "topic",
+  "entry": "isdn-ins",
+  "match": [
+   "ISDN",
+   "INSネット",
+   "ディジタル通信モード"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "電話回線",
+  "type": "topic",
+  "entry": "phone-line-types",
+  "match": [
+   "固定電話",
+   "ひかり電話",
+   "電話回線",
+   "アナログ回線"
+  ]
+ },
+ {
+  "tag": "SIP",
+  "type": "topic",
+  "entry": "sip-protocol",
+  "match": [
+   "SIP"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "SIPトランク",
+  "type": "topic",
+  "entry": "sip-trunk",
+  "match": [
+   "SIPトランク"
+  ]
+ },
+ {
+  "tag": "WebRTC",
+  "type": "topic",
+  "entry": "webrtc",
+  "match": [
+   "WebRTC"
+  ]
+ },
+ {
+  "tag": "ダイヤルイン・代表番号",
+  "type": "topic",
+  "entry": "dial-in-representative",
+  "match": [
+   "ダイヤルイン",
+   "代表番号"
+  ]
+ },
+ {
+  "tag": "フリーダイヤル・ナビダイヤル",
+  "type": "topic",
+  "entry": "toll-free-navidial",
+  "match": [
+   "フリーダイヤル",
+   "ナビダイヤル",
+   "0570",
+   "0120"
+  ]
+ },
+ {
+  "tag": "インバウンド・アウトバウンド",
+  "type": "topic",
+  "entry": "inbound-outbound",
+  "match": [
+   "アウトバウンド",
+   "インバウンド",
+   "架電"
+  ]
+ },
+ {
+  "tag": "AIエージェント",
+  "type": "topic",
+  "entry": null,
+  "match": [
+   "AIエージェント",
+   "エージェンティック"
+  ]
+ },
+ {
+  "tag": "音声合成",
+  "type": "topic",
+  "entry": null,
+  "match": [
+   "音声合成"
+  ]
+ },
+ {
+  "tag": "感情分析",
+  "type": "topic",
+  "entry": null,
+  "match": [
+   "感情分析",
+   "感情認識",
+   "感情解析"
+  ]
+ },
+ {
+  "tag": "多言語・翻訳対応",
+  "type": "topic",
+  "entry": null,
+  "match": [
+   "多言語",
+   "自動翻訳",
+   "通訳"
+  ]
+ },
+ {
+  "tag": "DX",
+  "type": "topic",
+  "entry": null,
+  "match": [
+   "DX"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "セキュリティ・サイバー攻撃",
+  "type": "topic",
+  "entry": null,
+  "match": [
+   "サイバー攻撃",
+   "セキュリティ対策",
+   "ゼロトラスト"
+  ]
+ },
+ {
+  "tag": "SMS・LINE",
+  "type": "topic",
+  "entry": null,
+  "match": [
+   "SMS",
+   "LINE"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "メール対応",
+  "type": "topic",
+  "entry": null,
+  "match": [
+   "メール対応",
+   "メール問い合わせ"
+  ]
+ },
+ {
+  "tag": "SNS対応",
+  "type": "topic",
+  "entry": null,
+  "match": [
+   "SNS対応",
+   "ソーシャルメディア対応"
+  ]
+ },
+ {
+  "tag": "クラウドPBX",
+  "type": "topic",
+  "entry": null,
+  "match": [
+   "クラウドPBX",
+   "PBX"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "督促",
+  "type": "topic",
+  "entry": null,
+  "match": [
+   "督促",
+   "債権回収"
+  ]
+ },
+ {
+  "tag": "金融・保険",
+  "type": "topic",
+  "entry": null,
+  "match": [
+   "保険",
+   "銀行",
+   "金融機関"
+  ]
+ },
+ {
+  "tag": "自治体・行政",
+  "type": "topic",
+  "entry": null,
+  "match": [
+   "自治体",
+   "市役所",
+   "行政"
+  ]
+ },
+ {
+  "tag": "EC・通販業界",
+  "type": "topic",
+  "entry": null,
+  "match": [
+   "EC事業",
+   "ECサイト",
+   "ネットショップ"
+  ]
+ },
+ {
+  "tag": "高齢者・認知症",
+  "type": "topic",
+  "entry": null,
+  "match": [
+   "高齢者",
+   "認知症"
+  ]
+ },
+ {
+  "tag": "顧客体験(CX)",
+  "type": "topic",
+  "entry": null,
+  "match": [
+   "顧客体験",
+   "CX"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "満足度調査・アンケート",
+  "type": "topic",
+  "entry": null,
+  "match": [
+   "アンケート",
+   "満足度調査"
+  ]
+ },
+ {
+  "tag": "RPA・業務自動化",
+  "type": "topic",
+  "entry": null,
+  "match": [
+   "RPA",
+   "業務自動化"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "ノーコード",
+  "type": "topic",
+  "entry": null,
+  "match": [
+   "ノーコード"
+  ]
+ },
+ {
+  "tag": "人材不足・生産性",
+  "type": "topic",
+  "entry": null,
+  "match": [
+   "生産性向上",
+   "業務効率化"
+  ]
+ },
+ {
+  "tag": "AIによる品質評価・採点",
+  "type": "topic",
+  "entry": null,
+  "match": [
+   "自動採点",
+   "自動評価"
+  ]
+ },
+ {
+  "tag": "要員・オペレーター不足への対応",
+  "type": "topic",
+  "entry": null,
+  "match": [
+   "オペレーター不足"
+  ]
+ },
+ {
+  "tag": "料金改定・値上げ",
+  "type": "topic",
+  "entry": null,
+  "match": [
+   "料金改定",
+   "値上げ"
+  ]
+ },
+ {
+  "tag": "法改正・義務化",
+  "type": "topic",
+  "entry": null,
+  "match": [
+   "義務化",
+   "法改正"
+  ]
+ },
+ {
+  "tag": "調査・白書・ランキング",
+  "type": "topic",
+  "entry": null,
+  "match": [
+   "調査結果",
+   "白書",
+   "ランキング",
+   "市場規模"
+  ]
+ },
+ {
+  "tag": "セミナー・イベント",
+  "type": "topic",
+  "entry": null,
+  "match": [
+   "セミナー",
+   "フォーラム",
+   "カンファレンス",
+   "展示会",
+   "表彰",
+   "アワード"
+  ]
+ },
+ {
+  "tag": "AWS・Amazon Connect",
+  "type": "company",
+  "entry": "aws",
+  "match": [
+   "Amazon Connect",
+   "AWS"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "Zoom",
+  "type": "company",
+  "entry": "zoom",
+  "match": [
+   "Zoom"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "Twilio",
+  "type": "company",
+  "entry": "twilio",
+  "match": [
+   "Twilio"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "Salesforce",
+  "type": "company",
+  "entry": "salesforce-japan",
+  "match": [
+   "Salesforce",
+   "セールスフォース"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "Genesys",
+  "type": "company",
+  "entry": "genesys",
+  "match": [
+   "Genesys",
+   "ジェネシス"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "NICE",
+  "type": "company",
+  "entry": "nice",
+  "match": [
+   "NICE",
+   "NiCE"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "BIZTEL",
+  "type": "company",
+  "entry": "biztel",
+  "match": [
+   "BIZTEL"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "NTT東日本",
+  "type": "company",
+  "entry": "ntt-east",
+  "match": [
+   "NTT東日本"
+  ]
+ },
+ {
+  "tag": "NTTドコモビジネス",
+  "type": "company",
+  "entry": "ntt-docomo-business",
+  "match": [
+   "ドコモビジネス",
+   "NTTコミュニケーションズ",
+   "NTT Com"
+  ]
+ },
+ {
+  "tag": "ソフトバンク",
+  "type": "company",
+  "entry": "softbank",
+  "match": [
+   "ソフトバンク"
+  ]
+ },
+ {
+  "tag": "KDDI",
+  "type": "company",
+  "entry": null,
+  "match": [
+   "KDDI"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "NEC",
+  "type": "company",
+  "entry": null,
+  "match": [
+   "NEC",
+   "日本電気"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "富士通",
+  "type": "company",
+  "entry": null,
+  "match": [
+   "富士通"
+  ]
+ },
+ {
+  "tag": "Cisco・Webex",
+  "type": "company",
+  "entry": null,
+  "match": [
+   "Cisco",
+   "Webex"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "Microsoft",
+  "type": "company",
+  "entry": null,
+  "match": [
+   "Microsoft",
+   "Teams"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "Google",
+  "type": "company",
+  "entry": null,
+  "match": [
+   "Google"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "ベルシステム24",
+  "type": "company",
+  "entry": null,
+  "match": [
+   "ベルシステム24"
+  ]
+ },
+ {
+  "tag": "トランスコスモス",
+  "type": "company",
+  "entry": null,
+  "match": [
+   "トランスコスモス"
+  ]
+ },
+ {
+  "tag": "TMJ",
+  "type": "company",
+  "entry": null,
+  "match": [
+   "TMJ"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "日本コンタクトセンター協会(CCAJ)",
+  "type": "company",
+  "entry": null,
+  "match": [
+   "CCAJ",
+   "日本コンタクトセンター協会"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "オムロン",
+  "type": "company",
+  "entry": null,
+  "match": [
+   "オムロン"
+  ]
+ },
+ {
+  "tag": "Five9",
+  "type": "company",
+  "entry": null,
+  "match": [
+   "Five9"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "Talkdesk",
+  "type": "company",
+  "entry": null,
+  "match": [
+   "Talkdesk"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "RingCentral",
+  "type": "company",
+  "entry": null,
+  "match": [
+   "RingCentral"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "Oracle",
+  "type": "company",
+  "entry": null,
+  "match": [
+   "Oracle"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "SAP",
+  "type": "company",
+  "entry": null,
+  "match": [
+   "SAP"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "Avaya",
+  "type": "company",
+  "entry": null,
+  "match": [
+   "Avaya"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "OpenAI",
+  "type": "company",
+  "entry": null,
+  "match": [
+   "OpenAI",
+   "ChatGPT"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "Anthropic・Claude",
+  "type": "company",
+  "entry": null,
+  "match": [
+   "Anthropic",
+   "Claude"
+  ],
+  "caseSensitive": true
+ }
+]

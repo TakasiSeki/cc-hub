@@ -139,7 +139,10 @@ function scoreNews(n) {
 NEWS.forEach(n => { n.score = scoreNews(n); });
 const RANKED = [...NEWS].sort((a, b) => b.score.total - a.score.total || (b.date || '').localeCompare(a.date || ''));
 const reason = n => [n.score.bm ? `ブックマーク${n.score.bm}` : '', n.score.hot ? '話題のテーマ' : '', n.score.rec >= 8 ? '新着' : ''].filter(Boolean).join(' · ');
-const newsItem = (n, rank) => `<li class="news-item" data-source="${esc(n.source)}" data-score="${n.score.total}">${rank ? `<span class="rank">${rank}</span>` : ''}<div class="news-body"><div class="news-meta"><time>${esc(fmtDate(n.date))}</time><span class="badge plain">${esc(n.source)}</span>${isNew(n.date) ? '<span class="badge new">NEW</span>' : ''}${rank && reason(n) ? `<span class="news-why">${esc(reason(n))}</span>` : ''}</div><a href="${esc(n.link)}" target="_blank" rel="noopener">${esc(n.title)}</a></div></li>`;
+const TAGDEF = (() => { try { return JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'news-tags.json'), 'utf8')); } catch { return []; } })();
+const TAGMAP = Object.fromEntries(TAGDEF.map(d => [d.tag, d]));
+const tagBadge = (t, root) => { const d = TAGMAP[t]; if (d && d.entry) return `<a class="badge tag-link${d.type === 'company' ? ' co' : ''}" href="${root}${d.type === 'company' ? 'companies' : 'entries'}/${d.entry}.html">${esc(t)}</a>`; return `<span class="badge tag-none">${esc(t)}</span>`; };
+const newsItem = (n, rank, root = '') => `<li class="news-item" data-source="${esc(n.source)}" data-score="${n.score.total}">${rank ? `<span class="rank">${rank}</span>` : ''}<div class="news-body"><div class="news-meta"><time>${esc(fmtDate(n.date))}</time><span class="badge plain">${esc(n.source)}</span>${isNew(n.date) ? '<span class="badge new">NEW</span>' : ''}${rank && reason(n) ? `<span class="news-why">${esc(reason(n))}</span>` : ''}</div><a href="${esc(n.link)}" target="_blank" rel="noopener">${esc(n.title)}</a>${(n.tags || []).length ? `<div class="news-tags">${n.tags.map(t => tagBadge(t, root)).join('')}</div>` : ''}</div></li>`;
 
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const catIdx = c => { const i = CATS.indexOf(c); return i < 0 ? CATS.length : i; };
@@ -202,6 +205,7 @@ a{color:var(--accent)}a:hover{text-decoration:none}
 .badges{display:flex;gap:6px;flex-wrap:wrap}
 .badge{font-size:.72rem;font-weight:700;padding:2px 9px;border-radius:999px;background:var(--accent-soft);color:var(--accent);line-height:1.7}
 .badge.tag-neutral{background:var(--ok-soft);color:var(--ok)}.badge.tag-vendor{background:var(--warn-soft);color:var(--warn)}.badge.tag-assoc{background:var(--asc-soft);color:var(--asc)}.badge.tag-report{background:var(--rep-soft);color:var(--rep)}.badge.tag-media{background:var(--line);color:var(--muted)}.badge.plain{background:var(--line);color:var(--muted)}.badge.src{margin-right:6px;font-size:.7rem}
+.news-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}.badge.tag-link{background:var(--ok-soft);color:var(--ok);text-decoration:none;font-size:.7rem}.badge.tag-link.co{background:var(--asc-soft);color:var(--asc)}.badge.tag-none{background:transparent;border:1px dashed var(--line);color:var(--muted);font-size:.7rem}
 .chips-label{font-size:.8rem;color:var(--muted);font-weight:700;margin:10px 0 6px}.empty{display:none;padding:30px;text-align:center;color:var(--muted)}
 .crumb{font-size:.85rem;color:var(--muted);margin:26px 0 6px}.crumb a{color:var(--muted)}
 .article-head{margin-bottom:6px}.article-head h1{font-size:clamp(1.6rem,4vw,2.2rem);line-height:1.4;margin:6px 0 12px}
@@ -361,8 +365,8 @@ for (const f of fs.readdirSync(SRC)) {
     return `<section class="sec ${SEC_CLASS(h)}" id="${id}">${c}</section>`;
   }).join('\n');
 
-  const relNews = RANKED.filter(n => (NEWS_KEYS[slug] || []).some(k => n.title.includes(k))).slice(0, 5);
-  let relHtml = relNews.length ? `<section class="sec" id="news"><h2>関連ニュース</h2><p><small>題名の語から自動で選んでいます(注目度の高い順)。関連の薄い記事が出ることがあります。</small></p><ul class="news-list">${relNews.map(n => newsItem(n)).join('')}</ul></section>` : '';
+  const relNews = RANKED.filter(n => (NEWS_KEYS[slug] || []).some(k => n.title.includes(k)) || (n.tags || []).some(t => TAGMAP[t] && TAGMAP[t].entry === slug && TAGMAP[t].type === 'topic')).slice(0, 5);
+  let relHtml = relNews.length ? `<section class="sec" id="news"><h2>関連ニュース</h2><p><small>題名の語と、記事ページから抽出したタグから自動で選んでいます(注目度の高い順)。関連の薄い記事が出ることがあります。</small></p><ul class="news-list">${relNews.map(n => newsItem(n, 0, '../')).join('')}</ul></section>` : '';
   const relItems = (RELATED[slug] || []).filter(x => TITLES[x]);
   const relItemsHtml = relItems.length ? `<section class="sec" id="related"><h2>関連する項目</h2><ul class="rel-list">${relItems.map(x => `<li><a href="${x}.html">${esc(TITLES[x])}</a></li>`).join('')}</ul></section>` : '';
   relHtml = relItemsHtml + relHtml;

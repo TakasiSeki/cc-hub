@@ -5,7 +5,10 @@
   "link": "https://www.itmedia.co.jp/business/articles/2610/29/news020.html",
   "date": "2026-10-29",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "顧客体験(CX)"
+  ]
  },
  {
   "source": "ITmedia",
@@ -13,7 +16,13 @@
   "link": "https://www.itmedia.co.jp/business/articles/2610/22/news033.html",
   "date": "2026-10-22",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "カスタマーハラスメント",
+   "クレーム・苦情",
+   "法改正・義務化",
+   "Genesys"
+  ]
  },
  {
   "source": "日本コンタクトセンター協会",
@@ -21,7 +30,11 @@
   "link": "https://ccaj.or.jp/event/sv-cafe_s3.html",
   "date": "2026-09-16",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "セミナー・イベント",
+   "日本コンタクトセンター協会(CCAJ)"
+  ]
  },
  {
   "source": "ITmedia",
@@ -29,7 +42,10 @@
   "link": "https://www.itmedia.co.jp/pcuser/articles/2609/16/news032.html",
   "date": "2026-09-16",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "顧客満足度(CSAT)"
+  ]
  },
  {
   "source": "日本コンタクトセンター協会",
@@ -37,7 +53,10 @@
   "link": "https://ccaj.or.jp/event/kaiin_kouryu_20261014.html",
   "date": "2026-09-04",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "日本コンタクトセンター協会(CCAJ)"
+  ]
  },
  {
   "source": "日本コンタクトセンター協会",
@@ -45,7 +64,8 @@
   "link": "https://ccaj.or.jp/event/doc/manager-study_2026.pdf",
   "date": "2026-09-02",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": []
  },
  {
   "source": "日本コンタクトセンター協会",
@@ -53,7 +73,10 @@
   "link": "https://ccaj.or.jp/newsrelease/20260901.pdf",
   "date": "2026-09-01",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "カスタマーハラスメント"
+  ]
  },
  {
   "source": "ITmedia",
@@ -61,7 +84,10 @@
   "link": "https://atmarkit.itmedia.co.jp/ait/articles/2608/31/news006.html",
   "date": "2026-08-31",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "AWS・Amazon Connect"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -69,7 +95,16 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2608/20/news14.html",
   "date": "2026-08-20",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "チャットボット",
+   "IVR",
+   "一次解決率",
+   "顧客満足度(CSAT)",
+   "ナレッジ・FAQ",
+   "エスカレーション",
+   "顧客体験(CX)"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -77,7 +112,15 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2608/19/news08.html",
   "date": "2026-08-19",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "生成AI・オペレーター支援",
+   "採用・人手不足",
+   "満足度調査・アンケート",
+   "人材不足・生産性",
+   "調査・白書・ランキング",
+   "ベルシステム24"
+  ]
  },
  {
   "source": "日本コンタクトセンター協会",
@@ -85,7 +128,12 @@
   "link": "https://ccaj.or.jp/ccajnews/ccajnews353_354.html",
   "date": "2026-08-18",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "拠点・誘致",
+   "自治体・行政",
+   "日本コンタクトセンター協会(CCAJ)"
+  ]
  },
  {
   "source": "日本コンタクトセンター協会",
@@ -93,7 +141,8 @@
   "link": "https://ccaj.or.jp/event/techpresen.html",
   "date": "2026-07-29",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": []
  },
  {
   "source": "日本コンタクトセンター協会",
@@ -101,7 +150,11 @@
   "link": "https://ccaj.or.jp/event/contact_20260929osaka.html",
   "date": "2026-07-29",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "セミナー・イベント",
+   "日本コンタクトセンター協会(CCAJ)"
+  ]
  },
  {
   "source": "ITmedia",
@@ -109,7 +162,11 @@
   "link": "https://www.itmedia.co.jp/business/articles/2607/27/news016.html",
   "date": "2026-07-27",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "顧客体験(CX)",
+   "Zoom"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -117,7 +174,12 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2607/17/news05.html",
   "date": "2026-07-17",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "AIエージェント",
+   "金融・保険",
+   "顧客体験(CX)"
+  ]
  },
  {
   "source": "ITmedia",
@@ -125,7 +187,11 @@
   "link": "https://www.itmedia.co.jp/pcuser/articles/2607/17/news008.html",
   "date": "2026-07-17",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "夜間・休日対応",
+   "SMS・LINE"
+  ]
  },
  {
   "source": "日本コンタクトセンター協会",
@@ -133,7 +199,10 @@
   "link": "https://ccaj.or.jp/ccajnews/ccajnews352.html",
   "date": "2026-07-13",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "日本コンタクトセンター協会(CCAJ)"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -141,7 +210,12 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2607/07/news07.html",
   "date": "2026-07-07",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "生成AI・オペレーター支援",
+   "ナレッジ・FAQ",
+   "夜間・休日対応"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -149,7 +223,13 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2606/29/news03.html",
   "date": "2026-06-29",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "ナレッジ・FAQ",
+   "AIエージェント",
+   "Zoom",
+   "Microsoft"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -157,7 +237,12 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2606/25/news05.html",
   "date": "2026-06-25",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "生成AI・オペレーター支援",
+   "AI導入の失敗",
+   "セミナー・イベント"
+  ]
  },
  {
   "source": "日本コンタクトセンター協会",
@@ -165,7 +250,11 @@
   "link": "https://ccaj.or.jp/ccajnews/ccajnews351.html",
   "date": "2026-06-16",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "カスタマーハラスメント",
+   "日本コンタクトセンター協会(CCAJ)"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -173,7 +262,12 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2605/29/news14.html",
   "date": "2026-05-29",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "生成AI・オペレーター支援",
+   "AIエージェント",
+   "Salesforce"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -181,7 +275,14 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2605/26/news01.html",
   "date": "2026-05-26",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "顧客体験(CX)",
+   "ノーコード",
+   "Microsoft",
+   "Google",
+   "トランスコスモス"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -189,7 +290,11 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2605/22/news11.html",
   "date": "2026-05-22",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "ナレッジ・FAQ",
+   "SMS・LINE"
+  ]
  },
  {
   "source": "日本コンタクトセンター協会",
@@ -197,7 +302,11 @@
   "link": "https://ccaj.or.jp/ccajnews/ccajnews350.html",
   "date": "2026-05-18",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "採用・人手不足",
+   "日本コンタクトセンター協会(CCAJ)"
+  ]
  },
  {
   "source": "日本コンタクトセンター協会",
@@ -205,7 +314,12 @@
   "link": "https://ccaj.or.jp/event/cc_kengaku.html",
   "date": "2026-04-30",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "在宅・テレワーク",
+   "顧客体験(CX)",
+   "日本コンタクトセンター協会(CCAJ)"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -213,7 +327,11 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2604/28/news01.html",
   "date": "2026-04-27",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "生成AI・オペレーター支援",
+   "AIエージェント"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -221,7 +339,11 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2604/24/news10.html",
   "date": "2026-04-24",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "ナレッジ・FAQ",
+   "顧客体験(CX)"
+  ]
  },
  {
   "source": "日本コンタクトセンター協会",
@@ -229,7 +351,10 @@
   "link": "https://ccaj.or.jp/ccajnews/ccajnews349.html",
   "date": "2026-04-20",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "日本コンタクトセンター協会(CCAJ)"
+  ]
  },
  {
   "source": "ITmedia",
@@ -237,7 +362,10 @@
   "link": "https://www.itmedia.co.jp/news/articles/2604/15/news102.html",
   "date": "2026-04-15",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "AI導入の失敗"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -245,7 +373,13 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2604/11/news03.html",
   "date": "2026-04-13",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "チャットボット",
+   "AI導入の失敗",
+   "AIエージェント",
+   "顧客体験(CX)"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -253,7 +387,12 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2604/07/news03.html",
   "date": "2026-04-07",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "AIエージェント",
+   "Salesforce",
+   "Microsoft"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -261,7 +400,10 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2603/13/news02.html",
   "date": "2026-03-13",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "VoC(顧客の声)"
+  ]
  },
  {
   "source": "ITmedia",
@@ -269,7 +411,11 @@
   "link": "https://www.itmedia.co.jp/business/articles/2603/12/news024.html",
   "date": "2026-03-12",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "DX",
+   "顧客体験(CX)"
+  ]
  },
  {
   "source": "ITmedia",
@@ -277,7 +423,12 @@
   "link": "https://www.itmedia.co.jp/business/articles/2603/06/news041.html",
   "date": "2026-03-06",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "KPI",
+   "AIエージェント",
+   "顧客体験(CX)"
+  ]
  },
  {
   "source": "ITmedia",
@@ -285,7 +436,8 @@
   "link": "https://www.itmedia.co.jp/enterprise/articles/2603/04/news037.html",
   "date": "2026-03-04",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": []
  },
  {
   "source": "TechTarget ジャパン",
@@ -293,7 +445,13 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2602/27/news07.html",
   "date": "2026-02-27",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "生成AI・オペレーター支援",
+   "セキュリティ・サイバー攻撃",
+   "金融・保険",
+   "顧客体験(CX)"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -301,7 +459,12 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2602/19/news03.html",
   "date": "2026-02-19",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "生成AI・オペレーター支援",
+   "金融・保険",
+   "顧客体験(CX)"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -309,7 +472,10 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2602/18/news02.html",
   "date": "2026-02-18",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "SAP"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -317,7 +483,13 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2602/06/news07.html",
   "date": "2026-02-06",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "生成AI・オペレーター支援",
+   "ナレッジ・FAQ",
+   "VoC(顧客の声)",
+   "Google"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -325,7 +497,11 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2602/04/news09.html",
   "date": "2026-02-04",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "生成AI・オペレーター支援",
+   "AI導入の失敗"
+  ]
  },
  {
   "source": "ITmedia",
@@ -333,7 +509,10 @@
   "link": "https://www.itmedia.co.jp/business/articles/2512/28/news021.html",
   "date": "2025-12-28",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "VoC(顧客の声)"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -341,7 +520,18 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2512/19/news07.html",
   "date": "2025-12-19",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "生成AI・オペレーター支援",
+   "AIエージェント",
+   "金融・保険",
+   "顧客体験(CX)",
+   "AWS・Amazon Connect",
+   "Microsoft",
+   "Google",
+   "OpenAI",
+   "Anthropic・Claude"
+  ]
  },
  {
   "source": "ITmedia",
@@ -349,7 +539,11 @@
   "link": "https://www.itmedia.co.jp/business/articles/2512/09/news068.html",
   "date": "2025-12-09",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "夜間・休日対応",
+   "顧客体験(CX)"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -357,7 +551,10 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2512/03/news02.html",
   "date": "2025-12-04",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "顧客体験(CX)"
+  ]
  },
  {
   "source": "ITmedia",
@@ -365,7 +562,13 @@
   "link": "https://www.itmedia.co.jp/business/articles/2511/28/news031.html",
   "date": "2025-11-28",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "生成AI・オペレーター支援",
+   "DX",
+   "顧客体験(CX)",
+   "Genesys"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -373,7 +576,12 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2511/20/news02.html",
   "date": "2025-11-20",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "生成AI・オペレーター支援",
+   "AIエージェント",
+   "Cisco・Webex"
+  ]
  },
  {
   "source": "ITmedia",
@@ -381,7 +589,12 @@
   "link": "https://www.itmedia.co.jp/business/articles/2511/18/news069.html",
   "date": "2025-11-18",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "ナレッジ・FAQ",
+   "DX",
+   "顧客体験(CX)"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -389,7 +602,10 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2511/13/news02.html",
   "date": "2025-11-13",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "AIエージェント"
+  ]
  },
  {
   "source": "ITmedia",
@@ -397,7 +613,10 @@
   "link": "https://www.itmedia.co.jp/business/articles/2511/05/news016.html",
   "date": "2025-11-05",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "顧客体験(CX)"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -405,7 +624,8 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2510/24/news03.html",
   "date": "2025-10-24",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": []
  },
  {
   "source": "TechTarget ジャパン",
@@ -413,7 +633,12 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2510/09/news01.html",
   "date": "2025-10-10",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "AI導入の失敗",
+   "AIエージェント",
+   "顧客体験(CX)"
+  ]
  },
  {
   "source": "日本コンタクトセンター協会",
@@ -421,7 +646,10 @@
   "link": "https://ccaj.or.jp/ccajnews/ccajnews341_342.html",
   "date": "2025-10-01",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "日本コンタクトセンター協会(CCAJ)"
+  ]
  },
  {
   "source": "ITmedia",
@@ -429,7 +657,11 @@
   "link": "https://www.itmedia.co.jp/enterprise/articles/2509/29/news092.html",
   "date": "2025-09-29",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "顧客体験(CX)",
+   "NTTドコモビジネス"
+  ]
  },
  {
   "source": "ITmedia",
@@ -437,7 +669,10 @@
   "link": "https://www.itmedia.co.jp/business/articles/2509/09/news044.html",
   "date": "2025-09-09",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "Genesys"
+  ]
  },
  {
   "source": "ITmedia",
@@ -445,7 +680,8 @@
   "link": "https://www.itmedia.co.jp/business/articles/2509/01/news016.html",
   "date": "2025-09-01",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": []
  },
  {
   "source": "TechTarget ジャパン",
@@ -453,7 +689,13 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2508/22/news05.html",
   "date": "2025-08-22",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "BPO・アウトソーシング",
+   "個人情報・漏えい",
+   "委託先の監督",
+   "セキュリティ・サイバー攻撃"
+  ]
  },
  {
   "source": "ITmedia",
@@ -461,7 +703,10 @@
   "link": "https://www.itmedia.co.jp/business/articles/2508/11/news014.html",
   "date": "2025-08-11",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "顧客体験(CX)"
+  ]
  },
  {
   "source": "日本コンタクトセンター協会",
@@ -469,7 +714,10 @@
   "link": "https://ccaj.or.jp/event/studytour.html",
   "date": "2025-08-08",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "日本コンタクトセンター協会(CCAJ)"
+  ]
  },
  {
   "source": "ITmedia",
@@ -477,7 +725,8 @@
   "link": "https://www.itmedia.co.jp/pcuser/articles/2508/04/news047.html",
   "date": "2025-08-04",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": []
  },
  {
   "source": "ITmedia",
@@ -485,7 +734,11 @@
   "link": "https://www.itmedia.co.jp/business/articles/2508/01/news043.html",
   "date": "2025-08-01",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "ボイスボット",
+   "ソフトバンク"
+  ]
  },
  {
   "source": "日本コンタクトセンター協会",
@@ -493,7 +746,11 @@
   "link": "https://ccaj.or.jp/event/contact_20250925fukuoka.html",
   "date": "2025-07-31",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "セミナー・イベント",
+   "日本コンタクトセンター協会(CCAJ)"
+  ]
  },
  {
   "source": "日本コンタクトセンター協会",
@@ -501,7 +758,10 @@
   "link": "https://ccaj.or.jp/event/round-table.html",
   "date": "2025-07-25",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "スーパーバイザー"
+  ]
  },
  {
   "source": "日本コンタクトセンター協会",
@@ -509,7 +769,10 @@
   "link": "https://ccaj.or.jp/ccajnews/ccajnews340.html",
   "date": "2025-07-16",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "日本コンタクトセンター協会(CCAJ)"
+  ]
  },
  {
   "source": "日本コンタクトセンター協会",
@@ -517,7 +780,11 @@
   "link": "https://ccaj.or.jp/event/sv-cafe.html",
   "date": "2025-07-10",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "スーパーバイザー",
+   "セミナー・イベント"
+  ]
  },
  {
   "source": "ITmedia",
@@ -525,7 +792,10 @@
   "link": "https://www.itmedia.co.jp/business/articles/2507/07/news062.html",
   "date": "2025-07-07",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "顧客体験(CX)"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -533,7 +803,12 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2506/27/news03.html",
   "date": "2025-06-27",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "生成AI・オペレーター支援",
+   "顧客体験(CX)",
+   "Microsoft"
+  ]
  },
  {
   "source": "ITmedia",
@@ -541,7 +816,11 @@
   "link": "https://www.itmedia.co.jp/business/articles/2506/27/news044.html",
   "date": "2025-06-27",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "IVR",
+   "BPO・アウトソーシング"
+  ]
  },
  {
   "source": "日本コンタクトセンター協会",
@@ -549,7 +828,11 @@
   "link": "https://ccaj.or.jp/ccajnews/ccajnews339.html",
   "date": "2025-06-26",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "カスタマーハラスメント",
+   "日本コンタクトセンター協会(CCAJ)"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -557,7 +840,11 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2506/26/news01.html",
   "date": "2025-06-26",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "AI導入の失敗",
+   "顧客体験(CX)"
+  ]
  },
  {
   "source": "ITmedia",
@@ -565,7 +852,12 @@
   "link": "https://www.itmedia.co.jp/business/articles/2506/25/news037.html",
   "date": "2025-06-25",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "応答率",
+   "ナレッジ・FAQ",
+   "顧客体験(CX)"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -573,7 +865,15 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2506/23/news02.html",
   "date": "2025-06-24",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "生成AI・オペレーター支援",
+   "AIエージェント",
+   "人材不足・生産性",
+   "Microsoft",
+   "Google",
+   "OpenAI"
+  ]
  },
  {
   "source": "ITmedia",
@@ -581,7 +881,8 @@
   "link": "https://www.itmedia.co.jp/pcuser/articles/2506/20/news084.html",
   "date": "2025-06-20",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": []
  },
  {
   "source": "ITmedia",
@@ -589,7 +890,10 @@
   "link": "https://www.itmedia.co.jp/business/articles/2506/10/news030.html",
   "date": "2025-06-10",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "ナレッジ・FAQ"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -597,7 +901,13 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2505/27/news04.html",
   "date": "2025-05-27",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "AIエージェント",
+   "Microsoft",
+   "Google",
+   "SAP"
+  ]
  },
  {
   "source": "日本コンタクトセンター協会",
@@ -605,7 +915,11 @@
   "link": "https://ccaj.or.jp/ccajnews/ccajnews338.html",
   "date": "2025-05-22",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "カスタマーハラスメント",
+   "日本コンタクトセンター協会(CCAJ)"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -613,7 +927,11 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2505/21/news02.html",
   "date": "2025-05-21",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "採用・人手不足",
+   "Twilio"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -621,7 +939,10 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2504/21/news01.html",
   "date": "2025-04-28",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "顧客体験(CX)"
+  ]
  },
  {
   "source": "日本コンタクトセンター協会",
@@ -629,7 +950,10 @@
   "link": "https://ccaj.or.jp/ccajnews/ccajnews337.html",
   "date": "2025-04-22",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "日本コンタクトセンター協会(CCAJ)"
+  ]
  },
  {
   "source": "ITmedia",
@@ -637,7 +961,10 @@
   "link": "https://www.itmedia.co.jp/business/articles/2504/15/news005.html",
   "date": "2025-04-15",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "顧客体験(CX)"
+  ]
  },
  {
   "source": "ITmedia",
@@ -645,7 +972,10 @@
   "link": "https://www.itmedia.co.jp/business/articles/2504/15/news004.html",
   "date": "2025-04-15",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "顧客体験(CX)"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -653,7 +983,14 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2504/02/news06.html",
   "date": "2025-04-02",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "音声認識・文字起こし",
+   "IVR",
+   "AIエージェント",
+   "顧客体験(CX)",
+   "調査・白書・ランキング"
+  ]
  },
  {
   "source": "ITmedia",
@@ -661,7 +998,8 @@
   "link": "https://www.itmedia.co.jp/business/articles/2503/26/news070.html",
   "date": "2025-03-26",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": []
  },
  {
   "source": "ITmedia",
@@ -669,7 +1007,11 @@
   "link": "https://www.itmedia.co.jp/business/articles/2503/26/news011.html",
   "date": "2025-03-26",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "ナレッジ・FAQ",
+   "顧客体験(CX)"
+  ]
  },
  {
   "source": "日本コンタクトセンター協会",
@@ -677,7 +1019,11 @@
   "link": "https://ccaj.or.jp/ccajnews/ccajnews336.html",
   "date": "2025-03-21",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "セミナー・イベント",
+   "日本コンタクトセンター協会(CCAJ)"
+  ]
  },
  {
   "source": "日本コンタクトセンター協会",
@@ -685,7 +1031,11 @@
   "link": "https://ccaj.or.jp/guidebook/ccajguidebookvol35rfp.pdf",
   "date": "2025-03-13",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tagNote": "本文取得不可(HTTP 404)",
+  "tags": [
+   "日本コンタクトセンター協会(CCAJ)"
+  ]
  },
  {
   "source": "日本コンタクトセンター協会",
@@ -693,7 +1043,10 @@
   "link": "https://ccaj.or.jp/telemarketing/cushara_guideline.html",
   "date": "2025-03-12",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "カスタマーハラスメント"
+  ]
  },
  {
   "source": "ITmedia",
@@ -701,7 +1054,10 @@
   "link": "https://www.itmedia.co.jp/business/articles/2503/12/news072.html",
   "date": "2025-03-12",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "スーパーバイザー"
+  ]
  },
  {
   "source": "日本コンタクトセンター協会",
@@ -709,7 +1065,10 @@
   "link": "https://ccaj.or.jp/event/kaiin_kouryu.html",
   "date": "2025-03-11",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "日本コンタクトセンター協会(CCAJ)"
+  ]
  },
  {
   "source": "ITmedia",
@@ -717,7 +1076,11 @@
   "link": "https://www.itmedia.co.jp/business/articles/2503/07/news099.html",
   "date": "2025-03-07",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "金融・保険",
+   "顧客体験(CX)"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -725,7 +1088,11 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2503/06/news07.html",
   "date": "2025-03-06",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "生成AI・オペレーター支援",
+   "Cisco・Webex"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -733,7 +1100,11 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2502/22/news03.html",
   "date": "2025-02-22",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "生成AI・オペレーター支援",
+   "顧客体験(CX)"
+  ]
  },
  {
   "source": "日本コンタクトセンター協会",
@@ -741,7 +1112,10 @@
   "link": "https://ccaj.or.jp/ccajnews/ccajnews335.html",
   "date": "2025-02-10",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "日本コンタクトセンター協会(CCAJ)"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -749,7 +1123,10 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2502/07/news08.html",
   "date": "2025-02-07",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "顧客体験(CX)"
+  ]
  },
  {
   "source": "日本コンタクトセンター協会",
@@ -757,7 +1134,10 @@
   "link": "https://ccaj.or.jp/ccaj_school/index.html",
   "date": "2025-01-30",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "日本コンタクトセンター協会(CCAJ)"
+  ]
  },
  {
   "source": "ITmedia",
@@ -765,7 +1145,10 @@
   "link": "https://www.itmedia.co.jp/enterprise/articles/2501/29/news084.html",
   "date": "2025-01-29",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "CTI"
+  ]
  },
  {
   "source": "日本コンタクトセンター協会",
@@ -773,7 +1156,8 @@
   "link": "https://ccaj.or.jp/telemarketing/index.html",
   "date": "2025-01-10",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": []
  },
  {
   "source": "日本コンタクトセンター協会",
@@ -781,7 +1165,10 @@
   "link": "https://ccaj.or.jp/ccajnews/ccajnews334.html",
   "date": "2025-01-06",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "日本コンタクトセンター協会(CCAJ)"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -789,7 +1176,12 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2411/11/news10.html",
   "date": "2024-11-11",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "生成AI・オペレーター支援",
+   "AI導入の失敗",
+   "顧客体験(CX)"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -797,7 +1189,11 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2410/21/news01.html",
   "date": "2024-10-24",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "VoC(顧客の声)",
+   "顧客体験(CX)"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -805,7 +1201,12 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2410/21/news02.html",
   "date": "2024-10-21",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "顧客満足度(CSAT)",
+   "研修・育成",
+   "離職"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -813,7 +1214,11 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2410/14/news04.html",
   "date": "2024-10-14",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "離職",
+   "調査・白書・ランキング"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -821,7 +1226,11 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2406/07/news04.html",
   "date": "2024-06-07",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "生成AI・オペレーター支援",
+   "調査・白書・ランキング"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -829,7 +1238,11 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2403/22/news11.html",
   "date": "2024-03-22",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "生成AI・オペレーター支援",
+   "Google"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -837,7 +1250,11 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2402/15/news11.html",
   "date": "2024-02-15",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "生成AI・オペレーター支援",
+   "Microsoft"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -845,7 +1262,11 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2402/09/news08.html",
   "date": "2024-02-09",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "生成AI・オペレーター支援",
+   "Microsoft"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -853,7 +1274,10 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2312/29/news01.html",
   "date": "2023-12-29",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "AWS・Amazon Connect"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -861,7 +1285,13 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2311/05/news01.html",
   "date": "2023-11-05",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "生成AI・オペレーター支援",
+   "金融・保険",
+   "Microsoft",
+   "OpenAI"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -869,7 +1299,11 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2310/27/news09.html",
   "date": "2023-10-27",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "Zoom",
+   "Microsoft"
+  ]
  },
  {
   "source": "TechTarget ジャパン",
@@ -877,6 +1311,9 @@
   "link": "https://techtarget.itmedia.co.jp/tt/news/2309/29/news02.html",
   "date": "2023-09-29",
   "keywords": [],
-  "fetched": "2026-11-03"
+  "fetched": "2026-11-03",
+  "tags": [
+   "Zoom"
+  ]
  }
 ]
