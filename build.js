@@ -119,6 +119,7 @@ const NOW = Date.now();
 const isNew = d => d && NOW - Date.parse(d + 'T00:00:00+09:00') < 14 * 24 * 3600 * 1000;
 const BM_FILE = path.join(__dirname, 'data', 'bookmarks.json');
 const BOOKMARKS = fs.existsSync(BM_FILE) ? JSON.parse(fs.readFileSync(BM_FILE, 'utf8')) : {};
+const SHOW_RANKED = false; // 注目記事(トップ)を一旦非表示。true で再表示
 const HOT = ['カスハラ', 'カスタマーハラスメント', '生成AI', 'AIエージェント', 'ボイスボット', '義務化', '法規制', '個人情報'];
 // 注目度の目安 = 新しさ(0〜10点) + はてなブックマーク数(1件1点、上限10点) + 話題キーワード(1語3点、上限6点)
 function scoreNews(n) {
@@ -262,7 +263,7 @@ const SEARCH_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" 
 
 function nav(root, cur) {
   const item = (href, label, key) => `<a href="${root}${href}"${cur === key ? ' aria-current="page"' : ''}>${label}</a>`;
-  return `<nav class="nav" aria-label="メイン">${item('index.html#dictionary', '事典', 'dict')}${item('news.html', 'ニュース', 'news')}${item('tools.html', 'ツール', 'tools')}${item('about.html', 'このサイトについて', 'about')}</nav>`;
+  return `<nav class="nav" aria-label="メイン">${item('index.html#dictionary', '事典', 'dict')}${item('articles.html', '記事', 'articles')}${item('news.html', 'ニュース', 'news')}${item('tools.html', 'ツール', 'tools')}${item('about.html', 'このサイトについて', 'about')}</nav>`;
 }
 
 function page({ title, body, desc = '', jsonld = null, root = '', cur = '' }) {
@@ -360,6 +361,14 @@ ${notice}
   }));
 }
 
+// 記事(articles/*.md): 事典とは別の、読み物のコンテンツ。frontmatter: title, audience, updated, point
+const ART_SRC = path.join(__dirname, 'articles');
+const articles = fs.existsSync(ART_SRC) ? fs.readdirSync(ART_SRC).filter(f => f.endsWith('.md') && !f.startsWith('_')).map(f => {
+  const { meta, body } = parse(fs.readFileSync(path.join(ART_SRC, f), 'utf8'));
+  if (!meta.title) throw new Error(`articles/${f}: title がありません`);
+  return { slug: f.replace(/\.md$/, ''), body, ...meta };
+}).sort((a, b) => (a.order || '9').localeCompare(b.order || '9')) : [];
+fs.mkdirSync(path.join(OUT, 'articles'), { recursive: true });
 entries.sort((a, b) => catIdx(a.category) - catIdx(b.category) || a.title.localeCompare(b.title, 'ja'));
 const usedCats = CATS.filter(c => entries.some(e => e.category === c));
 const cards = entries.map(e => `<a class="card" href="entries/${e.slug}.html" data-cat="${esc(e.category || '')}" data-tags="${esc(e.tags.join(','))}" data-q="${esc((e.title + ' ' + e.summary + ' ' + (e.category || '')).toLowerCase())}">
@@ -380,17 +389,44 @@ write('index.html', page({
   body: `<div class="wrap">
 <section class="hero"><h1>コンタクトセンターの全貌が、<br>ひとつで分かる。</h1>
 <p>用語・指標・法規制・AI導入を、通説と異論、出典を分けて整理した日本語の事典です。ニュースや便利ツールも順次公開します。</p>
-<div class="search">${SEARCH_ICON}<input id="q" type="search" placeholder="用語を検索(例: AHT、カスハラ、ボイスボット)" aria-label="事典内を検索"></div></section>
+</section>
 <div class="pillars">
 <a class="pillar" href="#dictionary"><b>事典</b><span>${entries.length}項目を公開中</span></a>
+<a class="pillar" href="articles.html"><b>記事</b><span>${articles.length}本を公開中(はじめての人・新任センター長向け)</span></a>
 <a class="pillar" href="news.html"><b>ニュース</b><span>${NEWS.length}件を掲載(最新: ${esc(fmtDate((NEWS[0] || {}).date))})</span></a>
 <a class="pillar" href="tools.html"><b>ツール</b><span>${TOOLS.length}個を公開中(KPI・要員計画)</span></a></div>
-${NEWS.length ? `<div class="sec-title"><h2>注目記事</h2><small>注目度の目安で選出(<a href="news.html#about-rank">基準</a>)</small></div><ul class="news-list rank-list">${RANKED.slice(0, 5).map((n, i) => newsItem(n, i + 1)).join('')}</ul>` : ''}
+${SHOW_RANKED && NEWS.length ? `<div class="sec-title"><h2>注目記事</h2><small>注目度の目安で選出(<a href="news.html#about-rank">基準</a>)</small></div><ul class="news-list rank-list">${RANKED.slice(0, 5).map((n, i) => newsItem(n, i + 1)).join('')}</ul>` : ''}
 ${NEWS.length ? `<div class="sec-title"><h2>最新ニュース</h2><small><a href="news.html">すべて見る</a></small></div><ul class="news-list">${NEWS.slice(0, 6).map(n => newsItem(n)).join('')}</ul>` : ''}
 <div class="sec-title" id="dictionary"><h2>事典</h2><small>${entries.length}項目</small></div>
+<div class="search">${SEARCH_ICON}<input id="q" type="search" placeholder="用語を検索(例: AHT、カスハラ、ボイスボット)" aria-label="事典内を検索"></div>
 <div class="chips-label">分類</div><div class="chips"><button class="chip" data-group="cat" data-val="" aria-pressed="true">すべて</button>${usedCats.map(c => `<button class="chip" data-group="cat" data-val="${esc(c)}" aria-pressed="false">${esc(c)}</button>`).join('')}</div>
 <div class="chips-label">出典のタイプ</div><div class="chips"><button class="chip" data-group="tag" data-val="" aria-pressed="true">すべて</button>${Object.keys(TAGS).map(t => `<button class="chip" data-group="tag" data-val="${t}" aria-pressed="false">${t}</button>`).join('')}</div>
 <div class="cards">${cards}</div><div class="empty" id="empty">該当する項目が見つかりませんでした。</div></div>${SCRIPT}`,
+}));
+
+
+for (const a of articles) {
+  const chunks = marked.parse(a.body).split(/(?=<h2>)/).filter(x => x.trim());
+  const toc = [];
+  const secs = chunks.map((c, i) => {
+    const h = (c.match(/<h2>(.*?)<\/h2>/) || [])[1];
+    if (!h) return c;
+    toc.push(`<a href="#s${i}">${h.replace(/<[^>]+>/g, '')}</a>`);
+    return `<section class="sec" id="s${i}">${c}</section>`;
+  }).join('\n');
+  write(`articles/${a.slug}.html`, page({
+    title: `${a.title} | ${SITE}`, desc: a.point || a.title, root: '../', cur: 'articles',
+    body: `<div class="wrap"><div class="crumb"><a href="../index.html">ホーム</a> › <a href="../articles.html">記事</a></div>
+<div class="article-head"><div class="badges"><span class="badge">記事</span>${a.audience ? `<span class="badge new">${esc(a.audience)}</span>` : ''}</div><h1>${esc(a.title)}</h1><div class="meta-line">最終更新: ${esc(a.updated || '')}</div></div>
+${a.point ? `<div class="point"><b>この記事で分かること</b><p>${esc(a.point)}</p></div>` : ''}
+<div class="layout"><article>${secs}</article><aside class="toc"><b>目次</b>${toc.join('')}</aside></div></div>`,
+    jsonld: { '@context': 'https://schema.org', '@type': 'Article', headline: a.title, description: a.point || undefined, dateModified: a.updated, inLanguage: 'ja' },
+  }));
+}
+write('articles.html', page({
+  title: `記事 | ${SITE}`, desc: '立場別・目的別に、事典の項目をつないで読める記事', cur: 'articles',
+  body: `<div class="wrap"><div class="page"><h1>記事</h1><p>事典の項目を、立場や目的に合わせて、読む順にまとめた記事です。個々の根拠は、各記事から事典の項目へたどれます。</p></div>
+<div class="cards">${articles.map(a => `<a class="card" href="articles/${a.slug}.html"><div class="badges">${a.audience ? `<span class="badge new">${esc(a.audience)}</span>` : ''}</div><h3>${esc(a.title)}</h3><p>${esc(a.point || '')}</p></a>`).join('\n')}</div></div>`,
 }));
 
 const simple = (file, key, title, desc, inner) => write(file, page({
@@ -488,7 +524,7 @@ write('policy.html', page({
 <p>内容の誤りや、古くなった情報に気づかれた場合は、出典とあわせて、<a href="${GITHUB}/issues" target="_blank" rel="noopener">GitHub の Issues</a> でお知らせください。確認のうえ、修正します。</p></div></div>`,
 }));
 
-const urls = [{ u: 'index.html' }, { u: 'news.html', m: (NEWS[0] || {}).date }, { u: 'tools.html' }, { u: 'about.html' }, { u: 'policy.html' }, ...TOOLS.map(t => ({ u: `tools/${t.slug}.html` })), ...entries.map(e => ({ u: `entries/${e.slug}.html`, m: e.updated }))];
+const urls = [{ u: 'index.html' }, { u: 'articles.html' }, ...articles.map(a => ({ u: `articles/${a.slug}.html`, m: a.updated })), { u: 'news.html', m: (NEWS[0] || {}).date }, { u: 'tools.html' }, { u: 'about.html' }, { u: 'policy.html' }, ...TOOLS.map(t => ({ u: `tools/${t.slug}.html` })), ...entries.map(e => ({ u: `entries/${e.slug}.html`, m: e.updated }))];
 if (SITE_URL) {
   write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(x => `<url><loc>${SITE_URL}/${x.u === 'index.html' ? '' : x.u}</loc>${x.m ? `<lastmod>${x.m}</lastmod>` : ''}</url>`).join('\n')}\n</urlset>\n`);
   write('robots.txt', `User-agent: *\nAllow: /\nSitemap: ${SITE_URL}/sitemap.xml\n`);
