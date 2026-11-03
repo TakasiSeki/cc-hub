@@ -1,0 +1,44 @@
+<div class="wrap">
+<div class="crumb"><a href="../index.html">ホーム</a> › <a href="../tools.html">ツール</a> › アーランC計算機</div>
+<div class="article-head"><div class="badges"><span class="badge">計算ツール</span><span class="badge plain">ブラウザ内で計算(入力値は送信されません)</span></div>
+<h1>アーランC計算機(必要席数・サービスレベル)</h1>
+<p class="lead">着信数と平均処理時間から、目標のサービスレベルを満たすのに必要なオペレーター数を計算します。人数を指定して、サービスレベルや待ち時間を確かめることもできます。</p></div>
+
+<div class="tool">
+<form class="tool-form" id="f" autocomplete="off" onsubmit="return false">
+<h2>入力</h2>
+<div class="tool-grid">
+<label>区間内の着信数(件)<input id="calls" type="number" inputmode="decimal" min="0" step="any" value="100"></label>
+<label>区間の長さ(分)<input id="interval" type="number" inputmode="decimal" min="1" step="any" value="30"></label>
+<label>平均処理時間 AHT(秒)<input id="aht" type="number" inputmode="decimal" min="1" step="any" value="180"></label>
+<label>目標サービスレベル(%)<input id="sl" type="number" inputmode="decimal" min="1" max="99.9" step="any" value="80"></label>
+<label>目標応答時間(秒)<input id="target" type="number" inputmode="decimal" min="0" step="any" value="20"></label>
+<label>シュリンケージ(%)<input id="shrink" type="number" inputmode="decimal" min="0" max="90" step="any" value="30"></label>
+<label>席数を指定して確認(任意)<input id="agents" type="number" inputmode="numeric" min="1" step="1" placeholder="空欄でもOK"></label>
+</div>
+<p class="hint">例: 30分間に100件、AHTが180秒、「20秒以内に80%」を目標とする場合。区間は30分単位など、短く区切るほど実態に近づきます。シュリンケージは、休憩・研修・欠勤などで席に着けない割合です。</p>
+</form>
+
+<div id="msg" class="notice draft" style="display:none"></div>
+
+<section id="out" class="tool-out" aria-live="polite">
+<h2>結果</h2>
+<div class="stats" id="stats"></div>
+<div id="custom"></div>
+<h3>人数ごとの比較</h3>
+<div class="table-wrap"><table id="tbl"><thead><tr><th>人数</th><th>サービスレベル</th><th>待たされる確率</th><th>平均応答待ち時間</th><th>占有率</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section class="sec">
+<h2>この計算の前提と限界</h2>
+<ul>
+<li>到着はポアソン過程、処理時間は指数分布、オペレーターの能力は同じで、先着順に応答する、という前提の計算です</li>
+<li><b>待っている人が途中で電話を切らない(放棄しない)前提</b>のため、実際より待ち時間を長く見積もりやすくなります</li>
+<li>単一スキルの計算で、スキルベースルーティングやマルチチャネルの同時対応は扱えません</li>
+<li>区間内の到着率は一定とみなします。キャンペーン直後などの急増には対応しません</li>
+<li>結果は目安です。実際の人員配置は、過去の実績や現場の事情とあわせて判断してください</li>
+</ul>
+<p>関連する項目: <a href="../entries/erlang-c.html">アーランC式と要員計画</a> / <a href="../entries/response-rate.html">応答率とサービスレベル</a> / <a href="../entries/aht.html">AHT(平均処理時間)</a> / <a href="../entries/occupancy-utilization.html">稼働率と占有率</a> / <a href="../entries/abandon-rate.html">放棄呼率</a></p>
+</section>
+</div>
+</div>
