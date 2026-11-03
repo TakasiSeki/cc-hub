@@ -3,7 +3,6 @@ title: NPS(ネット・プロモーター・スコア)
 category: 指標
 consensus: 議論あり
 updated: 2026-11-03
-tags: AI生成, 中立出典, ベンダー情報
 ---
 
 ## 定義
@@ -30,7 +29,7 @@ NPS = 推奨者の割合(%) − 批判者の割合(%)。範囲は−100〜+100�
 - NPS は登録商標。正式な定義や運用は公式情報で確認が必要
 
 ## 出典
-- 【中立出典】Reichheld, F. F. "The One Number You Need to Grow", Harvard Business Review, 2003年12月号 https://hbr.org/2003/12/the-one-number-you-need-to-grow (取得 2026-11-03。著者・掲載号・タイトルを確認。本文は未確認。提唱者本人の論文で、定義の一次資料)
+- 【論文】Reichheld, F. F. "The One Number You Need to Grow", Harvard Business Review, 2003年12月号 https://hbr.org/2003/12/the-one-number-you-need-to-grow (取得 2026-11-03。著者・掲載号・タイトルを確認。本文は未確認。提唱者本人の論文で、定義の一次資料)
 - 【ベンダー情報】CREX「ネットプロモータースコア(NPS)とは」 https://crexgroup.com/ja/consulting/method/what-is-nps/ (更新 2025-11-04、取得 2026-11-03、本文確認済み。コンサルティング会社の解説)
 - 注: 提唱者の論文は、タイトル・年・著者のみ確認し本文は未確認。日本の傾向に関する記述も1社の見解で、裏付けは未確認
 

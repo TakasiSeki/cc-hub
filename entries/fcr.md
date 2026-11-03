@@ -3,7 +3,6 @@ title: 一次解決率(FCR)
 category: 指標
 consensus: 議論あり
 updated: 2026-11-03
-tags: AI生成, ベンダー情報
 ---
 
 ## 定義

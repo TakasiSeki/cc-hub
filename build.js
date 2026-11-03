@@ -10,9 +10,19 @@ const SITE = 'CC Hub';
 const TAGLINE = 'コンタクトセンター・ハブ';
 const SITE_URL = (process.env.SITE_URL || '').replace(/\/$/, '');
 const TAGS = {
-  '中立出典': { cls: 'tag-neutral', desc: '官公庁・自治体・提唱者本人の論文など、販売利益と無関係な出典を含む' },
-  'ベンダー情報': { cls: 'tag-vendor', desc: '製品・サービスを販売する事業者やコンサルティング会社の資料を出典とする' },
-  'AI生成': { cls: 'tag-ai', desc: 'AIがネット上の情報をもとに作成したもので、人による全面的な検証は済んでいない' },
+  '中立出典': { cls: 'tag-neutral', desc: '官公庁・自治体・公益法人・論文など、販売利益と無関係な出典を含む' },
+  '調査レポート': { cls: 'tag-report', desc: '調査会社・コンサルティング会社などが実施した調査の結果を含む' },
+  'ベンダー情報': { cls: 'tag-vendor', desc: '製品・サービスを販売する事業者の資料や、その解説記事を出典とする' },
+  'メディア記事': { cls: 'tag-media', desc: '新聞・雑誌・Webメディアの記事を出典とする' },
+};
+// 出典欄の行頭ラベル → 項目タグ(ラベルは「【ラベル】」の形で書く)
+const SRC_LABELS = {
+  '公的資料': { tag: '中立出典', cls: 'tag-neutral' },
+  '公益法人': { tag: '中立出典', cls: 'tag-neutral' },
+  '論文': { tag: '中立出典', cls: 'tag-neutral' },
+  '調査レポート': { tag: '調査レポート', cls: 'tag-report' },
+  'ベンダー情報': { tag: 'ベンダー情報', cls: 'tag-vendor' },
+  'メディア記事': { tag: 'メディア記事', cls: 'tag-media' },
 };
 const CATS = ['用語', '指標', '運営', 'AI導入', '技術', '法規制', '人材'];
 
@@ -40,9 +50,9 @@ function summary(body) {
 
 const CSS = `
 :root{--bg:#f6f7f9;--surface:#fff;--text:#1d2330;--muted:#5d6678;--line:#e4e7ee;--accent:#2f5bea;--accent-soft:#e8eeff;
---ok:#0f7a4b;--ok-soft:#e1f5ea;--ai:#6b3fc7;--ai-soft:#efe8ff;--warn:#8a5a00;--warn-soft:#fff1cc;--shadow:0 1px 2px rgba(20,30,60,.05),0 6px 20px rgba(20,30,60,.06);--r:14px}
+--ok:#0f7a4b;--ok-soft:#e1f5ea;--rep:#0b6e99;--rep-soft:#dff2fb;--warn:#8a5a00;--warn-soft:#fff1cc;--shadow:0 1px 2px rgba(20,30,60,.05),0 6px 20px rgba(20,30,60,.06);--r:14px}
 @media (prefers-color-scheme:dark){:root{--bg:#0f131a;--surface:#171c26;--text:#e8ebf2;--muted:#9aa4b8;--line:#272e3d;--accent:#7b9bff;--accent-soft:#1f2a4d;
---ok:#5fd39a;--ok-soft:#14352a;--ai:#c0a6ff;--ai-soft:#2c2250;--warn:#f0c15a;--warn-soft:#3a2f12;--shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25)}}
+--ok:#5fd39a;--ok-soft:#14352a;--rep:#74c7ec;--rep-soft:#12334a;--warn:#f0c15a;--warn-soft:#3a2f12;--shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25)}}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--text);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Meiryo",system-ui,sans-serif;font-size:16px;line-height:1.85;-webkit-font-smoothing:antialiased}
 a{color:var(--accent)}a:hover{text-decoration:none}
@@ -76,7 +86,7 @@ a{color:var(--accent)}a:hover{text-decoration:none}
 .card h3{margin:0;font-size:1.05rem;line-height:1.5}.card p{margin:0;color:var(--muted);font-size:.9rem;line-height:1.7;flex:1}
 .badges{display:flex;gap:6px;flex-wrap:wrap}
 .badge{font-size:.72rem;font-weight:700;padding:2px 9px;border-radius:999px;background:var(--accent-soft);color:var(--accent);line-height:1.7}
-.badge.tag-neutral{background:var(--ok-soft);color:var(--ok)}.badge.tag-vendor{background:var(--warn-soft);color:var(--warn)}.badge.tag-ai{background:var(--ai-soft);color:var(--ai)}.badge.plain{background:var(--line);color:var(--muted)}.badge.src{margin-right:6px;font-size:.7rem}.badge.src-media{background:var(--line);color:var(--muted)}
+.badge.tag-neutral{background:var(--ok-soft);color:var(--ok)}.badge.tag-vendor{background:var(--warn-soft);color:var(--warn)}.badge.tag-report{background:var(--rep-soft);color:var(--rep)}.badge.tag-media{background:var(--line);color:var(--muted)}.badge.plain{background:var(--line);color:var(--muted)}.badge.src{margin-right:6px;font-size:.7rem}
 .chips-label{font-size:.8rem;color:var(--muted);font-weight:700;margin:10px 0 6px}.empty{display:none;padding:30px;text-align:center;color:var(--muted)}
 .crumb{font-size:.85rem;color:var(--muted);margin:26px 0 6px}.crumb a{color:var(--muted)}
 .article-head{margin-bottom:6px}.article-head h1{font-size:clamp(1.6rem,4vw,2.2rem);line-height:1.4;margin:6px 0 12px}
@@ -133,10 +143,14 @@ fs.mkdirSync(path.join(OUT, 'entries'), { recursive: true });
 const write = (rel, html) => fs.writeFileSync(path.join(OUT, rel), html);
 
 const SEC_CLASS = h => /異論|注意/.test(h) ? 'sec-caution' : /出典/.test(h) ? 'sec-source' : '';
-const tagList = meta => (meta.tags || 'AI生成').split(/[,、]\s*/).map(t => t.trim()).filter(Boolean);
+const deriveTags = body => {
+  const m = body.match(/## 出典\r?\n([\s\S]*?)(?=\r?\n## |$)/);
+  const found = new Set();
+  for (const x of (m ? m[1] : '').matchAll(/^- 【([^】]+)】/gm)) if (SRC_LABELS[x[1]]) found.add(SRC_LABELS[x[1]].tag);
+  return Object.keys(TAGS).filter(t => found.has(t));
+};
 const tagBadges = tags => tags.map(t => `<span class="badge ${(TAGS[t] || {}).cls || 'plain'}">${esc(t)}</span>`).join('');
-const SRC_CLS = { '中立出典': 'tag-neutral', 'ベンダー情報': 'tag-vendor', 'メディア記事': 'src-media' };
-const labelSources = html => html.replace(/<li>【(中立出典|ベンダー情報|メディア記事)】/g, (_, l) => `<li><span class="badge src ${SRC_CLS[l]}">${l}</span>`);
+const labelSources = html => html.replace(/<li>【([^】]+)】/g, (m, l) => SRC_LABELS[l] ? `<li><span class="badge src ${SRC_LABELS[l].cls}">${l}</span>` : m);
 
 const entries = [];
 for (const f of fs.readdirSync(SRC)) {
@@ -144,7 +158,7 @@ for (const f of fs.readdirSync(SRC)) {
   const slug = f.replace(/\.md$/, '');
   const { meta, body } = parse(fs.readFileSync(path.join(SRC, f), 'utf8'));
   if (!meta.title) throw new Error(`${f}: title がありません`);
-  const tags = tagList(meta);
+  const tags = deriveTags(body);
   entries.push({ slug, summary: summary(body), ...meta, tags });
 
   // 見出しごとにカード化し、目次を作る
@@ -159,10 +173,12 @@ for (const f of fs.readdirSync(SRC)) {
   }).join('\n');
 
   const notes = [];
-  if (tags.includes('AI生成')) notes.push('この項目は、AIがネット上の情報をもとに作成したものです。');
-  if (tags.includes('中立出典')) notes.push('官公庁・自治体・提唱者本人の論文など、中立的な出典を含みます。出典欄で確認できます。');
-  if (tags.includes('ベンダー情報')) notes.push(tags.includes('中立出典') ? '一部の内容は、ベンダー(事業者)の資料に基づきます。' : '出典は、ベンダー(事業者)の資料のみです。中立的な出典は未確認です。');
-  const notice = `<div class="notice">${notes.map(n => `<p>${n}</p>`).join('')}<p><a href="../about.html#tags">タグの意味</a></p></div>`;
+  if (tags.includes('中立出典')) notes.push('官公庁・自治体・公益法人・論文など、中立的な出典を含みます。');
+  if (tags.includes('調査レポート')) notes.push('調査会社・コンサルティング会社による調査結果を含みます。');
+  if (tags.includes('ベンダー情報')) notes.push(tags.includes('中立出典') ? '一部の内容は、ベンダー(事業者)の資料に基づきます。' : '出典は、ベンダー(事業者)の資料が中心です。中立的な出典は未確認です。');
+  if (tags.includes('メディア記事')) notes.push('メディアの記事を含みます。');
+  if (!notes.length) notes.push('出典の種類が分類されていません。');
+  const notice = `<div class="notice">${notes.map(n => `<p>${n}</p>`).join('')}<p>出典ごとのラベルは出典欄にあります。<a href="../about.html#tags">タグの意味</a></p></div>`;
   write(`entries/${slug}.html`, page({
     title: `${meta.title} | ${SITE}`,
     desc: `${meta.title}の定義・通説・異論・出典`,
@@ -218,9 +234,9 @@ simple('tools.html', 'tools', 'ツール', 'コンタクトセンター向け便
 simple('about.html', 'about', 'このサイトについて', `${SITE}の方針と運営について`,
   `<p>${SITE}は、コンタクトセンターの全貌が分かる日本語サイトを目指しています。</p>
 <h2>方針</h2><ul><li>「正解」を断定せず、通説・異論・合意度を出典つきで示します</li><li>出典のない数値は載せません</li><li>更新日と変更理由を残します</li></ul>
-<h2>運営</h2><p>AIがネット上の情報をもとに下書きを作り、出典を確認しながら公開しています。確認の範囲は、各項目の出典欄に書いています。</p>
+<h2>運営</h2><p>AIがネット上の情報をもとに下書きを作り、出典を確認しながら公開しています。確認の範囲は、各項目の出典欄に書いています。ページの内容は、出典に基づいて随時更新します。</p>
 <h2 id="tags">タグの意味</h2><ul class="legend">${Object.entries(TAGS).map(([t, v]) => `<li><span class="badge ${v.cls}">${t}</span><span>${v.desc}</span></li>`).join('')}</ul>
-<p>出典欄の各行にも、「中立出典」「ベンダー情報」「メディア記事」のラベルを付けています。複数のタグが付く項目もあります。</p>
+<p>出典欄の各行にも、「公的資料」「公益法人」「論文」「調査レポート」「ベンダー情報」「メディア記事」のラベルを付けています。項目のタグは、出典欄のラベルから自動で決まります。複数のタグが付く項目もあります。タグの種類は、必要に応じて増やします。</p>
 <p>誤りに気づかれた場合は、出典とあわせてお知らせいただけると助かります。</p>`);
 
 const urls = ['index.html', 'news.html', 'tools.html', 'about.html', ...entries.map(e => `entries/${e.slug}.html`)];
