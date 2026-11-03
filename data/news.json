@@ -25,9 +25,41 @@
  },
  {
   "source": "ITmedia",
+  "title": "東京電力エナジーパートナー、Amazon Connect Customerで「育てる」AIコンタクトセンターを構築――「クラウド電話」で音声系はユーザー主体の時代に",
+  "link": "https://atmarkit.itmedia.co.jp/ait/articles/2608/31/news006.html",
+  "date": "2026-08-31",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "呼量削減はもはや時代遅れ　コールセンターが追うべき「新基準」",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2608/20/news14.html",
+  "date": "2026-08-20",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "管理職542人に聞いた　AIやデジタル化でなくしたい主な事務作業第1位は？",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2608/19/news08.html",
+  "date": "2026-08-19",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "ITmedia",
   "title": "チャット問い合わせ「98％」をAIが無人解決　Zoomが語る「安く・速くさばく」コールセンターの限界",
   "link": "https://www.itmedia.co.jp/business/articles/2607/27/news016.html",
   "date": "2026-07-27",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "「AI解雇」に世界が待った　加速する法規制と運用のわな",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2607/17/news05.html",
+  "date": "2026-07-17",
   "keywords": [],
   "fetched": "2026-11-03"
  },
@@ -40,10 +72,66 @@
   "fetched": "2026-11-03"
  },
  {
-  "source": "ITmedia",
-  "title": "巨大組織の「アジャイル」を加速させる　オリックス生命が選んだ、開発状況を見える化する戦略的ツールとは？",
-  "link": "https://techtarget.itmedia.co.jp/tt/news/2604/17/news01.html",
-  "date": "2026-04-21",
+  "source": "TechTarget ジャパン",
+  "title": "事例：ニトリはなぜ問い合わせ対応を「全部自動化」しなかったのか",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2607/07/news07.html",
+  "date": "2026-07-07",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "TeamsやSlackが「組織の記憶」へ激変　AI時代に必要な“動的ガバナンス”とは",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2606/29/news03.html",
+  "date": "2026-06-29",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "「AIが仕事を奪う」「AIがSaaSを破壊」は幻想か　AI神話を解体してみた",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2606/25/news05.html",
+  "date": "2026-06-25",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "モデルナが直面したデータ散在　Salesforceの「AIエージェント」が救世主に？",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2605/29/news14.html",
+  "date": "2026-05-29",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "Excelと手作業の限界　サイロ化に悩むトランスコスモスの「ノーコード」活用術",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2605/26/news01.html",
+  "date": "2026-05-26",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "激増する初歩的な質問　“人員増ゼロ”で相談6倍をさばくLINEヤフーのサポート運用",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2605/22/news11.html",
+  "date": "2026-05-22",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "属人化・サイロ化からの脱却──AIと統合基盤で実現するモダンなサービス体験",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2604/28/news01.html",
+  "date": "2026-04-27",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "コンタクトセンターAIが失敗する「4つの盲点」",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2604/24/news10.html",
+  "date": "2026-04-24",
   "keywords": [],
   "fetched": "2026-11-03"
  },
@@ -52,6 +140,30 @@
   "title": "JALカード、コンタクトセンターでAI導入　問い合わせ対応で活用　検証時の正答率は9割超",
   "link": "https://www.itmedia.co.jp/news/articles/2604/15/news102.html",
   "date": "2026-04-15",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "コンタクトセンターを”儲かる部門”に変える「AI活用6つのトレンド」",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2604/11/news03.html",
+  "date": "2026-04-13",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "AIエージェント導入に失敗する企業の”やっぱり”な共通点",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2604/07/news03.html",
+  "date": "2026-04-07",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "「顧客の声」は負担ではなく資産　サーモスのコンタクトセンターに見る未来の姿",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2603/13/news02.html",
+  "date": "2026-03-13",
   "keywords": [],
   "fetched": "2026-11-03"
  },
@@ -65,9 +177,89 @@
  },
  {
   "source": "ITmedia",
+  "title": "AIエージェントはコンタクトセンターの未来をどう変える？――AIとCXのエキスパートが語ったこと",
+  "link": "https://www.itmedia.co.jp/business/articles/2603/06/news041.html",
+  "date": "2026-03-06",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "ITmedia",
+  "title": "IVRyがコンタクトセンター市場へ参入　AIネイティブSaaSの狙いは",
+  "link": "https://www.itmedia.co.jp/enterprise/articles/2603/04/news037.html",
+  "date": "2026-03-04",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "AIの“費用対効果”がとにかく期待できる10個の業務",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2602/27/news07.html",
+  "date": "2026-02-27",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "AI投資の成功率はわずか「5％」　数百万ドルを失わないための“10の聖域”とは？",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2602/19/news03.html",
+  "date": "2026-02-19",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "160兆円を動かす“国家の基幹系”が「RISE with SAP」に　決断の裏側",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2602/18/news02.html",
+  "date": "2026-02-18",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "「リサーチに数カ月」はもう限界　パナソニックがVoC分析を“数日”に変えた執念",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2602/06/news07.html",
+  "date": "2026-02-06",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "生成AI導入が「利益を食いつぶす」？　ガートナーが警告する3ドルの壁と死角",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2602/04/news09.html",
+  "date": "2026-02-04",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "ITmedia",
+  "title": "月次報告180時間が「ゼロ」に　パナソニック くらしアプライアンス社が挑んだVoC分析の改革【コンタクトセンター・ヒット記事3選】",
+  "link": "https://www.itmedia.co.jp/business/articles/2512/28/news021.html",
+  "date": "2025-12-28",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "チャットbot構築サービス比較：「Amazon Lex」「Claude」「Cognigy」の違いとは",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2512/19/news07.html",
+  "date": "2025-12-19",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "ITmedia",
   "title": "営業の「急な深夜対応」が激減　夜間電話を100%「AI化」したコンタクトセンター大改革",
   "link": "https://www.itmedia.co.jp/business/articles/2512/09/news068.html",
   "date": "2025-12-09",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "顧客の不満の原因は「その数分」　嫌われないコンタクトセンターになるためには",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2512/03/news02.html",
+  "date": "2025-12-04",
   "keywords": [],
   "fetched": "2026-11-03"
  },
@@ -80,10 +272,58 @@
   "fetched": "2026-11-03"
  },
  {
+  "source": "TechTarget ジャパン",
+  "title": "“自律するAI”にどこまで権限を渡すのか　「任せる範囲」を賢く決める方法",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2511/20/news02.html",
+  "date": "2025-11-20",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
   "source": "ITmedia",
   "title": "渋谷区が挑んだ「問い合わせ改革」　区民満足度「5点中4.8点」を実現した“ナレッジDX”の全貌",
   "link": "https://www.itmedia.co.jp/business/articles/2511/18/news069.html",
   "date": "2025-11-18",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "電話もチャットもAIがお出迎え “3.5倍”働くコンタクトセンター実現へ",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2511/13/news02.html",
+  "date": "2025-11-13",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "ITmedia",
+  "title": "オペレーター1人で30社対応　“混乱現場”を救ったコンタクトセンター改革の裏側",
+  "link": "https://www.itmedia.co.jp/business/articles/2511/05/news016.html",
+  "date": "2025-11-05",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "AIインフラ構築は「超カオス状態」　打開するカギは「三種の神器」",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2510/24/news03.html",
+  "date": "2025-10-24",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "エージェンティックAIで、コンタクトセンターの「おもてなし」をどう進化する？",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2510/09/news01.html",
+  "date": "2025-10-10",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "ITmedia",
+  "title": "「顧客接点」そのものの考え方が変わる？　NTTドコモビジネスの新サービスからAI活用法を探る",
+  "link": "https://www.itmedia.co.jp/enterprise/articles/2509/29/news092.html",
+  "date": "2025-09-29",
   "keywords": [],
   "fetched": "2026-11-03"
  },
@@ -100,6 +340,14 @@
   "title": "年間4万件超の問い合わせ　築地本願寺のコールセンター改革、「傾聴」と「効率化」は両立できるか？",
   "link": "https://www.itmedia.co.jp/business/articles/2509/01/news016.html",
   "date": "2025-09-01",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "航空会社Qantasの顧客情報600万件が漏えい　想定される危険な悪用シナリオは？",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2508/22/news05.html",
+  "date": "2025-08-22",
   "keywords": [],
   "fetched": "2026-11-03"
  },
@@ -136,6 +384,14 @@
   "fetched": "2026-11-03"
  },
  {
+  "source": "TechTarget ジャパン",
+  "title": "Virgin Atlantic Airwaysの「偏見なしAI活用」　支えている製品は",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2506/27/news03.html",
+  "date": "2025-06-27",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
   "source": "ITmedia",
   "title": "人とテクノロジーの融合でシナジー創出　ドコモ・ファイナンス「BPOセンター」の戦略は？",
   "link": "https://www.itmedia.co.jp/business/articles/2506/27/news044.html",
@@ -144,10 +400,26 @@
   "fetched": "2026-11-03"
  },
  {
+  "source": "TechTarget ジャパン",
+  "title": "事例に学ぶAI導入　顧客とのコミュニケーションをどう変えるべきか",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2506/26/news01.html",
+  "date": "2025-06-26",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
   "source": "ITmedia",
   "title": "“一刻を争う電話”なのに、応答率7割未満→94％に！　アソビューのコンタクトセンター改革",
   "link": "https://www.itmedia.co.jp/business/articles/2506/25/news037.html",
   "date": "2025-06-25",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "“PoC倒れ”を防ぐ「AIエージェント」実装のポイントとは？",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2506/23/news02.html",
+  "date": "2025-06-24",
   "keywords": [],
   "fetched": "2026-11-03"
  },
@@ -164,6 +436,54 @@
   "title": "電話問い合わせ100%→10%に　ネスレ、分かりやすいFAQの秘訣は？",
   "link": "https://www.itmedia.co.jp/business/articles/2506/10/news030.html",
   "date": "2025-06-10",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "AIエージェント普及の鍵となるGoogleの「A2A」とは？　「MCP」との違いは",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2505/27/news04.html",
+  "date": "2025-05-27",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "人手不足時代の救世主？　AIコンタクトセンターの現実解とは",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2505/21/news02.html",
+  "date": "2025-05-21",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "コンタクトセンターの価値向上がビジネスを成長させる理由",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2504/21/news01.html",
+  "date": "2025-04-28",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "ITmedia",
+  "title": "東京ガス、ダイキンの事例から読み解く　コンタクトセンターのAI活用における“正攻法”とは？",
+  "link": "https://www.itmedia.co.jp/business/articles/2504/15/news005.html",
+  "date": "2025-04-15",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "ITmedia",
+  "title": "効率ばかり求めると失敗する──コンタクトセンターのAI活用、明暗を分ける“ある発想”とは",
+  "link": "https://www.itmedia.co.jp/business/articles/2504/15/news004.html",
+  "date": "2025-04-15",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "AI技術がどれだけ進化しても「顧客体験」は向上しない　CX改善の本質は？",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2504/02/news06.html",
+  "date": "2025-04-02",
   "keywords": [],
   "fetched": "2026-11-03"
  },
@@ -185,9 +505,41 @@
  },
  {
   "source": "ITmedia",
+  "title": "感情データでオペレーターの「SOS」をキャッチ　「スカパー！」コンタクトセンターの改革",
+  "link": "https://www.itmedia.co.jp/business/articles/2503/12/news072.html",
+  "date": "2025-03-12",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "ITmedia",
   "title": "金融機関のコンタクトセンターでAIを「効果的に、かつ安全に」使うには？　2つの注意点",
   "link": "https://www.itmedia.co.jp/business/articles/2503/07/news099.html",
   "date": "2025-03-07",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "Ciscoが考える「生成AIが真価を発揮する業務」は何か",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2503/06/news07.html",
+  "date": "2025-03-06",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "職務内容が“手探り状態”？　顧客体験を改善する責任者「CXO」の悩み",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2502/22/news03.html",
+  "date": "2025-02-22",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "開発現場やITチームはこう変わる――押さえておきたい“4つの進化”",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2502/07/news08.html",
+  "date": "2025-02-07",
   "keywords": [],
   "fetched": "2026-11-03"
  },
@@ -196,6 +548,102 @@
   "title": "ニトリはAIでコンタクトセンターをどう変えたいのか　同社の顧客満足アップ戦略とは",
   "link": "https://www.itmedia.co.jp/enterprise/articles/2501/29/news084.html",
   "date": "2025-01-29",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "“利益を生む”ための「AI戦略」とは？　押さえておきたいAI活用術10選",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2411/11/news10.html",
+  "date": "2024-11-11",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "AIはコンタクトセンターをどう変える？　3大課題を解決するテクノロジー活用術",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2410/21/news01.html",
+  "date": "2024-10-24",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "コンタクトセンターで悪化する「人材不足」　離職を食い止めるには？",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2410/21/news02.html",
+  "date": "2024-10-21",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "「オペレーターの退職」が止まらない――他人事ではない、その5つの理由",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2410/14/news04.html",
+  "date": "2024-10-14",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "「生成AI」で医療現場が進化する？　代表的な活用例“6選”",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2406/07/news04.html",
+  "date": "2024-06-07",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "「サードパーティーCookie」が廃止になっても“あれ”を使えば大丈夫",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2403/22/news11.html",
+  "date": "2024-03-22",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "「Copilot」の“検索”は何がすごいのか？　Microsoftの業務アプリで考察",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2402/15/news11.html",
+  "date": "2024-02-15",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "Microsoftの「Copilot for Service」「Copilot for Sales」がCRMにもたらす利点は？",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2402/09/news08.html",
+  "date": "2024-02-09",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "AWSの新しい「シンクライアント」はまるでFire TV Cube　仕事に使えるか？",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2312/29/news01.html",
+  "date": "2023-12-29",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "生成AIの影響を受けやすい「9職種」　仕事はどう変わる？",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2311/05/news01.html",
+  "date": "2023-11-05",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "チームの共同作業を乱す「またツールが増えた」問題の落としどころ",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2310/27/news09.html",
+  "date": "2023-10-27",
+  "keywords": [],
+  "fetched": "2026-11-03"
+ },
+ {
+  "source": "TechTarget ジャパン",
+  "title": "オフィス嫌いを出社に戻す「Zoomの次世代オフィス」が面白い",
+  "link": "https://techtarget.itmedia.co.jp/tt/news/2309/29/news02.html",
+  "date": "2023-09-29",
   "keywords": [],
   "fetched": "2026-11-03"
  }

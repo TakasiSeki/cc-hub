@@ -13,8 +13,12 @@ const RSS_FEEDS = [
 ];
 // すでにテーマで絞られた一覧ページ(HTML): そのまま採用する
 const LIST_PAGES = [
+  { name: 'ITmedia', url: 'https://www.itmedia.co.jp/keywords/contactcenter.html' },
   { name: 'ITmedia', url: 'https://atmarkit.itmedia.co.jp/ait/kw/contactcenter.html' },
+  { name: 'TechTarget ジャパン', url: 'https://techtarget.itmedia.co.jp/tt/wpkw/contactcenter.html' },
 ];
+// 一覧ページから除く記事(広告記事、テーマと無関係なもの)
+const EXCLUDE = ['アジャイル', '開発管理', 'ネットワークエンジニア', '【無料PDF】'];
 // どこに出ても対象にする語 / タイトルだけで判定する広めの語 / 英字の語(単語として一致したときのみ)
 const CORE = ['コンタクトセンター', 'コールセンター', 'カスタマーハラスメント', 'カスハラ', 'ボイスボット', 'AIオペレーター', 'お客様センター'];
 const TITLE_ONLY = ['カスタマーサポート', 'カスタマーサービス', 'お客様窓口', '問い合わせ対応', '電話応対'];
@@ -63,10 +67,16 @@ async function fromRss(feed) {
 
 async function fromList(page) {
   const html = await get(page.url);
-  const re = /<p class="(?:newsart|otherart)"><a href="([^"]+)">(?:<img[^>]*>)?<strong>([\s\S]*?)<\/strong><\/a>[\s\S]*?[（(](\d{4}\/\d{1,2}\/\d{1,2})[）)]/g;
   const items = [];
-  for (const m of html.matchAll(re)) {
-    items.push({ source: page.name, title: decode(m[2].replace(/<[^>]+>/g, '')), link: m[1], date: toDate(m[3]), keywords: [] });
+  for (const m of html.matchAll(/<p class="(?:newsart|otherart)">([\s\S]*?)<\/p>/g)) {
+    const block = m[1];
+    if (/PR[：:]/.test(block)) continue; // 広告記事は除く
+    const a = block.match(/<a href="([^"]+)">(?:<img[^>]*>)?<strong>(?!<small>)([\s\S]*?)<\/strong><\/a>/);
+    const d = block.match(/[（(](\d{4}\/\d{1,2}\/\d{1,2})[）)]/);
+    if (!a || !d) continue;
+    const title = decode(a[2].replace(/<[^>]+>/g, ''));
+    if (EXCLUDE.some(k => title.includes(k))) continue;
+    items.push({ source: /techtarget.itmedia/.test(a[1]) ? 'TechTarget ジャパン' : page.name, title, link: a[1], date: toDate(d[1]), keywords: [] });
   }
   return { total: items.length, hits: items };
 }

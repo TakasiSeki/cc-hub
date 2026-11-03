@@ -284,7 +284,12 @@ write('news.html', page({
   title: `ニュース | ${SITE}`, desc: 'コンタクトセンター関連ニュースの一覧(タイトルと元記事へのリンク)', cur: 'news',
   body: `<div class="wrap"><div class="page-wide"><h1>ニュース</h1>
 <p>コンタクトセンター関連のニュースを、タイトルと元記事へのリンクで紹介します。本文の転載は行いません。記事は各媒体のサイトで読めます。</p>
-<p><small>掲載元: ITmedia、PR TIMES(キーワードで抽出)。自動で収集しており、関連の薄い記事が混じることがあります。</small></p>${newsBody}</div></div>`,
+<p><small>掲載元: ITmedia、TechTarget ジャパン(コンタクトセンター関連の記事一覧から収集)。関連の薄い記事が混じることがあります。</small></p>
+<div class="search" style="margin:14px 0 6px">${SEARCH_ICON}<input id="nq" type="search" placeholder="ニュースを検索(例: カスハラ、AI、ボイスボット)" aria-label="ニュース内を検索"></div>
+<div id="nlist">${newsBody}</div><div class="empty" id="nempty">該当するニュースが見つかりませんでした。</div></div></div>
+<script>(function(){var q=document.getElementById('nq'),items=[].slice.call(document.querySelectorAll('.news-item')),months=[].slice.call(document.querySelectorAll('.news-month')),empty=document.getElementById('nempty');
+q.addEventListener('input',function(){var t=q.value.trim().toLowerCase(),n=0;items.forEach(function(li){var ok=!t||li.textContent.toLowerCase().indexOf(t)>-1;li.style.display=ok?'':'none';if(ok)n++});
+months.forEach(function(m){var ul=m.nextElementSibling,vis=[].slice.call(ul.children).some(function(li){return li.style.display!=='none'});m.style.display=vis?'':'none';ul.style.display=vis?'':'none'});empty.style.display=n?'none':'block'})})();</script>`,
 }));
 fs.mkdirSync(path.join(OUT, 'tools'), { recursive: true });
 write('tools.html', page({
