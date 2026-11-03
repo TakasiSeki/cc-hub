@@ -213,7 +213,7 @@ function page({ title, body, desc = '', jsonld = null, root = '', cur = '' }) {
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}">
-<meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:type" content="website">
+<meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:type" content="website"><meta property="og:site_name" content="${SITE}"><meta property="og:locale" content="ja_JP"><meta name="twitter:card" content="summary"><meta name="theme-color" content="#2f5bea">
 <style>${CSS}</style>
 ${jsonld ? `<script type="application/ld+json">${JSON.stringify(jsonld)}</script>` : ''}
 </head><body>
@@ -221,13 +221,19 @@ ${jsonld ? `<script type="application/ld+json">${JSON.stringify(jsonld)}</script
 <a class="brand" href="${root}index.html"><span class="logo">CC</span>${SITE}</a>${nav(root, cur)}</div></header>
 ${body}
 <footer class="site-footer"><div class="wrap"><div>${SITE}(${TAGLINE})<br>AIがネット上の情報をもとに作成し、出典を明記しています。</div>
-<div><a href="${root}about.html">このサイトについて</a></div></div></footer>
+<div><a href="${root}about.html">このサイトについて</a> / <a href="${root}policy.html">編集方針と広告について</a></div></div></footer>
 </body></html>`;
 }
 
 fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(path.join(OUT, 'entries'), { recursive: true });
-const write = (rel, html) => fs.writeFileSync(path.join(OUT, rel), html);
+const write = (rel, html) => {
+  if (SITE_URL && rel.endsWith('.html')) {
+    const url = rel === 'index.html' ? `${SITE_URL}/` : `${SITE_URL}/${rel}`;
+    html = html.replace('</head>', `<link rel="canonical" href="${url}"><meta property="og:url" content="${url}"></head>`);
+  }
+  fs.writeFileSync(path.join(OUT, rel), html);
+};
 
 const SEC_CLASS = h => /異論|注意/.test(h) ? 'sec-caution' : /出典/.test(h) ? 'sec-source' : '';
 const deriveTags = body => {
@@ -368,11 +374,35 @@ simple('about.html', 'about', 'このサイトについて', `${SITE}の方針�
 <h2>運営</h2><p>AIがネット上の情報をもとに下書きを作り、出典を確認しながら公開しています。確認の範囲は、各項目の出典欄に書いています。ページの内容は、出典に基づいて随時更新します。</p>
 <h2 id="tags">タグの意味</h2><ul class="legend">${Object.entries(TAGS).map(([t, v]) => `<li><span class="badge ${v.cls}">${t}</span><span>${v.desc}</span></li>`).join('')}</ul>
 <p>出典欄の各行にも、「公的資料」「公益法人」「論文」「業界団体」「調査レポート」「ベンダー情報」「メディア記事」のラベルを付けています。項目のタグは、出典欄のラベルから自動で決まります。複数のタグが付く項目もあります。タグの種類は、必要に応じて増やします。</p>
-<p>誤りに気づかれた場合は、出典とあわせてお知らせいただけると助かります。</p>`);
+<p>誤りに気づかれた場合は、出典とあわせてお知らせいただけると助かります。方法は、<a href="policy.html">編集方針と広告について</a>に書いています。</p>`);
 
-const urls = ['index.html', 'news.html', 'tools.html', 'about.html', ...TOOLS.map(t => `tools/${t.slug}.html`), ...entries.map(e => `entries/${e.slug}.html`)];
+const GITHUB = 'https://github.com/TakasiSeki/cc-hub';
+write('policy.html', page({
+  title: `編集方針と広告について | ${SITE}`, desc: `${SITE}の編集方針、広告・報酬の扱い、免責事項、誤りの指摘の方法`, cur: 'about',
+  body: `<div class="wrap"><div class="page"><h1>編集方針と広告について</h1>
+<h2>編集方針</h2><ul>
+<li>通説と異論を分けて示し、出典のない数値は載せません</li>
+<li>出典は、「中立出典」「調査レポート」「業界団体」「ベンダー情報」「メディア記事」のタグで種類を示します。ベンダー(製品を販売する事業者)の資料だけが出典の項目には、その旨を表示します</li>
+<li>本文を確認できなかった出典は、その旨を出典欄に書きます</li>
+<li>内容の更新日と更新の理由を、項目ごとに残します</li></ul>
+<h2>広告・報酬について</h2>
+<p>現在、報酬を受け取って掲載している広告やリンクはありません。今後、アフィリエイト(成果報酬型の広告)などを掲載する場合は、次のルールを守ります。</p>
+<ul>
+<li>報酬が発生するリンクや紹介には、「PR」と明記します(広告であることを隠した宣伝はしません)</li>
+<li>事典の項目の内容、出典のタグ、記事の順位は、報酬の有無や額で変えません</li>
+<li>サービスの比較・紹介は、事典とは別のページに置き、評価の基準を先に示します</li>
+<li>報酬の有無にかかわらず、デメリットや注意点も載せます</li></ul>
+<h2>免責事項</h2>
+<p>掲載する情報は、一般的な情報の提供を目的としたもので、法律や専門的な助言ではありません。法令や制度の判断は、必ず原典や専門家で確認してください。掲載内容の正確さには注意していますが、誤りや古い情報が含まれる場合があります。リンク先の情報や、外部のサービスの内容については、責任を負いかねます。</p>
+<h2>ニュースの掲載について</h2>
+<p>ニュースは、記事のタイトルと元記事へのリンクのみを掲載し、本文は転載しません。注目度の順位は、閲覧数ではなく、公開日、はてなブックマーク数、話題の語から計算した目安です(基準は<a href="news.html#about-rank">ニュースのページ</a>)。</p>
+<h2>誤りの指摘・ご意見</h2>
+<p>内容の誤りや、古くなった情報に気づかれた場合は、出典とあわせて、<a href="${GITHUB}/issues" target="_blank" rel="noopener">GitHub の Issues</a> でお知らせください。確認のうえ、修正します。</p></div></div>`,
+}));
+
+const urls = [{ u: 'index.html' }, { u: 'news.html', m: (NEWS[0] || {}).date }, { u: 'tools.html' }, { u: 'about.html' }, { u: 'policy.html' }, ...TOOLS.map(t => ({ u: `tools/${t.slug}.html` })), ...entries.map(e => ({ u: `entries/${e.slug}.html`, m: e.updated }))];
 if (SITE_URL) {
-  write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(u => `<url><loc>${SITE_URL}/${u}</loc></url>`).join('\n')}\n</urlset>\n`);
+  write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(x => `<url><loc>${SITE_URL}/${x.u === 'index.html' ? '' : x.u}</loc>${x.m ? `<lastmod>${x.m}</lastmod>` : ''}</url>`).join('\n')}\n</urlset>\n`);
   write('robots.txt', `User-agent: *\nAllow: /\nSitemap: ${SITE_URL}/sitemap.xml\n`);
 } else {
   write('robots.txt', `User-agent: *\nAllow: /\n`);
