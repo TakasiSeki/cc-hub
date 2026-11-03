@@ -1,0 +1,11 @@
+{
+  "name": "cc-hub",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "dependencies": {
+    "marked": "^18.1.3"
+  }
+}
