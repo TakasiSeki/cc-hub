@@ -239,6 +239,17 @@ a{color:var(--accent)}a:hover{text-decoration:none}
 .stat{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--bg)}
 .stat.main{background:var(--accent-soft);border-color:transparent}.stat.warn{background:var(--warn-soft);border-color:transparent}.stat.ok{background:var(--ok-soft);border-color:transparent}
 .stat-label{font-size:.78rem;color:var(--muted);font-weight:700}.stat-value{font-size:1.5rem;font-weight:800;line-height:1.4}.stat-note{font-size:.78rem;color:var(--muted);line-height:1.5}
+.fig{margin:16px 0;padding:14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+.fig .figsvg{width:100%;height:auto;display:block}
+.fig figcaption{margin-top:8px;font-size:.85rem;color:var(--muted);line-height:1.6}
+.figsvg .b{fill:var(--surface);stroke:var(--accent);stroke-width:1.5}
+.figsvg .b.dash{stroke:var(--muted);stroke-dasharray:5 4}
+.figsvg .b.head{fill:var(--accent-soft);stroke:var(--accent)}
+.figsvg .b.head2{fill:var(--asc-soft);stroke:var(--asc)}
+.figsvg .bt{fill:var(--text);font-weight:700}
+.figsvg .bd{fill:var(--muted)}
+.figsvg .ar{stroke:var(--muted);stroke-width:2}.figsvg .ar.da{stroke-dasharray:5 4}
+.figsvg .ah{fill:var(--muted)}
 .table-wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:.92rem}th,td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}th:first-child,td:first-child{text-align:left}
 th{color:var(--muted);font-size:.8rem}
 .cell{width:6rem;padding:6px 8px;font:inherit;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text);text-align:right}
@@ -297,6 +308,14 @@ const write = (rel, html) => {
   fs.writeFileSync(path.join(OUT, rel), html);
 };
 
+// 図の差し込み: 本文の1行に {{図:ファイル名|キャプション}} と書くと、figures/ファイル名.svg を埋め込む
+const FIG_DIR = path.join(__dirname, 'figures');
+const figs = body => body.replace(/^\{\{図:([a-z0-9-]+)\|(.+?)\}\}\s*$/gm, (m, name, cap) => {
+  const f = path.join(FIG_DIR, name + '.svg');
+  if (!fs.existsSync(f)) throw new Error(`図が見つかりません: figures/${name}.svg`);
+  return '\n\n<figure class="fig">' + fs.readFileSync(f, 'utf8').replace(/\r?\n\s*/g, '') + '<figcaption>' + esc(cap) + '</figcaption></figure>\n\n';
+});
+
 const SEC_CLASS = h => /異論|注意/.test(h) ? 'sec-caution' : /出典/.test(h) ? 'sec-source' : '';
 const deriveTags = body => {
   const m = body.match(/## 出典\r?\n([\s\S]*?)(?=\r?\n## |$)/);
@@ -322,7 +341,7 @@ for (const f of fs.readdirSync(SRC)) {
   entries.push({ slug, summary: summary(body), ...meta, tags });
 
   // 見出しごとにカード化し、目次を作る
-  const chunks = labelSources(marked.parse(body)).split(/(?=<h2>)/).filter(s => s.trim());
+  const chunks = labelSources(marked.parse(figs(body))).split(/(?=<h2>)/).filter(s => s.trim());
   const toc = [];
   const sections = chunks.map((c, i) => {
     const h = (c.match(/<h2>(.*?)<\/h2>/) || [])[1];
@@ -406,7 +425,7 @@ ${NEWS.length ? `<div class="sec-title"><h2>最新ニュース</h2><small><a hre
 
 
 for (const a of articles) {
-  const chunks = labelSources(marked.parse(a.body)).split(/(?=<h2>)/).filter(x => x.trim());
+  const chunks = labelSources(marked.parse(figs(a.body))).split(/(?=<h2>)/).filter(x => x.trim());
   const toc = [];
   const secs = chunks.map((c, i) => {
     const h = (c.match(/<h2>(.*?)<\/h2>/) || [])[1];
