@@ -8,6 +8,8 @@ const SRC = path.join(__dirname, 'entries');
 const OUT = path.join(__dirname, 'dist');
 const SITE = 'CC Hub';
 const TAGLINE = 'コンタクトセンター・ハブ';
+// Cloudflare Web Analytics のトークン(公開される値)。環境変数 CF_BEACON_TOKEN で上書きできる。空にすると計測タグを出さない
+const CF_BEACON_TOKEN = (process.env.CF_BEACON_TOKEN || '797b9349f0824a478a9e7c44741cc7bc').trim();
 const SITE_URL = (process.env.SITE_URL || '').replace(/\/$/, '');
 const TAGS = {
   '中立出典': { cls: 'tag-neutral', desc: '官公庁・自治体・公益法人・論文など、販売利益と無関係な出典を含む' },
@@ -294,6 +296,7 @@ ${jsonld ? `<script type="application/ld+json">${JSON.stringify(jsonld)}</script
 ${body}
 <footer class="site-footer"><div class="wrap"><div>${SITE}(${TAGLINE})<br>AIがネット上の情報をもとに作成し、出典を明記しています。</div>
 <div><a href="${root}about.html">このサイトについて</a> / <a href="${root}policy.html">編集方針と広告について</a></div></div></footer>
+${CF_BEACON_TOKEN ? `<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "${CF_BEACON_TOKEN}"}'></script>` : ''}
 </body></html>`;
 }
 
@@ -534,6 +537,8 @@ write('policy.html', page({
 <li>事典の項目の内容、出典のタグ、記事の順位は、報酬の有無や額で変えません</li>
 <li>サービスの比較・紹介は、事典とは別のページに置き、評価の基準を先に示します</li>
 <li>報酬の有無にかかわらず、デメリットや注意点も載せます</li></ul>
+<h2>アクセス解析について</h2>
+<p>サイトの改善のため、Cloudflare Web Analytics を使って、ページごとの閲覧数や参照元などを集計しています。Cookie は使わず、個人を特定する情報は集めません。計測を望まない場合は、ブラウザの設定や拡張機能で、計測のスクリプトを止めることができます。</p>
 <h2>免責事項</h2>
 <p>掲載する情報は、一般的な情報の提供を目的としたもので、法律や専門的な助言ではありません。法令や制度の判断は、必ず原典や専門家で確認してください。掲載内容の正確さには注意していますが、誤りや古い情報が含まれる場合があります。リンク先の情報や、外部のサービスの内容については、責任を負いかねます。</p>
 <h2>ニュースの掲載について</h2>
