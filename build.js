@@ -28,6 +28,13 @@ const SRC_LABELS = {
 };
 const CATS = ['用語', '指標', '運営', 'AI導入', '技術', '法規制', '人材'];
 
+const NEWS_FILE = path.join(__dirname, 'data', 'news.json');
+const NEWS = (fs.existsSync(NEWS_FILE) ? JSON.parse(fs.readFileSync(NEWS_FILE, 'utf8')) : [])
+  .map(n => ({ ...n, title: n.title.replace(/[\u3000\s]+/g, ' ').trim() }))
+  .sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+const fmtDate = d => (d || '').replace(/-/g, '/');
+const newsItem = n => `<li class="news-item"><div class="news-meta"><time>${esc(fmtDate(n.date))}</time><span class="badge plain">${esc(n.source)}</span></div><a href="${esc(n.link)}" target="_blank" rel="noopener">${esc(n.title)}</a></li>`;
+
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const catIdx = c => { const i = CATS.indexOf(c); return i < 0 ? CATS.length : i; };
 
@@ -110,6 +117,12 @@ a{color:var(--accent)}a:hover{text-decoration:none}
 .sec ul,.sec ol{padding-left:1.3em}.sec li{margin:.35em 0}
 .sec p{margin:.6em 0}
 .sec code{background:var(--line);padding:1px 6px;border-radius:5px;font-size:.9em}
+.news-list{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.news-item{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.news-item a{display:block;font-weight:600;line-height:1.6;text-decoration:none;color:var(--text)}.news-item a:hover{color:var(--accent)}
+.news-meta{display:flex;gap:8px;align-items:center;font-size:.8rem;color:var(--muted);margin-bottom:2px}
+.news-month{font-size:.95rem;color:var(--muted);margin:26px 0 10px;font-weight:700}
+.page-wide{max-width:50rem;margin:36px 0 60px}.page-wide h1{font-size:1.8rem}
 .page{max-width:44rem;margin:36px 0 60px}.page h1{font-size:1.8rem}.page h2{margin-top:30px}
 .site-footer{border-top:1px solid var(--line);margin-top:30px;padding:26px 0 40px;color:var(--muted);font-size:.85rem}
 .site-footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between}
@@ -218,8 +231,9 @@ write('index.html', page({
 <div class="search">${SEARCH_ICON}<input id="q" type="search" placeholder="用語を検索(例: AHT、カスハラ、ボイスボット)" aria-label="事典内を検索"></div></section>
 <div class="pillars">
 <a class="pillar" href="#dictionary"><b>事典</b><span>${entries.length}項目を公開中</span></a>
-<a class="pillar soon" href="news.html"><span class="tag">準備中</span><b>ニュース</b><span>業界の最新動向をまとめて確認</span></a>
+<a class="pillar" href="news.html"><b>ニュース</b><span>${NEWS.length}件を掲載(最新: ${esc(fmtDate((NEWS[0] || {}).date))})</span></a>
 <a class="pillar soon" href="tools.html"><span class="tag">準備中</span><b>ツール</b><span>現場で使える無料の計算ツール</span></a></div>
+${NEWS.length ? `<div class="sec-title"><h2>最新ニュース</h2><small><a href="news.html">すべて見る</a></small></div><ul class="news-list">${NEWS.slice(0, 5).map(newsItem).join('')}</ul>` : ''}
 <div class="sec-title" id="dictionary"><h2>事典</h2><small>${entries.length}項目</small></div>
 <div class="chips-label">分類</div><div class="chips"><button class="chip" data-group="cat" data-val="" aria-pressed="true">すべて</button>${usedCats.map(c => `<button class="chip" data-group="cat" data-val="${esc(c)}" aria-pressed="false">${esc(c)}</button>`).join('')}</div>
 <div class="chips-label">出典のタイプ</div><div class="chips"><button class="chip" data-group="tag" data-val="" aria-pressed="true">すべて</button>${Object.keys(TAGS).map(t => `<button class="chip" data-group="tag" data-val="${t}" aria-pressed="false">${t}</button>`).join('')}</div>
@@ -229,8 +243,17 @@ write('index.html', page({
 const simple = (file, key, title, desc, inner) => write(file, page({
   title: `${title} | ${SITE}`, desc, cur: key, body: `<div class="wrap"><div class="page"><h1>${title}</h1>${inner}</div></div>`,
 }));
-simple('news.html', 'news', 'ニュース', 'コンタクトセンター関連ニュース(準備中)',
-  '<div class="notice draft">準備中です。</div><p>業界の最新動向を、タイトル・要約・元記事へのリンクの形で掲載する予定です。本文の転載は行いません。</p>');
+const byMonth = {};
+for (const n of NEWS) (byMonth[(n.date || '').slice(0, 7) || '日付不明'] ||= []).push(n);
+const newsBody = NEWS.length
+  ? Object.entries(byMonth).map(([m, list]) => `<div class="news-month">${esc(m.replace('-', '年') + (m.includes('-') ? '月' : ''))}</div><ul class="news-list">${list.map(newsItem).join('')}</ul>`).join('')
+  : '<div class="notice draft">まだニュースがありません。</div>';
+write('news.html', page({
+  title: `ニュース | ${SITE}`, desc: 'コンタクトセンター関連ニュースの一覧(タイトルと元記事へのリンク)', cur: 'news',
+  body: `<div class="wrap"><div class="page-wide"><h1>ニュース</h1>
+<p>コンタクトセンター関連のニュースを、タイトルと元記事へのリンクで紹介します。本文の転載は行いません。記事は各媒体のサイトで読めます。</p>
+<p><small>掲載元: ITmedia、PR TIMES(キーワードで抽出)。自動で収集しており、関連の薄い記事が混じることがあります。</small></p>${newsBody}</div></div>`,
+}));
 simple('tools.html', 'tools', 'ツール', 'コンタクトセンター向け便利ツール(準備中)',
   '<div class="notice draft">準備中です。</div><p>サービスレベルやアーランCの計算など、現場で使える無料ツールを公開する予定です。事典の項目からも、関連するツールへ移動できるようにします。</p>');
 simple('about.html', 'about', 'このサイトについて', `${SITE}の方針と運営について`,
