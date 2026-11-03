@@ -53,6 +53,10 @@ const NEWS_KEYS = {
   'wfm-shift': ['シフト', '人員'],
   'bcp': ['BCP', '事業継続', '災害'],
   'call-recording': ['録音'],
+  'supervisor': ['SV', 'スーパーバイザー', 'リーダー'],
+  'attrition': ['離職', '辞め', '人手不足', '定着'],
+  'training': ['研修', '教育', '育成', '新人'],
+  'coaching': ['コーチング', 'フィードバック', '育成'],
 };
 // 事典の項目から、関連する項目へのリンク(内部リンク)
 const RELATED = {
@@ -68,12 +72,14 @@ const RELATED = {
   'ai-failure': ['chatbot', 'voicebot', 'ai-business-guidelines'], 'genai-assist': ['ai-business-guidelines', 'knowledge-management', 'voice-recognition'],
   'ccaas': ['cti', 'acd', 'omnichannel', 'remote-contact-center'], 'cti': ['acd', 'ivr', 'ccaas'], 'acd': ['ivr', 'cti', 'ccaas'],
   'ivr': ['acd', 'voicebot', 'abandon-rate'], 'omnichannel': ['ccaas', 'chatbot', 'voc'],
-  'voc': ['knowledge-management', 'voice-recognition', 'csat'], 'qa-monitoring': ['voice-recognition', 'knowledge-management', 'fcr'],
-  'knowledge-management': ['genai-assist', 'voc', 'fcr'], 'remote-contact-center': ['bcp', 'ccaas', 'qa-monitoring'],
-  'bcp': ['remote-contact-center', 'ccaas'], 'escalation': ['customer-harassment', 'chatbot', 'qa-monitoring'],
-  'stress-check': ['customer-harassment', 'remote-contact-center'], 'tokushoho-telemarketing': ['call-recording', 'customer-harassment'],
+  'voc': ['knowledge-management', 'voice-recognition', 'csat'], 'qa-monitoring': ['voice-recognition', 'knowledge-management', 'fcr', 'coaching'],
+  'knowledge-management': ['genai-assist', 'voc', 'fcr', 'training'], 'remote-contact-center': ['bcp', 'ccaas', 'qa-monitoring'],
+  'bcp': ['remote-contact-center', 'ccaas'], 'escalation': ['customer-harassment', 'chatbot', 'qa-monitoring', 'supervisor'],
+  'stress-check': ['customer-harassment', 'remote-contact-center', 'attrition'], 'tokushoho-telemarketing': ['call-recording', 'customer-harassment'],
   'disability-discrimination-act': ['telephone-relay-service', 'customer-harassment'], 'telephone-relay-service': ['disability-discrimination-act'],
   'ai-business-guidelines': ['ai-failure', 'genai-assist', 'chatbot'], 'voice-recognition': ['acw', 'voc', 'call-recording'],
+  'supervisor': ['coaching', 'training', 'qa-monitoring', 'escalation'], 'attrition': ['training', 'stress-check', 'customer-harassment', 'remote-contact-center'],
+  'training': ['coaching', 'supervisor', 'knowledge-management', 'attrition'], 'coaching': ['supervisor', 'qa-monitoring', 'training', 'csat'],
 };
 const NEWS_FILE = path.join(__dirname, 'data', 'news.json');
 const NEWS = (fs.existsSync(NEWS_FILE) ? JSON.parse(fs.readFileSync(NEWS_FILE, 'utf8')) : [])
