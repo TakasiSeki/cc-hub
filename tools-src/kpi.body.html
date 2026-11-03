@@ -1,0 +1,51 @@
+<div class="wrap">
+<div class="crumb"><a href="../index.html">ホーム</a> › <a href="../tools.html">ツール</a> › KPI計算機</div>
+<div class="article-head"><div class="badges"><span class="badge">計算ツール</span><span class="badge plain">ブラウザ内で計算(入力値は送信されません)</span></div>
+<h1>コンタクトセンター KPI計算機</h1>
+<p class="lead">応答率・放棄呼率・サービスレベル・AHT・占有率・一次解決率・CSAT・NPS を、実績の件数や時間から計算します。数値の定義は組織によって異なるため、各指標に計算式を併記しています。</p></div>
+
+<div class="tool">
+<form class="tool-form" autocomplete="off" onsubmit="return false">
+<h2>応対の実績(1か月・1日・1時間帯など、集計期間は自由)</h2>
+<div class="tool-grid">
+<label>着信数(件)<input id="offered" type="number" inputmode="decimal" min="0" step="any" value="1000"></label>
+<label>応答数(件)<input id="answered" type="number" inputmode="decimal" min="0" step="any" value="920"></label>
+<label>放棄数(件)<input id="abandoned" type="number" inputmode="decimal" min="0" step="any" value="80"></label>
+<label>うち短時間放棄(件)<input id="short" type="number" inputmode="decimal" min="0" step="any" value="15"></label>
+<label>目標時間内に応答した数(件)<input id="insl" type="number" inputmode="decimal" min="0" step="any" value="740"></label>
+<label>通話時間の合計(分)<input id="talk" type="number" inputmode="decimal" min="0" step="any" value="2760"></label>
+<label>保留時間の合計(分)<input id="hold" type="number" inputmode="decimal" min="0" step="any" value="230"></label>
+<label>後処理時間 ACW の合計(分)<input id="acw" type="number" inputmode="decimal" min="0" step="any" value="460"></label>
+<label>ログイン時間の合計(分)<input id="login" type="number" inputmode="decimal" min="0" step="any" value="4200"></label>
+</div>
+<p class="hint">短時間放棄は、5〜10秒未満など、各センターが除外すると決めたものの件数です(除外しない場合は0)。ログイン時間は、待機時間を含む、オペレーターがログインしていた時間の合計です。</p>
+<h2>品質の実績</h2>
+<div class="tool-grid">
+<label>一次解決の判定対象(件)<input id="fcrN" type="number" inputmode="decimal" min="0" step="any" value="400"></label>
+<label>うち初回で解決(件)<input id="fcrOk" type="number" inputmode="decimal" min="0" step="any" value="300"></label>
+<label>CSATの回答数(件)<input id="csatN" type="number" inputmode="decimal" min="0" step="any" value="200"></label>
+<label>うち満足(5段階の4または5)(件)<input id="csatOk" type="number" inputmode="decimal" min="0" step="any" value="150"></label>
+<label>NPS 推奨者(9〜10点)(人)<input id="npsP" type="number" inputmode="decimal" min="0" step="any" value="60"></label>
+<label>NPS 中立者(7〜8点)(人)<input id="npsN" type="number" inputmode="decimal" min="0" step="any" value="90"></label>
+<label>NPS 批判者(0〜6点)(人)<input id="npsD" type="number" inputmode="decimal" min="0" step="any" value="50"></label>
+</div>
+<p class="hint">入力欄の数値はサンプルです。空欄にした項目は、その指標だけ計算しません。</p>
+</form>
+
+<section class="tool-out" aria-live="polite">
+<h2>結果</h2>
+<div id="kpi" class="kpi-list"></div>
+</section>
+
+<section class="sec">
+<h2>使うときの注意</h2>
+<ul>
+<li>指標の定義は組織や製品によって異なります。他社の数値や、目安として挙げられる数値と比べる前に、分子・分母の定義を確認してください</li>
+<li>サービスレベルは、目標時間内に放棄された呼の扱いで式が変わります。ここでは2通りを示しています(製品によっては、放棄呼を処理済みとして数える方式もあります)</li>
+<li>占有率・稼働率は、名称と定義が資料によって異なります。ここでは「応対時間 ÷ ログイン時間」で計算しています</li>
+<li>CSAT は「5段階の上位2段階を満足とする」場合の式です。NPS は、推奨者の割合から批判者の割合を引いた値です</li>
+</ul>
+<p>関連する項目: <a href="../entries/response-rate.html">応答率とサービスレベル</a> / <a href="../entries/abandon-rate.html">放棄呼率</a> / <a href="../entries/aht.html">AHT</a> / <a href="../entries/acw.html">ACW</a> / <a href="../entries/occupancy-utilization.html">稼働率と占有率</a> / <a href="../entries/fcr.html">一次解決率</a> / <a href="../entries/csat.html">CSAT</a> / <a href="../entries/nps.html">NPS</a></p>
+</section>
+</div>
+</div>

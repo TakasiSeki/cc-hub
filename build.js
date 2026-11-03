@@ -32,6 +32,7 @@ const TOOLS_SRC = path.join(__dirname, 'tools-src');
 const readTool = f => fs.readFileSync(path.join(TOOLS_SRC, f), 'utf8');
 const TOOLS = [
   { slug: 'erlang-c', title: 'アーランC計算機(必要席数・サービスレベル)', desc: '着信数とAHTから、目標のサービスレベルを満たす必要席数を計算。人数を指定した場合のサービスレベルや待ち時間も確認できます。', tag: '要員計画', seo: '着信数とAHTから、目標のサービスレベルを満たす必要席数を計算する無料ツール。シュリンケージの見込みにも対応。', name: 'アーランC計算機' },
+  { slug: 'kpi', title: 'コンタクトセンター KPI計算機', desc: '応答率・放棄呼率・サービスレベル・AHT・占有率・一次解決率・CSAT・NPS を、実績の件数や時間から計算。各指標の計算式と解説へのリンク付き。', tag: 'KPI', seo: '応答率・放棄呼率・サービスレベル・AHT・占有率・FCR・CSAT・NPSを、実績の件数や時間から計算する無料ツール。計算式つき。', name: 'コンタクトセンター KPI計算機' },
   { slug: 'staffing', title: '時間帯別の必要席数 計算ツール', desc: '時間帯ごとの着信数から、必要席数とシュリンケージ込みの配置人数をまとめて計算。Excelからの貼り付けとCSV保存に対応。', tag: '要員計画', seo: '時間帯別の着信数から、必要席数と配置人数をアーランC式でまとめて計算する無料ツール。Excel貼り付けとCSV保存に対応。', name: '時間帯別の必要席数 計算ツール' },
 ];
 const NEWS_FILE = path.join(__dirname, 'data', 'news.json');
@@ -148,6 +149,10 @@ th{color:var(--muted);font-size:.8rem}
 .bar{flex:1 0 2rem;max-width:3.2rem;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;font-size:.7rem;color:var(--muted)}
 .bar-fill{width:70%;min-height:2px;background:var(--accent);border-radius:4px 4px 0 0}.bar-n{font-weight:700;color:var(--text);order:-1}.bar-t{margin-top:2px;white-space:nowrap}tr.hit td{background:var(--accent-soft);font-weight:700}
 .tool .sec{margin-top:16px}
+.kpi-list{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(19rem,1fr))}
+.kpi{border:1px solid var(--line);border-radius:12px;padding:12px 16px;background:var(--bg);display:flex;flex-direction:column;gap:4px}
+.kpi-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px}.kpi-label{font-weight:700;font-size:.9rem}.kpi-value{font-size:1.45rem;font-weight:800;white-space:nowrap}
+.kpi-f{font-size:.8rem;color:var(--muted)}.kpi-n{font-size:.8rem;color:var(--muted);line-height:1.6}.kpi-a{font-size:.8rem;margin-top:2px}
 .tool-cards{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(19rem,1fr))}
 .page-wide{max-width:50rem;margin:36px 0 60px}.page-wide h1{font-size:1.8rem}
 .page{max-width:44rem;margin:36px 0 60px}.page h1{font-size:1.8rem}.page h2{margin-top:30px}
@@ -259,7 +264,7 @@ write('index.html', page({
 <div class="pillars">
 <a class="pillar" href="#dictionary"><b>事典</b><span>${entries.length}項目を公開中</span></a>
 <a class="pillar" href="news.html"><b>ニュース</b><span>${NEWS.length}件を掲載(最新: ${esc(fmtDate((NEWS[0] || {}).date))})</span></a>
-<a class="pillar" href="tools.html"><b>ツール</b><span>${TOOLS.length}個を公開中(要員計画ほか)</span></a></div>
+<a class="pillar" href="tools.html"><b>ツール</b><span>${TOOLS.length}個を公開中(KPI・要員計画)</span></a></div>
 ${NEWS.length ? `<div class="sec-title"><h2>最新ニュース</h2><small><a href="news.html">すべて見る</a></small></div><ul class="news-list">${NEWS.slice(0, 5).map(newsItem).join('')}</ul>` : ''}
 <div class="sec-title" id="dictionary"><h2>事典</h2><small>${entries.length}項目</small></div>
 <div class="chips-label">分類</div><div class="chips"><button class="chip" data-group="cat" data-val="" aria-pressed="true">すべて</button>${usedCats.map(c => `<button class="chip" data-group="cat" data-val="${esc(c)}" aria-pressed="false">${esc(c)}</button>`).join('')}</div>

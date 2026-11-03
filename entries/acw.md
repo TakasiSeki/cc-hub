@@ -20,6 +20,9 @@ After-Call Work(アフターコールワーク)。通話や問い合わせが終
 - 平均値(例: 45秒、2分程度)を挙げる資料があるが、出典や定義が異なり、業界の標準値とは確認できていない。本ページには載せない
 - 短縮を急ぐと、記録の不備や、確認不足につながりうる(AHT の項目を参照)
 
+## 関連ツール
+- [コンタクトセンター KPI計算機](../tools/kpi.html): 実績の件数や時間から、この指標を計算できます(定義は組織によって異なるため、計算式を併記)
+
 ## 出典
 - 【ベンダー情報】Amazon Web Services「コンタクトセンターエージェントの ACW (問い合わせ後作業) 時間を決定する」(Amazon Connect 管理者ガイド) https://docs.aws.amazon.com/ja_jp/connect/latest/adminguide/determine-acw-time.html (取得 2026-11-03、本文確認済み。ACWの計測方法のみ。AHTとの関係や短縮策の記述なし)
 - 【ベンダー情報】Kustomer、VoiceSpin ほか(検索結果のみ確認。作業内容と短縮方法)

@@ -23,6 +23,9 @@ Average Handling Time(Average Handle Time とも)。1件の対応にかかった
 - 定義は組織や製品で揃っていない。後処理時間を含めるか、保留・転送・呼出時間を含めるか、分母を何件とするかで数値が変わるため、他社との比較には注意が必要
 - 「平均◯分が良い」といった統一的な目安は、確認できた資料では示されていない(目標値は業種・問い合わせ内容で大きく異なる)
 
+## 関連ツール
+- [コンタクトセンター KPI計算機](../tools/kpi.html): 実績の件数や時間から、この指標を計算できます(定義は組織によって異なるため、計算式を併記)
+
 ## 出典
 - 【調査レポート】Rick DeLisi (CEB) "Beware: First Contact Resolution is a Dangerous Trap", ICMI https://www.icmi.com/Resources/2014/Beware-First-Contact-Resolution-is-a-Dangerous-Trap (発行 2014-04-07、最終更新 2018-08-22、取得 2026-11-03、本文確認済み。調査会社 CEB の見解。調査の詳細な数値の根拠は記事内に示されておらず未確認。10年以上前の記事)
 - 【ベンダー情報】Salesforce「AHT(平均処理時間)とは」 https://www.salesforce.com/jp/hub/customer-service/what-is-aht/ (最終更新 2026-07-23、取得 2026-11-03、本文確認済み。定義・計算式・短縮の弊害)

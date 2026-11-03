@@ -28,6 +28,9 @@ NPS = 推奨者の割合(%) − 批判者の割合(%)。範囲は−100〜+100�
 - 業界によって平均が大きく異なり、異業種との比較は意味が乏しい
 - NPS は登録商標。正式な定義や運用は公式情報で確認が必要
 
+## 関連ツール
+- [コンタクトセンター KPI計算機](../tools/kpi.html): 実績の件数や時間から、この指標を計算できます(定義は組織によって異なるため、計算式を併記)
+
 ## 出典
 - 【論文】Reichheld, F. F. "The One Number You Need to Grow", Harvard Business Review, 2003年12月号 https://hbr.org/2003/12/the-one-number-you-need-to-grow (取得 2026-11-03。著者・掲載号・タイトルを確認。本文は未確認。提唱者本人の論文で、定義の一次資料)
 - 【ベンダー情報】CREX「ネットプロモータースコア(NPS)とは」 https://crexgroup.com/ja/consulting/method/what-is-nps/ (更新 2025-11-04、取得 2026-11-03、本文確認済み。コンサルティング会社の解説)
