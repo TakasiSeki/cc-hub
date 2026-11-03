@@ -21,8 +21,10 @@ updated: 2026-11-03
 - 出典は、いずれもAI・コンタクトセンター関連の事業者。自社サービスへの導線を含むため、割り引いて読む必要がある。Forbes JAPAN の記事(原文は Forbes Business Council 寄稿)の著者も、AIコンタクトセンターソリューション企業のCEOで、記事内で自社も同様のサービスを提供すると開示している
 - 記事に引用される「AIプロジェクトの失敗率」「チャットボットの解決率」などの数値は、二次引用で、元の調査は確認していない。そのため本ページには数値を載せていない
 - 日本国内の、解決率や利用率の信頼できる統計は見つかっていない
+- 海外の調査会社 Gartner は、2024年8月の発表資料で、顧客サービスの問い合わせのうちセルフサービスで完全に解決されたのは14%にとどまると発表している(発表資料の題名による。本文は取得できず、調査の対象・定義は未確認)。日本の状況を示すものではない
 
 ## 出典
+- 【調査レポート】Gartner「Gartner Survey Finds Only 14% of Customer Service Issues Are Fully Resolved in Self-Service」(プレスリリース) https://www.gartner.com/en/newsroom/press-releases/2024-08-19-gartner-survey-finds-only-14-percent-of-customer-service-issues-are-fully-resolved-in-self-service (発表 2024-08-19、取得 2026-11-03。HTTP 403で本文は取得できず、検索結果と題名でのみ確認)
 - 【ベンダー情報】NICE「コンタクトセンターAI導入でよくあるミス」 https://www.nice.com/answers/common-mistakes-in-contact-center-ai-implementation (記事日付 2026-08-07、取得 2026-11-03、本文確認済み。数値の根拠は記載なし)
 - 【ベンダー情報】Forbes JAPAN「コンタクトセンターAI、失敗の真因は『統合』にあり」 https://forbesjapan.com/articles/detail/92571 (2026-02-26、取得 2026-11-03、本文確認済み。寄稿者は事業者のCEO)
 - RightTouch、Zoom、Shelf.io の各記事(検索結果の要約でのみ確認、本文は未確認)
@@ -30,3 +32,4 @@ updated: 2026-11-03
 
 ## 更新履歴
 - 2026-11-03 新規作成(AI下書き)。NICE と Forbes JAPAN の本文を確認して作成
+- 2026-11-03 Gartner のセルフサービス解決率(題名のみ確認)を追加
