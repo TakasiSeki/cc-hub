@@ -40,7 +40,9 @@ const NEWS = (fs.existsSync(NEWS_FILE) ? JSON.parse(fs.readFileSync(NEWS_FILE, '
   .map(n => ({ ...n, title: n.title.replace(/[\u3000\s]+/g, ' ').trim() }))
   .sort((a, b) => (b.date || '').localeCompare(a.date || ''));
 const fmtDate = d => (d || '').replace(/-/g, '/');
-const newsItem = n => `<li class="news-item"><div class="news-meta"><time>${esc(fmtDate(n.date))}</time><span class="badge plain">${esc(n.source)}</span></div><a href="${esc(n.link)}" target="_blank" rel="noopener">${esc(n.title)}</a></li>`;
+const NOW = Date.now();
+const isNew = d => d && NOW - Date.parse(d + 'T00:00:00+09:00') < 14 * 24 * 3600 * 1000;
+const newsItem = n => `<li class="news-item" data-source="${esc(n.source)}"><div class="news-meta"><time>${esc(fmtDate(n.date))}</time><span class="badge plain">${esc(n.source)}</span>${isNew(n.date) ? '<span class="badge new">NEW</span>' : ''}</div><a href="${esc(n.link)}" target="_blank" rel="noopener">${esc(n.title)}</a></li>`;
 
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const catIdx = c => { const i = CATS.indexOf(c); return i < 0 ? CATS.length : i; };
@@ -128,6 +130,7 @@ a{color:var(--accent)}a:hover{text-decoration:none}
 .news-item{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
 .news-item a{display:block;font-weight:600;line-height:1.6;text-decoration:none;color:var(--text)}.news-item a:hover{color:var(--accent)}
 .news-meta{display:flex;gap:8px;align-items:center;font-size:.8rem;color:var(--muted);margin-bottom:2px}
+.badge.new{background:var(--accent);color:#fff}.news-count{font-weight:400;margin-left:6px}
 .news-month{font-size:.95rem;color:var(--muted);margin:26px 0 10px;font-weight:700}
 .lead{color:var(--muted);max-width:44rem;margin:.2rem 0 0}
 .tool{margin:18px 0 50px}.tool-form,.tool-out{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:8px 24px 20px;box-shadow:var(--shadow);margin-bottom:16px}
@@ -265,7 +268,7 @@ write('index.html', page({
 <a class="pillar" href="#dictionary"><b>事典</b><span>${entries.length}項目を公開中</span></a>
 <a class="pillar" href="news.html"><b>ニュース</b><span>${NEWS.length}件を掲載(最新: ${esc(fmtDate((NEWS[0] || {}).date))})</span></a>
 <a class="pillar" href="tools.html"><b>ツール</b><span>${TOOLS.length}個を公開中(KPI・要員計画)</span></a></div>
-${NEWS.length ? `<div class="sec-title"><h2>最新ニュース</h2><small><a href="news.html">すべて見る</a></small></div><ul class="news-list">${NEWS.slice(0, 5).map(newsItem).join('')}</ul>` : ''}
+${NEWS.length ? `<div class="sec-title"><h2>最新ニュース</h2><small><a href="news.html">すべて見る</a></small></div><ul class="news-list">${NEWS.slice(0, 6).map(newsItem).join('')}</ul>` : ''}
 <div class="sec-title" id="dictionary"><h2>事典</h2><small>${entries.length}項目</small></div>
 <div class="chips-label">分類</div><div class="chips"><button class="chip" data-group="cat" data-val="" aria-pressed="true">すべて</button>${usedCats.map(c => `<button class="chip" data-group="cat" data-val="${esc(c)}" aria-pressed="false">${esc(c)}</button>`).join('')}</div>
 <div class="chips-label">出典のタイプ</div><div class="chips"><button class="chip" data-group="tag" data-val="" aria-pressed="true">すべて</button>${Object.keys(TAGS).map(t => `<button class="chip" data-group="tag" data-val="${t}" aria-pressed="false">${t}</button>`).join('')}</div>
@@ -278,7 +281,7 @@ const simple = (file, key, title, desc, inner) => write(file, page({
 const byMonth = {};
 for (const n of NEWS) (byMonth[(n.date || '').slice(0, 7) || '日付不明'] ||= []).push(n);
 const newsBody = NEWS.length
-  ? Object.entries(byMonth).map(([m, list]) => `<div class="news-month">${esc(m.replace('-', '年') + (m.includes('-') ? '月' : ''))}</div><ul class="news-list">${list.map(newsItem).join('')}</ul>`).join('')
+  ? Object.entries(byMonth).map(([m, list]) => `<div class="news-month">${esc(m.replace('-', '年') + (m.includes('-') ? '月' : ''))}<span class="news-count">${list.length}件</span></div><ul class="news-list">${list.map(newsItem).join('')}</ul>`).join('')
   : '<div class="notice draft">まだニュースがありません。</div>';
 write('news.html', page({
   title: `ニュース | ${SITE}`, desc: 'コンタクトセンター関連ニュースの一覧(タイトルと元記事へのリンク)', cur: 'news',
@@ -286,10 +289,14 @@ write('news.html', page({
 <p>コンタクトセンター関連のニュースを、タイトルと元記事へのリンクで紹介します。本文の転載は行いません。記事は各媒体のサイトで読めます。</p>
 <p><small>掲載元: ITmedia、TechTarget ジャパン(コンタクトセンター関連の記事一覧から収集)、日本コンタクトセンター協会(CCAJ のお知らせ)。関連の薄い記事が混じることがあります。</small></p>
 <div class="search" style="margin:14px 0 6px">${SEARCH_ICON}<input id="nq" type="search" placeholder="ニュースを検索(例: カスハラ、AI、ボイスボット)" aria-label="ニュース内を検索"></div>
+<div class="chips-label">媒体</div><div class="chips" id="nsrc"><button class="chip" data-val="" aria-pressed="true">すべて(${NEWS.length})</button>${[...new Set(NEWS.map(n => n.source))].map(src => `<button class="chip" data-val="${esc(src)}" aria-pressed="false">${esc(src)}(${NEWS.filter(n => n.source === src).length})</button>`).join('')}</div>
 <div id="nlist">${newsBody}</div><div class="empty" id="nempty">該当するニュースが見つかりませんでした。</div></div></div>
-<script>(function(){var q=document.getElementById('nq'),items=[].slice.call(document.querySelectorAll('.news-item')),months=[].slice.call(document.querySelectorAll('.news-month')),empty=document.getElementById('nempty');
-q.addEventListener('input',function(){var t=q.value.trim().toLowerCase(),n=0;items.forEach(function(li){var ok=!t||li.textContent.toLowerCase().indexOf(t)>-1;li.style.display=ok?'':'none';if(ok)n++});
-months.forEach(function(m){var ul=m.nextElementSibling,vis=[].slice.call(ul.children).some(function(li){return li.style.display!=='none'});m.style.display=vis?'':'none';ul.style.display=vis?'':'none'});empty.style.display=n?'none':'block'})})();</script>`,
+<script>(function(){var q=document.getElementById('nq'),items=[].slice.call(document.querySelectorAll('.news-item')),months=[].slice.call(document.querySelectorAll('.news-month')),chips=[].slice.call(document.querySelectorAll('#nsrc .chip')),empty=document.getElementById('nempty'),src='';
+function apply(){var t=q.value.trim().toLowerCase(),n=0;items.forEach(function(li){var ok=(!src||li.getAttribute('data-source')===src)&&(!t||li.textContent.toLowerCase().indexOf(t)>-1);li.style.display=ok?'':'none';if(ok)n++});
+months.forEach(function(m){var ul=m.nextElementSibling,vis=[].slice.call(ul.children).some(function(li){return li.style.display!=='none'});m.style.display=vis?'':'none';ul.style.display=vis?'':'none'});empty.style.display=n?'none':'block'}
+q.addEventListener('input',apply);
+chips.forEach(function(b){b.addEventListener('click',function(){src=b.getAttribute('data-val');chips.forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});apply()})});})();
+</script>`,
 }));
 fs.mkdirSync(path.join(OUT, 'tools'), { recursive: true });
 write('tools.html', page({
