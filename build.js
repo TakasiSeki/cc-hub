@@ -31,9 +31,9 @@ const CATS = ['用語', '指標', '運営', 'AI導入', '技術', '法規制', '
 const TOOLS_SRC = path.join(__dirname, 'tools-src');
 const readTool = f => fs.readFileSync(path.join(TOOLS_SRC, f), 'utf8');
 const TOOLS = [
-  { slug: 'erlang-c', title: 'アーランC計算機(必要席数・サービスレベル)', desc: '着信数とAHTから、目標のサービスレベルを満たす必要席数を計算。人数を指定した場合のサービスレベルや待ち時間も確認できます。', tag: '要員計画', seo: '着信数とAHTから、目標のサービスレベルを満たす必要席数を計算する無料ツール。シュリンケージの見込みにも対応。', name: 'アーランC計算機' },
-  { slug: 'kpi', title: 'コンタクトセンター KPI計算機', desc: '応答率・放棄呼率・サービスレベル・AHT・占有率・一次解決率・CSAT・NPS を、実績の件数や時間から計算。各指標の計算式と解説へのリンク付き。', tag: 'KPI', seo: '応答率・放棄呼率・サービスレベル・AHT・占有率・FCR・CSAT・NPSを、実績の件数や時間から計算する無料ツール。計算式つき。', name: 'コンタクトセンター KPI計算機' },
-  { slug: 'staffing', title: '時間帯別の必要席数 計算ツール', desc: '時間帯ごとの着信数から、必要席数とシュリンケージ込みの配置人数をまとめて計算。Excelからの貼り付けとCSV保存に対応。', tag: '要員計画', seo: '時間帯別の着信数から、必要席数と配置人数をアーランC式でまとめて計算する無料ツール。Excel貼り付けとCSV保存に対応。', name: '時間帯別の必要席数 計算ツール' },
+  { slug: 'erlang-c', title: 'アーランC計算機(必要席数・サービスレベル)', desc: '着信数とAHTから、目標のサービスレベルを満たす必要席数を計算。人数を指定した場合のサービスレベルや待ち時間も確認できます。', tag: '要員計画', seoTitle: 'アーランC計算ツール｜必要席数とサービスレベルを無料で計算', seo: '着信数とAHTから、目標のサービスレベルを満たす必要席数を計算する無料ツール。シュリンケージの見込みにも対応。', name: 'アーランC計算機' },
+  { slug: 'kpi', title: 'コンタクトセンター KPI計算機', desc: '応答率・放棄呼率・サービスレベル・AHT・占有率・一次解決率・CSAT・NPS を、実績の件数や時間から計算。各指標の計算式と解説へのリンク付き。', tag: 'KPI', seoTitle: 'コンタクトセンター KPI計算ツール｜応答率・AHT・放棄呼率・NPS', seo: '応答率・放棄呼率・サービスレベル・AHT・占有率・FCR・CSAT・NPSを、実績の件数や時間から計算する無料ツール。計算式つき。', name: 'コンタクトセンター KPI計算機' },
+  { slug: 'staffing', title: '時間帯別の必要席数 計算ツール', desc: '時間帯ごとの着信数から、必要席数とシュリンケージ込みの配置人数をまとめて計算。Excelからの貼り付けとCSV保存に対応。', tag: '要員計画', seoTitle: '時間帯別の必要席数 計算ツール｜コールセンターの人員計画', seo: '時間帯別の着信数から、必要席数と配置人数をアーランC式でまとめて計算する無料ツール。Excel貼り付けとCSV保存に対応。', name: '時間帯別の必要席数 計算ツール' },
 ];
 // 事典の項目ごとに、関連ニュースを探す語(記事の題名に含まれるもの)
 const NEWS_KEYS = {
@@ -53,6 +53,27 @@ const NEWS_KEYS = {
   'wfm-shift': ['シフト', '人員'],
   'bcp': ['BCP', '事業継続', '災害'],
   'call-recording': ['録音'],
+};
+// 事典の項目から、関連する項目へのリンク(内部リンク)
+const RELATED = {
+  'aht': ['acw', 'fcr', 'occupancy-utilization', 'erlang-c'], 'acw': ['aht', 'voice-recognition', 'genai-assist'],
+  'fcr': ['aht', 'csat', 'knowledge-management'], 'csat': ['nps', 'fcr', 'voc'], 'nps': ['csat', 'voc'],
+  'response-rate': ['abandon-rate', 'erlang-c', 'aht'], 'abandon-rate': ['response-rate', 'ivr', 'erlang-c'],
+  'occupancy-utilization': ['erlang-c', 'aht', 'wfm-shift'], 'erlang-c': ['wfm-shift', 'response-rate', 'occupancy-utilization'],
+  'wfm-shift': ['erlang-c', 'occupancy-utilization', 'remote-contact-center'],
+  'customer-harassment': ['escalation', 'stress-check', 'call-recording'],
+  'call-recording': ['outsourcing-supervision', 'data-breach-report', 'voice-recognition'],
+  'data-breach-report': ['outsourcing-supervision', 'call-recording'], 'outsourcing-supervision': ['ccaas', 'data-breach-report'],
+  'voicebot': ['ivr', 'chatbot', 'voice-recognition'], 'chatbot': ['voicebot', 'ai-failure', 'escalation'],
+  'ai-failure': ['chatbot', 'voicebot', 'ai-business-guidelines'], 'genai-assist': ['ai-business-guidelines', 'knowledge-management', 'voice-recognition'],
+  'ccaas': ['cti', 'acd', 'omnichannel', 'remote-contact-center'], 'cti': ['acd', 'ivr', 'ccaas'], 'acd': ['ivr', 'cti', 'ccaas'],
+  'ivr': ['acd', 'voicebot', 'abandon-rate'], 'omnichannel': ['ccaas', 'chatbot', 'voc'],
+  'voc': ['knowledge-management', 'voice-recognition', 'csat'], 'qa-monitoring': ['voice-recognition', 'knowledge-management', 'fcr'],
+  'knowledge-management': ['genai-assist', 'voc', 'fcr'], 'remote-contact-center': ['bcp', 'ccaas', 'qa-monitoring'],
+  'bcp': ['remote-contact-center', 'ccaas'], 'escalation': ['customer-harassment', 'chatbot', 'qa-monitoring'],
+  'stress-check': ['customer-harassment', 'remote-contact-center'], 'tokushoho-telemarketing': ['call-recording', 'customer-harassment'],
+  'disability-discrimination-act': ['telephone-relay-service', 'customer-harassment'], 'telephone-relay-service': ['disability-discrimination-act'],
+  'ai-business-guidelines': ['ai-failure', 'genai-assist', 'chatbot'], 'voice-recognition': ['acw', 'voc', 'call-recording'],
 };
 const NEWS_FILE = path.join(__dirname, 'data', 'news.json');
 const NEWS = (fs.existsSync(NEWS_FILE) ? JSON.parse(fs.readFileSync(NEWS_FILE, 'utf8')) : [])
@@ -194,6 +215,8 @@ th{color:var(--muted);font-size:.8rem}
 .kpi-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px}.kpi-label{font-weight:700;font-size:.9rem}.kpi-value{font-size:1.45rem;font-weight:800;white-space:nowrap}
 .kpi-f{font-size:.8rem;color:var(--muted)}.kpi-n{font-size:.8rem;color:var(--muted);line-height:1.6}.kpi-a{font-size:.8rem;margin-top:2px}
 .tool-cards{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(19rem,1fr))}
+.point{background:var(--accent-soft);border-radius:12px;padding:12px 18px;margin:14px 0 8px}.point b{font-size:.85rem;color:var(--accent)}.point p{margin:.2em 0 0}
+.rel-list{display:flex;flex-wrap:wrap;gap:8px 18px;padding-left:1.2em}
 .page-wide{max-width:50rem;margin:36px 0 60px}.page-wide h1{font-size:1.8rem}
 .page{max-width:44rem;margin:36px 0 60px}.page h1{font-size:1.8rem}.page h2{margin-top:30px}
 .site-footer{border-top:1px solid var(--line);margin-top:30px;padding:26px 0 40px;color:var(--muted);font-size:.85rem}
@@ -230,7 +253,9 @@ fs.mkdirSync(path.join(OUT, 'entries'), { recursive: true });
 const write = (rel, html) => {
   if (SITE_URL && rel.endsWith('.html')) {
     const url = rel === 'index.html' ? `${SITE_URL}/` : `${SITE_URL}/${rel}`;
-    html = html.replace('</head>', `<link rel="canonical" href="${url}"><meta property="og:url" content="${url}"></head>`);
+    const hasOg = fs.existsSync(path.join(__dirname, 'static', 'og.png'));
+    html = html.replace('</head>', `<link rel="canonical" href="${url}"><meta property="og:url" content="${url}">${hasOg ? `<meta property="og:image" content="${SITE_URL}/og.png"><meta name="twitter:image" content="${SITE_URL}/og.png">` : ''}<link rel="alternate" type="application/rss+xml" title="${SITE} 事典の更新" href="${SITE_URL}/feed.xml"><link rel="alternate" type="application/rss+xml" title="${SITE} ニュース" href="${SITE_URL}/news.xml"></head>`);
+    if (hasOg) html = html.replace('name="twitter:card" content="summary"', 'name="twitter:card" content="summary_large_image"');
   }
   fs.writeFileSync(path.join(OUT, rel), html);
 };
@@ -245,6 +270,11 @@ const deriveTags = body => {
 const tagBadges = tags => tags.map(t => `<span class="badge ${(TAGS[t] || {}).cls || 'plain'}">${esc(t)}</span>`).join('');
 const labelSources = html => html.replace(/<li>【([^】]+)】/g, (m, l) => SRC_LABELS[l] ? `<li><span class="badge src ${SRC_LABELS[l].cls}">${l}</span>` : m);
 
+const TITLES = {};
+for (const f of fs.readdirSync(SRC)) {
+  if (!f.endsWith('.md') || f.startsWith('_')) continue;
+  TITLES[f.replace(/\.md$/, '')] = parse(fs.readFileSync(path.join(SRC, f), 'utf8')).meta.title;
+}
 const entries = [];
 for (const f of fs.readdirSync(SRC)) {
   if (!f.endsWith('.md') || f.startsWith('_')) continue;
@@ -266,9 +296,12 @@ for (const f of fs.readdirSync(SRC)) {
   }).join('\n');
 
   const relNews = RANKED.filter(n => (NEWS_KEYS[slug] || []).some(k => n.title.includes(k))).slice(0, 5);
-  const relHtml = relNews.length ? `<section class="sec" id="news"><h2>関連ニュース</h2><p><small>題名の語から自動で選んでいます(注目度の高い順)。関連の薄い記事が出ることがあります。</small></p><ul class="news-list">${relNews.map(n => newsItem(n)).join('')}</ul></section>` : '';
+  let relHtml = relNews.length ? `<section class="sec" id="news"><h2>関連ニュース</h2><p><small>題名の語から自動で選んでいます(注目度の高い順)。関連の薄い記事が出ることがあります。</small></p><ul class="news-list">${relNews.map(n => newsItem(n)).join('')}</ul></section>` : '';
+  const relItems = (RELATED[slug] || []).filter(x => TITLES[x]);
+  const relItemsHtml = relItems.length ? `<section class="sec" id="related"><h2>関連する項目</h2><ul class="rel-list">${relItems.map(x => `<li><a href="${x}.html">${esc(TITLES[x])}</a></li>`).join('')}</ul></section>` : '';
+  relHtml = relItemsHtml + relHtml;
   const sectionsFull = relHtml && sections.includes('<section class="sec sec-source"') ? sections.replace('<section class="sec sec-source"', relHtml + '<section class="sec sec-source"') : sections + relHtml;
-  if (relNews.length) { const ti = toc.findIndex(t => t.includes('出典')); toc.splice(ti >= 0 ? ti : toc.length, 0, '<a href="#news">関連ニュース</a>'); }
+  { const add = [relItems.length ? '<a href="#related">関連する項目</a>' : '', relNews.length ? '<a href="#news">関連ニュース</a>' : ''].filter(Boolean); const ti = toc.findIndex(t => t.includes('出典')); toc.splice(ti >= 0 ? ti : toc.length, 0, ...add); }
   const notes = [];
   if (tags.includes('中立出典')) notes.push('官公庁・自治体・公益法人・論文など、中立的な出典を含みます。');
   if (tags.includes('調査レポート')) notes.push('調査会社・コンサルティング会社による調査結果を含みます。');
@@ -277,16 +310,17 @@ for (const f of fs.readdirSync(SRC)) {
   if (!notes.length) notes.push('出典の種類が分類されていません。');
   const notice = `<div class="notice">${notes.map(n => `<p>${n}</p>`).join('')}<p>出典ごとのラベルは出典欄にあります。<a href="../about.html#tags">タグの意味</a></p></div>`;
   write(`entries/${slug}.html`, page({
-    title: `${meta.title} | ${SITE}`,
-    desc: `${meta.title}の定義・通説・異論・出典`,
+    title: `${meta.title}とは？定義・通説・注意点 | ${SITE}`,
+    desc: meta.point || summary(body) || `${meta.title}の定義・通説・異論・出典`,
     root: '../', cur: 'dict',
     body: `<div class="wrap">
 <div class="crumb"><a href="../index.html">ホーム</a> › <a href="../index.html#dictionary">事典</a> › ${esc(meta.category || '')}</div>
 <div class="article-head"><div class="badges"><span class="badge">${esc(meta.category || '')}</span>${tagBadges(tags)}<span class="badge plain">合意度: ${esc(meta.consensus || '')}</span></div>
 <h1>${esc(meta.title)}</h1><div class="meta-line">最終更新: ${esc(meta.updated || '')}</div></div>
+${meta.point ? `<div class="point"><b>30秒で分かる要点</b><p>${esc(meta.point)}</p></div>` : ''}
 ${notice}
 <div class="layout"><article>${sectionsFull}</article><aside class="toc"><b>目次</b>${toc.join('')}</aside></div></div>`,
-    jsonld: { '@context': 'https://schema.org', '@type': 'Article', headline: meta.title, dateModified: meta.updated, inLanguage: 'ja' },
+    jsonld: { '@context': 'https://schema.org', '@type': 'Article', headline: meta.title, description: meta.point || undefined, dateModified: meta.updated, inLanguage: 'ja' },
   }));
 }
 
@@ -363,7 +397,7 @@ write('tools.html', page({
 }));
 for (const t of TOOLS) {
   write(`tools/${t.slug}.html`, page({
-    title: `${t.title} | ${SITE}`, desc: t.seo, root: '../', cur: 'tools',
+    title: `${t.seoTitle} | ${SITE}`, desc: t.seo, root: '../', cur: 'tools',
     body: readTool(`${t.slug}.body.html`) + `<script>${readTool('erlang.js')}</script><script>${readTool(`${t.slug}.ui.js`)}</script>`,
     jsonld: { '@context': 'https://schema.org', '@type': 'WebApplication', name: t.name, applicationCategory: 'BusinessApplication', operatingSystem: 'Web', inLanguage: 'ja', offers: { '@type': 'Offer', price: '0', priceCurrency: 'JPY' } },
   }));
@@ -376,6 +410,22 @@ simple('about.html', 'about', 'このサイトについて', `${SITE}の方針�
 <p>出典欄の各行にも、「公的資料」「公益法人」「論文」「業界団体」「調査レポート」「ベンダー情報」「メディア記事」のラベルを付けています。項目のタグは、出典欄のラベルから自動で決まります。複数のタグが付く項目もあります。タグの種類は、必要に応じて増やします。</p>
 <p>誤りに気づかれた場合は、出典とあわせてお知らせいただけると助かります。方法は、<a href="policy.html">編集方針と広告について</a>に書いています。</p>`);
 
+// 静的ファイル(OGP画像など)をコピーする
+const STATIC = path.join(__dirname, 'static');
+if (fs.existsSync(STATIC)) for (const f of fs.readdirSync(STATIC)) fs.copyFileSync(path.join(STATIC, f), path.join(OUT, f));
+
+// RSS(公開URLが分かるときだけ)
+const rfc822 = d => new Date((d || '1970-01-01') + 'T09:00:00+09:00').toUTCString();
+const xesc = x => String(x).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const feed = (title, desc, items) => `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"><channel><title>${xesc(title)}</title><link>${SITE_URL}/</link><description>${xesc(desc)}</description><language>ja</language>
+${items.map(i => `<item><title>${xesc(i.title)}</title><link>${xesc(i.link)}</link><guid>${xesc(i.link)}</guid><pubDate>${rfc822(i.date)}</pubDate>${i.desc ? `<description>${xesc(i.desc)}</description>` : ''}</item>`).join('\n')}
+</channel></rss>
+`;
+if (SITE_URL) {
+  write('feed.xml', feed(`${SITE} 事典の更新`, 'コンタクトセンターの事典の新着・更新', entries.map(e => ({ title: e.title, link: `${SITE_URL}/entries/${e.slug}.html`, date: e.updated, desc: e.point || e.summary })).sort((a, b) => (b.date || '').localeCompare(a.date || ''))));
+  write('news.xml', feed(`${SITE} ニュース`, 'コンタクトセンター関連ニュース(タイトルと元記事へのリンク)', NEWS.slice(0, 50).map(n => ({ title: n.title, link: n.link, date: n.date, desc: `${n.source}の記事` }))));
+}
 const GITHUB = 'https://github.com/TakasiSeki/cc-hub';
 write('policy.html', page({
   title: `編集方針と広告について | ${SITE}`, desc: `${SITE}の編集方針、広告・報酬の扱い、免責事項、誤りの指摘の方法`, cur: 'about',
@@ -396,6 +446,8 @@ write('policy.html', page({
 <p>掲載する情報は、一般的な情報の提供を目的としたもので、法律や専門的な助言ではありません。法令や制度の判断は、必ず原典や専門家で確認してください。掲載内容の正確さには注意していますが、誤りや古い情報が含まれる場合があります。リンク先の情報や、外部のサービスの内容については、責任を負いかねます。</p>
 <h2>ニュースの掲載について</h2>
 <p>ニュースは、記事のタイトルと元記事へのリンクのみを掲載し、本文は転載しません。注目度の順位は、閲覧数ではなく、公開日、はてなブックマーク数、話題の語から計算した目安です(基準は<a href="news.html#about-rank">ニュースのページ</a>)。</p>
+<h2>更新の受け取り</h2>
+<p>事典の更新は<a href="feed.xml">feed.xml</a>、ニュースは<a href="news.xml">news.xml</a>の、RSSで購読できます。</p>
 <h2>誤りの指摘・ご意見</h2>
 <p>内容の誤りや、古くなった情報に気づかれた場合は、出典とあわせて、<a href="${GITHUB}/issues" target="_blank" rel="noopener">GitHub の Issues</a> でお知らせください。確認のうえ、修正します。</p></div></div>`,
 }));
