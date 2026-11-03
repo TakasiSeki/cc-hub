@@ -35,6 +35,25 @@ const TOOLS = [
   { slug: 'kpi', title: 'コンタクトセンター KPI計算機', desc: '応答率・放棄呼率・サービスレベル・AHT・占有率・一次解決率・CSAT・NPS を、実績の件数や時間から計算。各指標の計算式と解説へのリンク付き。', tag: 'KPI', seo: '応答率・放棄呼率・サービスレベル・AHT・占有率・FCR・CSAT・NPSを、実績の件数や時間から計算する無料ツール。計算式つき。', name: 'コンタクトセンター KPI計算機' },
   { slug: 'staffing', title: '時間帯別の必要席数 計算ツール', desc: '時間帯ごとの着信数から、必要席数とシュリンケージ込みの配置人数をまとめて計算。Excelからの貼り付けとCSV保存に対応。', tag: '要員計画', seo: '時間帯別の着信数から、必要席数と配置人数をアーランC式でまとめて計算する無料ツール。Excel貼り付けとCSV保存に対応。', name: '時間帯別の必要席数 計算ツール' },
 ];
+// 事典の項目ごとに、関連ニュースを探す語(記事の題名に含まれるもの)
+const NEWS_KEYS = {
+  'customer-harassment': ['カスハラ', 'カスタマーハラスメント'],
+  'chatbot': ['チャットボット', 'チャット問い合わせ'],
+  'voicebot': ['ボイスボット', 'AIオペレーター', '電話をAI', '夜間電話'],
+  'genai-assist': ['生成AI', 'AIエージェント', 'オペレーター支援'],
+  'ai-failure': ['AI導入', 'AIが失敗', '失敗する', '盲点'],
+  'voc': ['VoC', 'VOC', '顧客の声'],
+  'qa-monitoring': ['品質', '評価業務'],
+  'knowledge-management': ['ナレッジ', 'FAQ'],
+  'remote-contact-center': ['在宅'],
+  'ccaas': ['Amazon Connect', 'クラウド', 'CCaaS'],
+  'omnichannel': ['オムニチャネル', 'チャネル'],
+  'ivr': ['IVR', '自動音声'],
+  'voice-recognition': ['音声認識', '文字起こし'],
+  'wfm-shift': ['シフト', '人員'],
+  'bcp': ['BCP', '事業継続', '災害'],
+  'call-recording': ['録音'],
+};
 const NEWS_FILE = path.join(__dirname, 'data', 'news.json');
 const NEWS = (fs.existsSync(NEWS_FILE) ? JSON.parse(fs.readFileSync(NEWS_FILE, 'utf8')) : [])
   .map(n => ({ ...n, title: n.title.replace(/[\u3000\s]+/g, ' ').trim() }))
@@ -42,7 +61,21 @@ const NEWS = (fs.existsSync(NEWS_FILE) ? JSON.parse(fs.readFileSync(NEWS_FILE, '
 const fmtDate = d => (d || '').replace(/-/g, '/');
 const NOW = Date.now();
 const isNew = d => d && NOW - Date.parse(d + 'T00:00:00+09:00') < 14 * 24 * 3600 * 1000;
-const newsItem = n => `<li class="news-item" data-source="${esc(n.source)}"><div class="news-meta"><time>${esc(fmtDate(n.date))}</time><span class="badge plain">${esc(n.source)}</span>${isNew(n.date) ? '<span class="badge new">NEW</span>' : ''}</div><a href="${esc(n.link)}" target="_blank" rel="noopener">${esc(n.title)}</a></li>`;
+const BM_FILE = path.join(__dirname, 'data', 'bookmarks.json');
+const BOOKMARKS = fs.existsSync(BM_FILE) ? JSON.parse(fs.readFileSync(BM_FILE, 'utf8')) : {};
+const HOT = ['カスハラ', 'カスタマーハラスメント', '生成AI', 'AIエージェント', 'ボイスボット', '義務化', '法規制', '個人情報'];
+// 注目度の目安 = 新しさ(0〜10点) + はてなブックマーク数(1件1点、上限10点) + 話題キーワード(1語3点、上限6点)
+function scoreNews(n) {
+  const days = (NOW - Date.parse((n.date || '1970-01-01') + 'T00:00:00+09:00')) / 86400000;
+  const rec = days <= 7 ? 10 : days <= 30 ? 8 : days <= 90 ? 6 : days <= 180 ? 4 : days <= 365 ? 2 : 0;
+  const bm = BOOKMARKS[n.link] || 0;
+  const hot = HOT.filter(k => n.title.includes(k)).length;
+  return { total: rec + Math.min(bm, 10) + Math.min(hot, 2) * 3, rec, bm, hot };
+}
+NEWS.forEach(n => { n.score = scoreNews(n); });
+const RANKED = [...NEWS].sort((a, b) => b.score.total - a.score.total || (b.date || '').localeCompare(a.date || ''));
+const reason = n => [n.score.bm ? `ブックマーク${n.score.bm}` : '', n.score.hot ? '話題のテーマ' : '', n.score.rec >= 8 ? '新着' : ''].filter(Boolean).join(' · ');
+const newsItem = (n, rank) => `<li class="news-item" data-source="${esc(n.source)}" data-score="${n.score.total}">${rank ? `<span class="rank">${rank}</span>` : ''}<div class="news-body"><div class="news-meta"><time>${esc(fmtDate(n.date))}</time><span class="badge plain">${esc(n.source)}</span>${isNew(n.date) ? '<span class="badge new">NEW</span>' : ''}${rank && reason(n) ? `<span class="news-why">${esc(reason(n))}</span>` : ''}</div><a href="${esc(n.link)}" target="_blank" rel="noopener">${esc(n.title)}</a></div></li>`;
 
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const catIdx = c => { const i = CATS.indexOf(c); return i < 0 ? CATS.length : i; };
@@ -131,6 +164,10 @@ a{color:var(--accent)}a:hover{text-decoration:none}
 .news-item a{display:block;font-weight:600;line-height:1.6;text-decoration:none;color:var(--text)}.news-item a:hover{color:var(--accent)}
 .news-meta{display:flex;gap:8px;align-items:center;font-size:.8rem;color:var(--muted);margin-bottom:2px}
 .badge.new{background:var(--accent);color:#fff}.news-count{font-weight:400;margin-left:6px}
+.rank{flex:none;width:2rem;height:2rem;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:800;display:grid;place-items:center;font-size:.95rem}
+.rank-list .news-item{display:flex;gap:12px;align-items:flex-start}.rank-list .news-item:nth-child(-n+3) .rank{background:var(--accent);color:#fff}
+.news-body{flex:1;min-width:0}.news-why{color:var(--accent);font-weight:700}
+.sort-toggle{display:flex;gap:8px;margin:10px 0 4px}
 .news-month{font-size:.95rem;color:var(--muted);margin:26px 0 10px;font-weight:700}
 .lead{color:var(--muted);max-width:44rem;margin:.2rem 0 0}
 .tool{margin:18px 0 50px}.tool-form,.tool-out{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:8px 24px 20px;box-shadow:var(--shadow);margin-bottom:16px}
@@ -222,6 +259,10 @@ for (const f of fs.readdirSync(SRC)) {
     return `<section class="sec ${SEC_CLASS(h)}" id="${id}">${c}</section>`;
   }).join('\n');
 
+  const relNews = RANKED.filter(n => (NEWS_KEYS[slug] || []).some(k => n.title.includes(k))).slice(0, 5);
+  const relHtml = relNews.length ? `<section class="sec" id="news"><h2>関連ニュース</h2><p><small>題名の語から自動で選んでいます(注目度の高い順)。関連の薄い記事が出ることがあります。</small></p><ul class="news-list">${relNews.map(n => newsItem(n)).join('')}</ul></section>` : '';
+  const sectionsFull = relHtml && sections.includes('<section class="sec sec-source"') ? sections.replace('<section class="sec sec-source"', relHtml + '<section class="sec sec-source"') : sections + relHtml;
+  if (relNews.length) { const ti = toc.findIndex(t => t.includes('出典')); toc.splice(ti >= 0 ? ti : toc.length, 0, '<a href="#news">関連ニュース</a>'); }
   const notes = [];
   if (tags.includes('中立出典')) notes.push('官公庁・自治体・公益法人・論文など、中立的な出典を含みます。');
   if (tags.includes('調査レポート')) notes.push('調査会社・コンサルティング会社による調査結果を含みます。');
@@ -238,7 +279,7 @@ for (const f of fs.readdirSync(SRC)) {
 <div class="article-head"><div class="badges"><span class="badge">${esc(meta.category || '')}</span>${tagBadges(tags)}<span class="badge plain">合意度: ${esc(meta.consensus || '')}</span></div>
 <h1>${esc(meta.title)}</h1><div class="meta-line">最終更新: ${esc(meta.updated || '')}</div></div>
 ${notice}
-<div class="layout"><article>${sections}</article><aside class="toc"><b>目次</b>${toc.join('')}</aside></div></div>`,
+<div class="layout"><article>${sectionsFull}</article><aside class="toc"><b>目次</b>${toc.join('')}</aside></div></div>`,
     jsonld: { '@context': 'https://schema.org', '@type': 'Article', headline: meta.title, dateModified: meta.updated, inLanguage: 'ja' },
   }));
 }
@@ -268,7 +309,8 @@ write('index.html', page({
 <a class="pillar" href="#dictionary"><b>事典</b><span>${entries.length}項目を公開中</span></a>
 <a class="pillar" href="news.html"><b>ニュース</b><span>${NEWS.length}件を掲載(最新: ${esc(fmtDate((NEWS[0] || {}).date))})</span></a>
 <a class="pillar" href="tools.html"><b>ツール</b><span>${TOOLS.length}個を公開中(KPI・要員計画)</span></a></div>
-${NEWS.length ? `<div class="sec-title"><h2>最新ニュース</h2><small><a href="news.html">すべて見る</a></small></div><ul class="news-list">${NEWS.slice(0, 6).map(newsItem).join('')}</ul>` : ''}
+${NEWS.length ? `<div class="sec-title"><h2>注目記事</h2><small>注目度の目安で選出(<a href="news.html#about-rank">基準</a>)</small></div><ul class="news-list rank-list">${RANKED.slice(0, 5).map((n, i) => newsItem(n, i + 1)).join('')}</ul>` : ''}
+${NEWS.length ? `<div class="sec-title"><h2>最新ニュース</h2><small><a href="news.html">すべて見る</a></small></div><ul class="news-list">${NEWS.slice(0, 6).map(n => newsItem(n)).join('')}</ul>` : ''}
 <div class="sec-title" id="dictionary"><h2>事典</h2><small>${entries.length}項目</small></div>
 <div class="chips-label">分類</div><div class="chips"><button class="chip" data-group="cat" data-val="" aria-pressed="true">すべて</button>${usedCats.map(c => `<button class="chip" data-group="cat" data-val="${esc(c)}" aria-pressed="false">${esc(c)}</button>`).join('')}</div>
 <div class="chips-label">出典のタイプ</div><div class="chips"><button class="chip" data-group="tag" data-val="" aria-pressed="true">すべて</button>${Object.keys(TAGS).map(t => `<button class="chip" data-group="tag" data-val="${t}" aria-pressed="false">${t}</button>`).join('')}</div>
@@ -280,23 +322,30 @@ const simple = (file, key, title, desc, inner) => write(file, page({
 }));
 const byMonth = {};
 for (const n of NEWS) (byMonth[(n.date || '').slice(0, 7) || '日付不明'] ||= []).push(n);
-const newsBody = NEWS.length
-  ? Object.entries(byMonth).map(([m, list]) => `<div class="news-month">${esc(m.replace('-', '年') + (m.includes('-') ? '月' : ''))}<span class="news-count">${list.length}件</span></div><ul class="news-list">${list.map(newsItem).join('')}</ul>`).join('')
+const monthView = NEWS.length
+  ? Object.entries(byMonth).map(([m, list]) => `<div class="news-month">${esc(m.replace('-', '年') + (m.includes('-') ? '月' : ''))}<span class="news-count">${list.length}件</span></div><ul class="news-list">${list.map(n => newsItem(n)).join('')}</ul>`).join('')
   : '<div class="notice draft">まだニュースがありません。</div>';
+const rankView = `<ul class="news-list rank-list">${RANKED.slice(0, 30).map((n, i) => newsItem(n, i + 1)).join('')}</ul>`;
 write('news.html', page({
-  title: `ニュース | ${SITE}`, desc: 'コンタクトセンター関連ニュースの一覧(タイトルと元記事へのリンク)', cur: 'news',
+  title: `ニュース | ${SITE}`, desc: 'コンタクトセンター関連ニュースの一覧と注目記事(タイトルと元記事へのリンク)', cur: 'news',
   body: `<div class="wrap"><div class="page-wide"><h1>ニュース</h1>
 <p>コンタクトセンター関連のニュースを、タイトルと元記事へのリンクで紹介します。本文の転載は行いません。記事は各媒体のサイトで読めます。</p>
 <p><small>掲載元: ITmedia、TechTarget ジャパン(コンタクトセンター関連の記事一覧から収集)、日本コンタクトセンター協会(CCAJ のお知らせ)。関連の薄い記事が混じることがあります。</small></p>
-<div class="search" style="margin:14px 0 6px">${SEARCH_ICON}<input id="nq" type="search" placeholder="ニュースを検索(例: カスハラ、AI、ボイスボット)" aria-label="ニュース内を検索"></div>
+<div class="sort-toggle" id="nsort"><button class="chip" data-view="date" aria-pressed="true">新着順</button><button class="chip" data-view="rank" aria-pressed="false">注目順(上位30件)</button></div>
+<div class="search" style="margin:10px 0 6px">${SEARCH_ICON}<input id="nq" type="search" placeholder="ニュースを検索(例: カスハラ、AI、ボイスボット)" aria-label="ニュース内を検索"></div>
 <div class="chips-label">媒体</div><div class="chips" id="nsrc"><button class="chip" data-val="" aria-pressed="true">すべて(${NEWS.length})</button>${[...new Set(NEWS.map(n => n.source))].map(src => `<button class="chip" data-val="${esc(src)}" aria-pressed="false">${esc(src)}(${NEWS.filter(n => n.source === src).length})</button>`).join('')}</div>
-<div id="nlist">${newsBody}</div><div class="empty" id="nempty">該当するニュースが見つかりませんでした。</div></div></div>
-<script>(function(){var q=document.getElementById('nq'),items=[].slice.call(document.querySelectorAll('.news-item')),months=[].slice.call(document.querySelectorAll('.news-month')),chips=[].slice.call(document.querySelectorAll('#nsrc .chip')),empty=document.getElementById('nempty'),src='';
-function apply(){var t=q.value.trim().toLowerCase(),n=0;items.forEach(function(li){var ok=(!src||li.getAttribute('data-source')===src)&&(!t||li.textContent.toLowerCase().indexOf(t)>-1);li.style.display=ok?'':'none';if(ok)n++});
-months.forEach(function(m){var ul=m.nextElementSibling,vis=[].slice.call(ul.children).some(function(li){return li.style.display!=='none'});m.style.display=vis?'':'none';ul.style.display=vis?'':'none'});empty.style.display=n?'none':'block'}
+<div id="v-date">${monthView}</div><div id="v-rank" style="display:none">${rankView}</div><div class="empty" id="nempty">該当するニュースが見つかりませんでした。</div>
+<div class="sec" id="about-rank" style="margin-top:30px"><h2>注目度の目安について</h2>
+<p>「注目順」は、閲覧数ではなく、次の3つを足した点数の目安です。同点のときは、新しい記事を上にします。</p>
+<ul><li><b>新しさ</b>: 7日以内10点、30日以内8点、90日以内6点、180日以内4点、1年以内2点</li><li><b>はてなブックマーク数</b>: 1件につき1点(上限10点)。取得した時点の数値で、更新は不定期です</li><li><b>話題のテーマ</b>: 題名に、「カスハラ」「生成AI」「ボイスボット」などの語を含む場合、1語につき3点(上限6点)</li></ul>
+<p>コンタクトセンター関連の記事は、ブックマーク数が小さいため、新しさとテーマの影響が大きくなります。日本コンタクトセンター協会のお知らせは、ブックマーク数がなく、新しさとテーマだけで点数がつきます。</p></div></div></div>
+<script>(function(){var q=document.getElementById('nq'),items=[].slice.call(document.querySelectorAll('.news-item')),months=[].slice.call(document.querySelectorAll('.news-month')),chips=[].slice.call(document.querySelectorAll('#nsrc .chip')),sorts=[].slice.call(document.querySelectorAll('#nsort .chip')),empty=document.getElementById('nempty'),src='',view='date';
+function apply(){var t=q.value.trim().toLowerCase(),n=0;items.forEach(function(li){var ok=(!src||li.getAttribute('data-source')===src)&&(!t||li.textContent.toLowerCase().indexOf(t)>-1);li.style.display=ok?'':'none';if(ok&&li.closest('#v-'+view))n++});
+months.forEach(function(m){var ul=m.nextElementSibling,vis=[].slice.call(ul.children).some(function(li){return li.style.display!=='none'});m.style.display=vis?'':'none';ul.style.display=vis?'':'none'});
+document.getElementById('v-date').style.display=view==='date'?'':'none';document.getElementById('v-rank').style.display=view==='rank'?'':'none';empty.style.display=n?'none':'block'}
 q.addEventListener('input',apply);
-chips.forEach(function(b){b.addEventListener('click',function(){src=b.getAttribute('data-val');chips.forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});apply()})});})();
-</script>`,
+chips.forEach(function(b){b.addEventListener('click',function(){src=b.getAttribute('data-val');chips.forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});apply()})});
+sorts.forEach(function(b){b.addEventListener('click',function(){view=b.getAttribute('data-view');sorts.forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});apply()})});apply();})();</script>`,
 }));
 fs.mkdirSync(path.join(OUT, 'tools'), { recursive: true });
 write('tools.html', page({
