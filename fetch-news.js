@@ -17,8 +17,10 @@ const LIST_PAGES = [
   { name: 'ITmedia', url: 'https://atmarkit.itmedia.co.jp/ait/kw/contactcenter.html' },
   { name: 'TechTarget ジャパン', url: 'https://techtarget.itmedia.co.jp/tt/wpkw/contactcenter.html' },
 ];
+// 日本コンタクトセンター協会(CCAJ)のお知らせ: 日付と見出しの表
+const CCAJ_YEARS = [new Date().getFullYear(), new Date().getFullYear() - 1];
 // 一覧ページから除く記事(広告記事、テーマと無関係なもの)
-const EXCLUDE = ['アジャイル', '開発管理', 'ネットワークエンジニア', '【無料PDF】'];
+const EXCLUDE = ['アジャイル', '開発管理', 'ネットワークエンジニア', '【無料PDF】', '価格交渉促進月間', '行政相談月間'];
 // どこに出ても対象にする語 / タイトルだけで判定する広めの語 / 英字の語(単語として一致したときのみ)
 const CORE = ['コンタクトセンター', 'コールセンター', 'カスタマーハラスメント', 'カスハラ', 'ボイスボット', 'AIオペレーター', 'お客様センター'];
 const TITLE_ONLY = ['カスタマーサポート', 'カスタマーサービス', 'お客様窓口', '問い合わせ対応', '電話応対'];
@@ -81,12 +83,25 @@ async function fromList(page) {
   return { total: items.length, hits: items };
 }
 
+async function fromCcaj(year) {
+  const url = `https://ccaj.or.jp/information_backnumber/back_topics_${year}.html`;
+  const html = await get(url);
+  const items = [];
+  for (const m of html.matchAll(/<td class="col-3c">\s*(\d{4}\/\d{1,2}\/\d{1,2})\s*<\/td>\s*<td[^>]*>\s*<a href="([^"]+)"><strong>([\s\S]*?)<\/strong><\/a>/g)) {
+    const title = decode(m[3].replace(/<[^>]+>/g, '')).replace(/\s+/g, ' ');
+    if (EXCLUDE.some(k => title.includes(k))) continue;
+    const link = m[2].startsWith('http') ? m[2] : new URL(m[2], url).href;
+    items.push({ source: '日本コンタクトセンター協会', title, link, date: toDate(m[1]), keywords: [] });
+  }
+  return { total: items.length, hits: items, url };
+}
+
 (async () => {
   fs.mkdirSync(path.dirname(FILE), { recursive: true });
   const old = fs.existsSync(FILE) ? JSON.parse(fs.readFileSync(FILE, 'utf8')) : [];
   const seen = new Set(old.map(n => n.link));
   const added = [];
-  const jobs = [...RSS_FEEDS.map(f => [f, fromRss]), ...LIST_PAGES.map(p => [p, fromList])];
+  const jobs = [...RSS_FEEDS.map(f => [f, fromRss]), ...LIST_PAGES.map(p => [p, fromList]), ...CCAJ_YEARS.map(y => [{ name: `CCAJ ${y}`, url: `${y}` }, () => fromCcaj(y)])];
   for (const [src, fn] of jobs) {
     try {
       const { total, hits } = await fn(src);

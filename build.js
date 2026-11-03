@@ -284,7 +284,7 @@ write('news.html', page({
   title: `ニュース | ${SITE}`, desc: 'コンタクトセンター関連ニュースの一覧(タイトルと元記事へのリンク)', cur: 'news',
   body: `<div class="wrap"><div class="page-wide"><h1>ニュース</h1>
 <p>コンタクトセンター関連のニュースを、タイトルと元記事へのリンクで紹介します。本文の転載は行いません。記事は各媒体のサイトで読めます。</p>
-<p><small>掲載元: ITmedia、TechTarget ジャパン(コンタクトセンター関連の記事一覧から収集)。関連の薄い記事が混じることがあります。</small></p>
+<p><small>掲載元: ITmedia、TechTarget ジャパン(コンタクトセンター関連の記事一覧から収集)、日本コンタクトセンター協会(CCAJ のお知らせ)。関連の薄い記事が混じることがあります。</small></p>
 <div class="search" style="margin:14px 0 6px">${SEARCH_ICON}<input id="nq" type="search" placeholder="ニュースを検索(例: カスハラ、AI、ボイスボット)" aria-label="ニュース内を検索"></div>
 <div id="nlist">${newsBody}</div><div class="empty" id="nempty">該当するニュースが見つかりませんでした。</div></div></div>
 <script>(function(){var q=document.getElementById('nq'),items=[].slice.call(document.querySelectorAll('.news-item')),months=[].slice.call(document.querySelectorAll('.news-month')),empty=document.getElementById('nempty');
