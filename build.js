@@ -25,6 +25,7 @@ const SRC_LABELS = {
   '調査レポート': { tag: '調査レポート', cls: 'tag-report' },
   'ベンダー情報': { tag: 'ベンダー情報', cls: 'tag-vendor' },
   'メディア記事': { tag: 'メディア記事', cls: 'tag-media' },
+  '未確認': { tag: '', cls: 'tag-media' },
 };
 const CATS = ['用語', '指標', '運営', 'AI導入', '技術', '法規制', '人材'];
 
@@ -53,6 +54,11 @@ const NEWS_KEYS = {
   'wfm-shift': ['シフト', '人員'],
   'bcp': ['BCP', '事業継続', '災害'],
   'call-recording': ['録音'],
+  'recruiting': ['採用', '人手不足', '人材'],
+  'after-hours': ['夜間', '24時間', '休日'],
+  'call-forecast': ['予測'],
+  'kpi-design': ['KPI', 'KGI'],
+  'site-location': ['誘致', '拠点', '地方'],
   'inbound-outbound': ['アウトバウンド', 'インバウンド', '架電', '発信'],
   'talk-script': ['スクリプト', 'トークスクリプト'],
   'complaint-claim': ['クレーム', '苦情'],
@@ -65,24 +71,29 @@ const NEWS_KEYS = {
 };
 // 事典の項目から、関連する項目へのリンク(内部リンク)
 const RELATED = {
-  'aht': ['acw', 'fcr', 'occupancy-utilization', 'erlang-c'], 'acw': ['aht', 'voice-recognition', 'genai-assist'],
+  'aht': ['acw', 'fcr', 'occupancy-utilization', 'erlang-c', 'kpi-design'], 'acw': ['aht', 'voice-recognition', 'genai-assist'],
   'fcr': ['aht', 'csat', 'knowledge-management'], 'csat': ['nps', 'fcr', 'voc'], 'nps': ['csat', 'voc'],
   'response-rate': ['abandon-rate', 'erlang-c', 'aht'], 'abandon-rate': ['response-rate', 'ivr', 'erlang-c', 'callback'],
   'occupancy-utilization': ['erlang-c', 'aht', 'wfm-shift'], 'erlang-c': ['wfm-shift', 'response-rate', 'occupancy-utilization'],
-  'wfm-shift': ['erlang-c', 'occupancy-utilization', 'remote-contact-center', 'rest-break'],
+  'wfm-shift': ['erlang-c', 'occupancy-utilization', 'remote-contact-center', 'rest-break', 'call-forecast'],
   'customer-harassment': ['escalation', 'stress-check', 'call-recording'],
   'call-recording': ['outsourcing-supervision', 'data-breach-report', 'voice-recognition', 'personal-data-disclosure'],
   'data-breach-report': ['outsourcing-supervision', 'call-recording'], 'outsourcing-supervision': ['ccaas', 'data-breach-report', 'bpo-outsourcing'],
-  'voicebot': ['ivr', 'chatbot', 'voice-recognition'], 'chatbot': ['voicebot', 'ai-failure', 'escalation'],
+  'voicebot': ['ivr', 'chatbot', 'voice-recognition', 'after-hours'], 'chatbot': ['voicebot', 'ai-failure', 'escalation'],
   'ai-failure': ['chatbot', 'voicebot', 'ai-business-guidelines'], 'genai-assist': ['ai-business-guidelines', 'knowledge-management', 'voice-recognition'],
   'ccaas': ['cti', 'acd', 'omnichannel', 'remote-contact-center'], 'cti': ['acd', 'ivr', 'ccaas'], 'acd': ['ivr', 'cti', 'ccaas'],
   'ivr': ['acd', 'voicebot', 'abandon-rate', 'callback'], 'omnichannel': ['ccaas', 'chatbot', 'voc'],
   'voc': ['knowledge-management', 'voice-recognition', 'csat'], 'qa-monitoring': ['voice-recognition', 'knowledge-management', 'fcr', 'coaching'],
   'knowledge-management': ['genai-assist', 'voc', 'fcr', 'training'], 'remote-contact-center': ['bcp', 'ccaas', 'qa-monitoring', 'rest-break'],
-  'bcp': ['remote-contact-center', 'ccaas'], 'escalation': ['customer-harassment', 'chatbot', 'qa-monitoring', 'supervisor', 'complaint-claim'],
+  'bcp': ['remote-contact-center', 'ccaas', 'site-location'], 'escalation': ['customer-harassment', 'chatbot', 'qa-monitoring', 'supervisor', 'complaint-claim'],
   'stress-check': ['customer-harassment', 'remote-contact-center', 'attrition'], 'tokushoho-telemarketing': ['call-recording', 'customer-harassment', 'inbound-outbound', 'talk-script', 'consumer-contract-act', 'mail-order'],
   'disability-discrimination-act': ['telephone-relay-service', 'customer-harassment'], 'telephone-relay-service': ['disability-discrimination-act'],
   'ai-business-guidelines': ['ai-failure', 'genai-assist', 'chatbot'], 'voice-recognition': ['acw', 'voc', 'call-recording'],
+  'recruiting': ['attrition', 'training', 'remote-contact-center', 'part-time-act'],
+  'after-hours': ['voicebot', 'callback', 'bpo-outsourcing', 'rest-break'],
+  'call-forecast': ['wfm-shift', 'erlang-c', 'occupancy-utilization', 'response-rate'],
+  'kpi-design': ['aht', 'response-rate', 'csat', 'nps', 'fcr'],
+  'site-location': ['bcp', 'remote-contact-center', 'recruiting', 'bpo-outsourcing'],
   'stealth-marketing': ['consumer-contract-act', 'mail-order', 'tokushoho-telemarketing'],
   'mail-order': ['tokushoho-telemarketing', 'consumer-contract-act', 'stealth-marketing', 'inbound-outbound'],
   'overtime-limit': ['rest-break', 'wfm-shift', 'supervisor', 'attrition'],
@@ -96,7 +107,7 @@ const RELATED = {
   'complaint-claim': ['escalation', 'customer-harassment', 'voc', 'training'],
   'bpo-outsourcing': ['outsourcing-supervision', 'data-breach-report', 'remote-contact-center', 'ccaas', 'haken-ukeoi'],
   'callback': ['ivr', 'abandon-rate', 'acd', 'response-rate'],
-  'supervisor': ['coaching', 'training', 'qa-monitoring', 'escalation', 'overtime-limit'], 'attrition': ['training', 'stress-check', 'customer-harassment', 'remote-contact-center', 'part-time-act'],
+  'supervisor': ['coaching', 'training', 'qa-monitoring', 'escalation', 'overtime-limit'], 'attrition': ['training', 'stress-check', 'customer-harassment', 'remote-contact-center', 'part-time-act', 'recruiting'],
   'training': ['coaching', 'supervisor', 'knowledge-management', 'attrition', 'talk-script'], 'coaching': ['supervisor', 'qa-monitoring', 'training', 'csat'],
 };
 const NEWS_FILE = path.join(__dirname, 'data', 'news.json');
@@ -432,7 +443,7 @@ simple('about.html', 'about', 'このサイトについて', `${SITE}の方針�
 <h2>方針</h2><ul><li>「正解」を断定せず、通説・異論・合意度を出典つきで示します</li><li>出典のない数値は載せません</li><li>更新日と変更理由を残します</li></ul>
 <h2>運営</h2><p>AIがネット上の情報をもとに下書きを作り、出典を確認しながら公開しています。確認の範囲は、各項目の出典欄に書いています。ページの内容は、出典に基づいて随時更新します。</p>
 <h2 id="tags">タグの意味</h2><ul class="legend">${Object.entries(TAGS).map(([t, v]) => `<li><span class="badge ${v.cls}">${t}</span><span>${v.desc}</span></li>`).join('')}</ul>
-<p>出典欄の各行にも、「公的資料」「公益法人」「論文」「業界団体」「調査レポート」「ベンダー情報」「メディア記事」のラベルを付けています。項目のタグは、出典欄のラベルから自動で決まります。複数のタグが付く項目もあります。タグの種類は、必要に応じて増やします。</p>
+<p>出典欄の各行にも、「公的資料」「公益法人」「論文」「業界団体」「調査レポート」「ベンダー情報」「メディア記事」のラベルを付けています。本文を読めていない資料には、「未確認」のラベルを付け、タグには数えません。項目のタグは、出典欄のラベルから自動で決まります。複数のタグが付く項目もあります。タグの種類は、必要に応じて増やします。</p>
 <p>誤りに気づかれた場合は、出典とあわせてお知らせいただけると助かります。方法は、<a href="policy.html">編集方針と広告について</a>に書いています。</p>`);
 
 // 静的ファイル(OGP画像など)をコピーする
