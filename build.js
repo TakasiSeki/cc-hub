@@ -12,7 +12,7 @@ const TAGLINE = 'コンタクトセンター・ハブ';
 const CF_BEACON_TOKEN = (process.env.CF_BEACON_TOKEN || '797b9349f0824a478a9e7c44741cc7bc').trim();
 const SITE_URL = (process.env.SITE_URL || '').replace(/\/$/, '');
 const TAGS = {
-  '中立出典': { cls: 'tag-neutral', desc: '官公庁・自治体・公益法人・論文など、販売利益と無関係な出典を含む' },
+  '中立出典': { cls: 'tag-neutral', desc: '官公庁・自治体・公益法人・論文・標準化団体の規格など、販売利益と無関係な出典を含む' },
   '業界団体': { cls: 'tag-assoc', desc: '業界団体(協会)が公開しているガイドラインや調査を含む。業界の自主的な見解で、会員企業の立場が反映される場合がある' },
   '調査レポート': { cls: 'tag-report', desc: '調査会社・コンサルティング会社などが実施した調査の結果を含む' },
   'ベンダー情報': { cls: 'tag-vendor', desc: '製品・サービスを販売する事業者の資料や、その解説記事を出典とする' },
@@ -23,6 +23,7 @@ const SRC_LABELS = {
   '公的資料': { tag: '中立出典', cls: 'tag-neutral' },
   '公益法人': { tag: '中立出典', cls: 'tag-neutral' },
   '論文': { tag: '中立出典', cls: 'tag-neutral' },
+  '標準規格': { tag: '中立出典', cls: 'tag-neutral' },
   '業界団体': { tag: '業界団体', cls: 'tag-assoc' },
   '調査レポート': { tag: '調査レポート', cls: 'tag-report' },
   'ベンダー情報': { tag: 'ベンダー情報', cls: 'tag-vendor' },
@@ -73,8 +74,9 @@ const NEWS_KEYS = {
 };
 // 事典の項目から、関連する項目へのリンク(内部リンク)
 const RELATED = {
+  'sip-protocol': ['sip-trunk', 'webrtc', 'phone-line-types'], 'webrtc': ['sip-protocol', 'sip-trunk', 'ccaas'],
   'phone-line-types': ['isdn-ins', 'sip-trunk', 'dial-in-representative', 'toll-free-navidial', 'erlang-c'], 'isdn-ins': ['phone-line-types', 'sip-trunk', 'dial-in-representative', 'ccaas'],
-  'sip-trunk': ['phone-line-types', 'isdn-ins', 'ccaas', 'erlang-c'], 'dial-in-representative': ['phone-line-types', 'isdn-ins', 'toll-free-navidial', 'acd'],
+  'sip-trunk': ['sip-protocol', 'webrtc', 'phone-line-types', 'isdn-ins', 'ccaas'], 'dial-in-representative': ['phone-line-types', 'isdn-ins', 'toll-free-navidial', 'acd'],
   'toll-free-navidial': ['phone-line-types', 'dial-in-representative', 'inbound-outbound'],
   'aht': ['acw', 'fcr', 'occupancy-utilization', 'erlang-c', 'kpi-design'], 'acw': ['aht', 'voice-recognition', 'genai-assist'],
   'fcr': ['aht', 'csat', 'knowledge-management'], 'csat': ['nps', 'fcr', 'voc'], 'nps': ['csat', 'voc'],
@@ -256,6 +258,7 @@ a{color:var(--accent)}a:hover{text-decoration:none}
 .figsvg .ar{stroke:var(--muted);stroke-width:2}.figsvg .ar.da{stroke-dasharray:5 4}
 .figsvg .ah{fill:var(--muted)}
 .figsvg .dot{fill:var(--accent)}
+.matrix th,.matrix td{text-align:center;white-space:normal}.matrix th:first-child,.matrix td:first-child{text-align:left;white-space:nowrap}.matrix td{color:var(--accent);font-weight:700}
 .table-wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:.92rem}th,td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}th:first-child,td:first-child{text-align:left}
 th{color:var(--muted);font-size:.8rem}
 .cell{width:6rem;padding:6px 8px;font:inherit;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text);text-align:right}
@@ -280,7 +283,7 @@ const SEARCH_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" 
 
 function nav(root, cur) {
   const item = (href, label, key) => `<a href="${root}${href}"${cur === key ? ' aria-current="page"' : ''}>${label}</a>`;
-  return `<nav class="nav" aria-label="メイン">${item('index.html#dictionary', '事典', 'dict')}${item('articles.html', '記事', 'articles')}${item('news.html', 'ニュース', 'news')}${item('tools.html', 'ツール', 'tools')}${item('about.html', 'このサイトについて', 'about')}</nav>`;
+  return `<nav class="nav" aria-label="メイン">${item('index.html#dictionary', '事典', 'dict')}${item('articles.html', '記事', 'articles')}${item('companies.html', '企業', 'companies')}${item('news.html', 'ニュース', 'news')}${item('tools.html', 'ツール', 'tools')}${item('about.html', 'このサイトについて', 'about')}</nav>`;
 }
 
 function page({ title, body, desc = '', jsonld = null, root = '', cur = '' }) {
@@ -366,7 +369,7 @@ for (const f of fs.readdirSync(SRC)) {
   const sectionsFull = relHtml && sections.includes('<section class="sec sec-source"') ? sections.replace('<section class="sec sec-source"', relHtml + '<section class="sec sec-source"') : sections + relHtml;
   { const add = [relItems.length ? '<a href="#related">関連する項目</a>' : '', relNews.length ? '<a href="#news">関連ニュース</a>' : ''].filter(Boolean); const ti = toc.findIndex(t => t.includes('出典')); toc.splice(ti >= 0 ? ti : toc.length, 0, ...add); }
   const notes = [];
-  if (tags.includes('中立出典')) notes.push('官公庁・自治体・公益法人・論文など、中立的な出典を含みます。');
+  if (tags.includes('中立出典')) notes.push('官公庁・自治体・公益法人・論文・標準化団体の規格など、中立的な出典を含みます。');
   if (tags.includes('調査レポート')) notes.push('調査会社・コンサルティング会社による調査結果を含みます。');
   if (tags.includes('ベンダー情報')) notes.push(tags.includes('中立出典') ? '一部の内容は、ベンダー(事業者)の資料に基づきます。' : '出典は、ベンダー(事業者)の資料が中心です。中立的な出典は未確認です。');
   if (tags.includes('メディア記事')) notes.push('メディアの記事を含みます。');
@@ -395,6 +398,16 @@ const articles = fs.existsSync(ART_SRC) ? fs.readdirSync(ART_SRC).filter(f => f.
   return { slug: f.replace(/\.md$/, ''), body, ...meta };
 }).sort((a, b) => (a.order || '9').localeCompare(b.order || '9')) : [];
 fs.mkdirSync(path.join(OUT, 'articles'), { recursive: true });
+
+// 企業(companies/*.md): コンタクトセンターに関わる企業と、そのサービスのまとめ。frontmatter: title, kind, tags(| 区切り), updated, point
+const CO_SRC = path.join(__dirname, 'companies');
+const CO_TAGS = ['コンタクトセンター基盤', '電話回線・番号', 'CRM・顧客管理', 'AI・自動応答'];
+const companies = fs.existsSync(CO_SRC) ? fs.readdirSync(CO_SRC).filter(f => f.endsWith('.md') && !f.startsWith('_')).map(f => {
+  const { meta, body } = parse(fs.readFileSync(path.join(CO_SRC, f), 'utf8'));
+  if (!meta.title) throw new Error(`companies/${f}: title がありません`);
+  return { slug: f.replace(/\.md$/, ''), body, ...meta, tagList: (meta.tags || '').split('|').map(x => x.trim()).filter(Boolean) };
+}).sort((a, b) => (a.sort || a.title).localeCompare(b.sort || b.title, 'ja')) : [];
+fs.mkdirSync(path.join(OUT, 'companies'), { recursive: true });
 entries.sort((a, b) => catIdx(a.category) - catIdx(b.category) || a.title.localeCompare(b.title, 'ja'));
 const usedCats = CATS.filter(c => entries.some(e => e.category === c));
 const cards = entries.map(e => `<a class="card" href="entries/${e.slug}.html" data-cat="${esc(e.category || '')}" data-tags="${esc(e.tags.join(','))}" data-q="${esc((e.title + ' ' + e.summary + ' ' + (e.category || '')).toLowerCase())}">
@@ -419,6 +432,7 @@ write('index.html', page({
 <div class="pillars">
 <a class="pillar" href="#dictionary"><b>事典</b><span>${entries.length}項目を公開中</span></a>
 <a class="pillar" href="articles.html"><b>記事</b><span>${articles.length}本を公開中(はじめての人・新任センター長向け)</span></a>
+<a class="pillar" href="companies.html"><b>企業</b><span>${companies.length}社のサービスをまとめ中</span></a>
 <a class="pillar" href="news.html"><b>ニュース</b><span>${NEWS.length}件を掲載(最新: ${esc(fmtDate((NEWS[0] || {}).date))})</span></a>
 <a class="pillar" href="tools.html"><b>ツール</b><span>${TOOLS.length}個を公開中(KPI・要員計画)</span></a></div>
 ${SHOW_RANKED && NEWS.length ? `<div class="sec-title"><h2>注目記事</h2><small>注目度の目安で選出(<a href="news.html#about-rank">基準</a>)</small></div><ul class="news-list rank-list">${RANKED.slice(0, 5).map((n, i) => newsItem(n, i + 1)).join('')}</ul>` : ''}
@@ -453,6 +467,36 @@ write('articles.html', page({
   title: `記事 | ${SITE}`, desc: '立場別・目的別に、事典の項目をつないで読める記事', cur: 'articles',
   body: `<div class="wrap"><div class="page"><h1>記事</h1><p>事典の項目を、立場や目的に合わせて、読む順にまとめた記事です。個々の根拠は、各記事から事典の項目へたどれます。</p></div>
 <div class="cards">${articles.map(a => `<a class="card" href="articles/${a.slug}.html"><div class="badges">${a.audience ? `<span class="badge new">${esc(a.audience)}</span>` : ''}</div><h3>${esc(a.title)}</h3><p>${esc(a.point || '')}</p></a>`).join('\n')}</div></div>`,
+}));
+
+
+for (const c of companies) {
+  const chunks = labelSources(marked.parse(figs(c.body))).split(/(?=<h2>)/).filter(x => x.trim());
+  const toc = [];
+  const secs = chunks.map((x, i) => {
+    const h = (x.match(/<h2>(.*?)<\/h2>/) || [])[1];
+    if (!h) return x;
+    toc.push(`<a href="#s${i}">${h.replace(/<[^>]+>/g, '')}</a>`);
+    return `<section class="sec ${SEC_CLASS(h)}" id="s${i}">${x}</section>`;
+  }).join('\n');
+  write(`companies/${c.slug}.html`, page({
+    title: `${c.title}のコンタクトセンター関連サービス | ${SITE}`, desc: c.point || c.title, root: '../', cur: 'companies',
+    body: `<div class="wrap"><div class="crumb"><a href="../index.html">ホーム</a> › <a href="../companies.html">企業</a></div>
+<div class="article-head"><div class="badges"><span class="badge">${esc(c.kind || '企業')}</span>${c.tagList.map(t => `<span class="badge plain">${esc(t)}</span>`).join('')}</div><h1>${esc(c.title)}</h1><div class="meta-line">最終更新: ${esc(c.updated || '')}</div></div>
+${c.point ? `<div class="point"><b>この企業のサービス</b><p>${esc(c.point)}</p></div>` : ''}
+<div class="layout"><article>${secs}</article><aside class="toc"><b>目次</b>${toc.join('')}</aside></div></div>`,
+    jsonld: { '@context': 'https://schema.org', '@type': 'Article', headline: c.title, description: c.point || undefined, dateModified: c.updated, inLanguage: 'ja' },
+  }));
+}
+write('companies.html', page({
+  title: `企業とサービス | ${SITE}`, desc: 'コンタクトセンターに関わる企業と、各社のサービスの一覧', cur: 'companies',
+  body: `<div class="wrap"><div class="page"><h1>企業とサービス</h1>
+<p>コンタクトセンターに関わる企業が、どんなサービスを提供しているかを、企業ごとにまとめます。各社の公式ページなどで確認できた内容だけを載せています。</p>
+<div class="notice"><p>掲載は、確認できた企業に限ります。網羅ではなく、順位や推奨でもありません(50音順)。表の「●」は、その分類で確認できたサービスがあることを示します。サービスの名前や内容は、変わることがあります。</p></div></div>
+<div class="table-wrap"><table class="matrix"><thead><tr><th>企業</th>${CO_TAGS.map(t => `<th>${esc(t)}</th>`).join('')}</tr></thead><tbody>
+${companies.map(c => `<tr><td><a href="companies/${c.slug}.html">${esc(c.title)}</a></td>${CO_TAGS.map(t => `<td>${c.tagList.includes(t) ? '●' : ''}</td>`).join('')}</tr>`).join('\n')}
+</tbody></table></div>
+<div class="cards">${companies.map(c => `<a class="card" href="companies/${c.slug}.html"><div class="badges"><span class="badge">${esc(c.kind || '企業')}</span>${c.tagList.map(t => `<span class="badge plain">${esc(t)}</span>`).join('')}</div><h3>${esc(c.title)}</h3><p>${esc(c.point || '')}</p></a>`).join('\n')}</div></div>`,
 }));
 
 const simple = (file, key, title, desc, inner) => write(file, page({
@@ -552,7 +596,7 @@ write('policy.html', page({
 <p>内容の誤りや、古くなった情報に気づかれた場合は、出典とあわせて、<a href="${GITHUB}/issues" target="_blank" rel="noopener">GitHub の Issues</a> でお知らせください。確認のうえ、修正します。</p></div></div>`,
 }));
 
-const urls = [{ u: 'index.html' }, { u: 'articles.html' }, ...articles.map(a => ({ u: `articles/${a.slug}.html`, m: a.updated })), { u: 'news.html', m: (NEWS[0] || {}).date }, { u: 'tools.html' }, { u: 'about.html' }, { u: 'policy.html' }, ...TOOLS.map(t => ({ u: `tools/${t.slug}.html` })), ...entries.map(e => ({ u: `entries/${e.slug}.html`, m: e.updated }))];
+const urls = [{ u: 'index.html' }, { u: 'articles.html' }, { u: 'companies.html' }, ...companies.map(c => ({ u: `companies/${c.slug}.html`, m: c.updated })), ...articles.map(a => ({ u: `articles/${a.slug}.html`, m: a.updated })), { u: 'news.html', m: (NEWS[0] || {}).date }, { u: 'tools.html' }, { u: 'about.html' }, { u: 'policy.html' }, ...TOOLS.map(t => ({ u: `tools/${t.slug}.html` })), ...entries.map(e => ({ u: `entries/${e.slug}.html`, m: e.updated }))];
 if (SITE_URL) {
   write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(x => `<url><loc>${SITE_URL}/${x.u === 'index.html' ? '' : x.u}</loc>${x.m ? `<lastmod>${x.m}</lastmod>` : ''}</url>`).join('\n')}\n</urlset>\n`);
   write('robots.txt', `User-agent: *\nAllow: /\nSitemap: ${SITE_URL}/sitemap.xml\n`);
