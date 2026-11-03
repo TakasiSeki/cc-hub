@@ -1,0 +1,48 @@
+<div class="wrap">
+<div class="crumb"><a href="../index.html">ホーム</a> › <a href="../tools.html">ツール</a> › 時間帯別の必要席数</div>
+<div class="article-head"><div class="badges"><span class="badge">計算ツール</span><span class="badge plain">ブラウザ内で計算(入力値は送信されません)</span></div>
+<h1>時間帯別の必要席数 計算ツール</h1>
+<p class="lead">時間帯ごとの着信数を入れると、各時間帯の必要席数と、シュリンケージを見込んだ配置人数を、アーランC式でまとめて計算します。Excel からの貼り付けと、CSV の保存もできます。</p></div>
+
+<div class="tool">
+<form class="tool-form" autocomplete="off" onsubmit="return false">
+<h2>条件</h2>
+<div class="tool-grid">
+<label>開始時刻<select id="start"></select></label>
+<label>終了時刻<select id="end"></select></label>
+<label>区間の長さ<select id="step"><option value="30" selected>30分</option><option value="60">60分</option><option value="15">15分</option></select></label>
+<label>平均処理時間 AHT(秒)<input id="aht" type="number" inputmode="decimal" min="1" step="any" value="180"></label>
+<label>目標サービスレベル(%)<input id="sl" type="number" inputmode="decimal" min="1" max="99.9" step="any" value="80"></label>
+<label>目標応答時間(秒)<input id="target" type="number" inputmode="decimal" min="0" step="any" value="20"></label>
+<label>シュリンケージ(%)<input id="shrink" type="number" inputmode="decimal" min="0" max="90" step="any" value="30"></label>
+</div>
+<p class="hint">時間帯ごとの着信数は、下の表に入力するか、まとめて貼り付けてください。最初に入っている数値は、動作を試すためのサンプルです。</p>
+<h2>着信数の一括入力</h2>
+<textarea id="paste" rows="3" placeholder="着信数を、改行・タブ・カンマ区切りで貼り付け(Excel の列をそのまま貼れます)。上の時間帯の順に入ります。"></textarea>
+<div class="btn-row"><button type="button" class="chip" id="apply">貼り付けた数値を反映</button><button type="button" class="chip" id="sample">サンプル値に戻す</button><button type="button" class="chip" id="clear">着信数をすべて0にする</button></div>
+</form>
+
+<div id="msg" class="notice draft" style="display:none"></div>
+
+<section class="tool-out" id="out" aria-live="polite">
+<h2>結果</h2>
+<div class="stats" id="sum"></div>
+<h3>時間帯別の必要席数</h3>
+<div id="bars" class="bars" aria-label="時間帯別の配置人数のグラフ"></div>
+<div class="table-wrap"><table id="tbl"><thead><tr><th>時間帯</th><th>着信数(件)</th><th>必要席数</th><th>配置人数</th><th>サービスレベル</th><th>占有率</th></tr></thead><tbody></tbody></table></div>
+<div class="btn-row"><button type="button" class="chip" id="csv">結果を CSV で保存</button></div>
+</section>
+
+<section class="sec">
+<h2>この計算の前提と限界</h2>
+<ul>
+<li>各時間帯を独立に、アーランC式で計算します。到着はポアソン過程、処理時間は指数分布、待つ人は放棄しない、という前提です</li>
+<li><b>放棄を考慮しない</b>ため、実際より必要席数が多めに出る傾向があります</li>
+<li>時間帯をまたぐ待ち(前の時間帯の積み残し)は考慮しません。単一スキルの計算です</li>
+<li>配置人数は、必要席数 ÷ (1 − シュリンケージ) を切り上げた値です。シフトの組み方(拘束時間、休憩の入れ方)までは扱いません</li>
+<li>結果は目安です。実際の人員配置は、過去の実績や現場の事情とあわせて判断してください</li>
+</ul>
+<p>関連する項目: <a href="../entries/erlang-c.html">アーランC式と要員計画</a> / <a href="../entries/response-rate.html">応答率とサービスレベル</a> / <a href="../entries/occupancy-utilization.html">稼働率と占有率</a> / <a href="../entries/aht.html">AHT(平均処理時間)</a> / <a href="erlang-c.html">アーランC計算機(1区間用)</a></p>
+</section>
+</div>
+</div>

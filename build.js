@@ -31,7 +31,8 @@ const CATS = ['用語', '指標', '運営', 'AI導入', '技術', '法規制', '
 const TOOLS_SRC = path.join(__dirname, 'tools-src');
 const readTool = f => fs.readFileSync(path.join(TOOLS_SRC, f), 'utf8');
 const TOOLS = [
-  { slug: 'erlang-c', title: 'アーランC計算機(必要席数・サービスレベル)', desc: '着信数とAHTから、目標のサービスレベルを満たす必要席数を計算。人数を指定した場合のサービスレベルや待ち時間も確認できます。', tag: '要員計画' },
+  { slug: 'erlang-c', title: 'アーランC計算機(必要席数・サービスレベル)', desc: '着信数とAHTから、目標のサービスレベルを満たす必要席数を計算。人数を指定した場合のサービスレベルや待ち時間も確認できます。', tag: '要員計画', seo: '着信数とAHTから、目標のサービスレベルを満たす必要席数を計算する無料ツール。シュリンケージの見込みにも対応。', name: 'アーランC計算機' },
+  { slug: 'staffing', title: '時間帯別の必要席数 計算ツール', desc: '時間帯ごとの着信数から、必要席数とシュリンケージ込みの配置人数をまとめて計算。Excelからの貼り付けとCSV保存に対応。', tag: '要員計画', seo: '時間帯別の着信数から、必要席数と配置人数をアーランC式でまとめて計算する無料ツール。Excel貼り付けとCSV保存に対応。', name: '時間帯別の必要席数 計算ツール' },
 ];
 const NEWS_FILE = path.join(__dirname, 'data', 'news.json');
 const NEWS = (fs.existsSync(NEWS_FILE) ? JSON.parse(fs.readFileSync(NEWS_FILE, 'utf8')) : [])
@@ -132,6 +133,7 @@ a{color:var(--accent)}a:hover{text-decoration:none}
 .tool h2{font-size:1.15rem;margin:16px 0 10px}.tool h3{font-size:1rem;margin:22px 0 8px}
 .tool-grid{display:grid;gap:14px 18px;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr))}
 .tool-grid label{display:flex;flex-direction:column;gap:4px;font-size:.88rem;font-weight:700;color:var(--muted)}
+.tool-grid select,.tool textarea{font:inherit;font-size:1rem;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--text);width:100%}.tool textarea{resize:vertical}.btn-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
 .tool-grid input{font:inherit;font-size:1rem;font-weight:400;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--text);width:100%}
 .tool-grid input:focus{outline:2px solid var(--accent);outline-offset:1px}
 .hint{font-size:.85rem;color:var(--muted);margin:14px 0 0}
@@ -140,7 +142,11 @@ a{color:var(--accent)}a:hover{text-decoration:none}
 .stat.main{background:var(--accent-soft);border-color:transparent}.stat.warn{background:var(--warn-soft);border-color:transparent}.stat.ok{background:var(--ok-soft);border-color:transparent}
 .stat-label{font-size:.78rem;color:var(--muted);font-weight:700}.stat-value{font-size:1.5rem;font-weight:800;line-height:1.4}.stat-note{font-size:.78rem;color:var(--muted);line-height:1.5}
 .table-wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:.92rem}th,td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}th:first-child,td:first-child{text-align:left}
-th{color:var(--muted);font-size:.8rem}tr.hit td{background:var(--accent-soft);font-weight:700}
+th{color:var(--muted);font-size:.8rem}
+.cell{width:6rem;padding:6px 8px;font:inherit;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text);text-align:right}
+.bars{display:flex;align-items:flex-end;gap:4px;height:11rem;margin:6px 0 18px;overflow-x:auto;padding-bottom:2px}
+.bar{flex:1 0 2rem;max-width:3.2rem;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;font-size:.7rem;color:var(--muted)}
+.bar-fill{width:70%;min-height:2px;background:var(--accent);border-radius:4px 4px 0 0}.bar-n{font-weight:700;color:var(--text);order:-1}.bar-t{margin-top:2px;white-space:nowrap}tr.hit td{background:var(--accent-soft);font-weight:700}
 .tool .sec{margin-top:16px}
 .tool-cards{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(19rem,1fr))}
 .page-wide{max-width:50rem;margin:36px 0 60px}.page-wide h1{font-size:1.8rem}
@@ -253,7 +259,7 @@ write('index.html', page({
 <div class="pillars">
 <a class="pillar" href="#dictionary"><b>事典</b><span>${entries.length}項目を公開中</span></a>
 <a class="pillar" href="news.html"><b>ニュース</b><span>${NEWS.length}件を掲載(最新: ${esc(fmtDate((NEWS[0] || {}).date))})</span></a>
-<a class="pillar" href="tools.html"><b>ツール</b><span>${TOOLS.length}個を公開中(アーランC計算機)</span></a></div>
+<a class="pillar" href="tools.html"><b>ツール</b><span>${TOOLS.length}個を公開中(要員計画ほか)</span></a></div>
 ${NEWS.length ? `<div class="sec-title"><h2>最新ニュース</h2><small><a href="news.html">すべて見る</a></small></div><ul class="news-list">${NEWS.slice(0, 5).map(newsItem).join('')}</ul>` : ''}
 <div class="sec-title" id="dictionary"><h2>事典</h2><small>${entries.length}項目</small></div>
 <div class="chips-label">分類</div><div class="chips"><button class="chip" data-group="cat" data-val="" aria-pressed="true">すべて</button>${usedCats.map(c => `<button class="chip" data-group="cat" data-val="${esc(c)}" aria-pressed="false">${esc(c)}</button>`).join('')}</div>
@@ -283,13 +289,13 @@ write('tools.html', page({
 <div class="tool-cards">${TOOLS.map(t => `<a class="card" href="tools/${t.slug}.html"><div class="badges"><span class="badge">${esc(t.tag)}</span></div><h3>${esc(t.title)}</h3><p>${esc(t.desc)}</p></a>`).join('')}</div>
 <p><small>ツールは順次追加します。ご要望があれば、お知らせください。</small></p></div></div>`,
 }));
-write('tools/erlang-c.html', page({
-  title: `アーランC計算機(必要席数・サービスレベル) | ${SITE}`,
-  desc: '着信数とAHTから、目標のサービスレベルを満たす必要席数を計算する無料ツール。シュリンケージの見込みにも対応。',
-  root: '../', cur: 'tools',
-  body: readTool('erlang-c.body.html') + `<script>${readTool('erlang.js')}</script><script>${readTool('erlang-c.ui.js')}</script>`,
-  jsonld: { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'アーランC計算機', applicationCategory: 'BusinessApplication', operatingSystem: 'Web', inLanguage: 'ja', offers: { '@type': 'Offer', price: '0', priceCurrency: 'JPY' } },
-}));
+for (const t of TOOLS) {
+  write(`tools/${t.slug}.html`, page({
+    title: `${t.title} | ${SITE}`, desc: t.seo, root: '../', cur: 'tools',
+    body: readTool(`${t.slug}.body.html`) + `<script>${readTool('erlang.js')}</script><script>${readTool(`${t.slug}.ui.js`)}</script>`,
+    jsonld: { '@context': 'https://schema.org', '@type': 'WebApplication', name: t.name, applicationCategory: 'BusinessApplication', operatingSystem: 'Web', inLanguage: 'ja', offers: { '@type': 'Offer', price: '0', priceCurrency: 'JPY' } },
+  }));
+}
 simple('about.html', 'about', 'このサイトについて', `${SITE}の方針と運営について`,
   `<p>${SITE}は、コンタクトセンターの全貌が分かる日本語サイトを目指しています。</p>
 <h2>方針</h2><ul><li>「正解」を断定せず、通説・異論・合意度を出典つきで示します</li><li>出典のない数値は載せません</li><li>更新日と変更理由を残します</li></ul>
