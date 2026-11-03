@@ -234,6 +234,7 @@ function page({ title, body, desc = '', jsonld = null, root = '', cur = '' }) {
   return `<!doctype html>
 <html lang="ja"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="google-site-verification" content="Acvjzk8WJYYgh_Ob-_VlOWWDRbo0vvlxvv837mVj0Ls" />
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}">
 <meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:type" content="website"><meta property="og:site_name" content="${SITE}"><meta property="og:locale" content="ja_JP"><meta name="twitter:card" content="summary"><meta name="theme-color" content="#2f5bea">
