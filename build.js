@@ -406,7 +406,7 @@ ${NEWS.length ? `<div class="sec-title"><h2>最新ニュース</h2><small><a hre
 
 
 for (const a of articles) {
-  const chunks = marked.parse(a.body).split(/(?=<h2>)/).filter(x => x.trim());
+  const chunks = labelSources(marked.parse(a.body)).split(/(?=<h2>)/).filter(x => x.trim());
   const toc = [];
   const secs = chunks.map((c, i) => {
     const h = (c.match(/<h2>(.*?)<\/h2>/) || [])[1];
