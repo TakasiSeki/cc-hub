@@ -3,7 +3,7 @@ title: ボイスボット
 category: AI導入
 consensus: 議論あり
 updated: 2026-11-03
-status: 下書き
+tags: AI生成, ベンダー情報
 ---
 
 ## 定義
@@ -23,9 +23,9 @@ status: 下書き
 - 従来型の想定シナリオ型ボットと、生成AIを使うものでは能力が異なり、同じ「ボイスボット」でも混在して語られている。比較時は方式の確認が必要
 
 ## 出典
-- Salesforce「ボイスボットとは」 https://www.salesforce.com/jp/service/contact-center/voice-bot/ (最終更新 2026-05-11、取得 2026-11-03、本文確認済み)
-- NTTコミュニケーションズ「ボイスボットとは?メリット・デメリットと活用事例」 https://www.ntt.com/business/services/aitelephone/lp/column-02.html (取得 2026-11-03、HTTP 403で本文は取得できず。検索結果の要約でのみ確認)
-- マイナビニュース TECH+ 連載 https://news.mynavi.jp/techplus/article/aicontactcenter-3/ (検索結果でのみ確認、本文は未確認。コスト削減の事例が少ないとの指摘)
+- 【ベンダー情報】Salesforce「ボイスボットとは」 https://www.salesforce.com/jp/service/contact-center/voice-bot/ (最終更新 2026-05-11、取得 2026-11-03、本文確認済み)
+- 【ベンダー情報】NTTコミュニケーションズ「ボイスボットとは?メリット・デメリットと活用事例」 https://www.ntt.com/business/services/aitelephone/lp/column-02.html (取得 2026-11-03、HTTP 403で本文は取得できず。検索結果の要約でのみ確認)
+- 【メディア記事】マイナビニュース TECH+ 連載 https://news.mynavi.jp/techplus/article/aicontactcenter-3/ (検索結果でのみ確認、本文は未確認。コスト削減の事例が少ないとの指摘)
 - 注: ベンダー資料中心。中立的な出典は未確認
 
 ## 更新履歴

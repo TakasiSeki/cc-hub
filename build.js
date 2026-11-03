@@ -9,6 +9,11 @@ const OUT = path.join(__dirname, 'dist');
 const SITE = 'CC Hub';
 const TAGLINE = 'コンタクトセンター・ハブ';
 const SITE_URL = (process.env.SITE_URL || '').replace(/\/$/, '');
+const TAGS = {
+  '中立出典': { cls: 'tag-neutral', desc: '官公庁・自治体・提唱者本人の論文など、販売利益と無関係な出典を含む' },
+  'ベンダー情報': { cls: 'tag-vendor', desc: '製品・サービスを販売する事業者やコンサルティング会社の資料を出典とする' },
+  'AI生成': { cls: 'tag-ai', desc: 'AIがネット上の情報をもとに作成したもので、人による全面的な検証は済んでいない' },
+};
 const CATS = ['用語', '指標', '運営', 'AI導入', '技術', '法規制', '人材'];
 
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -35,9 +40,9 @@ function summary(body) {
 
 const CSS = `
 :root{--bg:#f6f7f9;--surface:#fff;--text:#1d2330;--muted:#5d6678;--line:#e4e7ee;--accent:#2f5bea;--accent-soft:#e8eeff;
---ok:#0f7a4b;--ok-soft:#e1f5ea;--warn:#8a5a00;--warn-soft:#fff1cc;--shadow:0 1px 2px rgba(20,30,60,.05),0 6px 20px rgba(20,30,60,.06);--r:14px}
+--ok:#0f7a4b;--ok-soft:#e1f5ea;--ai:#6b3fc7;--ai-soft:#efe8ff;--warn:#8a5a00;--warn-soft:#fff1cc;--shadow:0 1px 2px rgba(20,30,60,.05),0 6px 20px rgba(20,30,60,.06);--r:14px}
 @media (prefers-color-scheme:dark){:root{--bg:#0f131a;--surface:#171c26;--text:#e8ebf2;--muted:#9aa4b8;--line:#272e3d;--accent:#7b9bff;--accent-soft:#1f2a4d;
---ok:#5fd39a;--ok-soft:#14352a;--warn:#f0c15a;--warn-soft:#3a2f12;--shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25)}}
+--ok:#5fd39a;--ok-soft:#14352a;--ai:#c0a6ff;--ai-soft:#2c2250;--warn:#f0c15a;--warn-soft:#3a2f12;--shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25)}}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--text);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Meiryo",system-ui,sans-serif;font-size:16px;line-height:1.85;-webkit-font-smoothing:antialiased}
 a{color:var(--accent)}a:hover{text-decoration:none}
@@ -71,8 +76,8 @@ a{color:var(--accent)}a:hover{text-decoration:none}
 .card h3{margin:0;font-size:1.05rem;line-height:1.5}.card p{margin:0;color:var(--muted);font-size:.9rem;line-height:1.7;flex:1}
 .badges{display:flex;gap:6px;flex-wrap:wrap}
 .badge{font-size:.72rem;font-weight:700;padding:2px 9px;border-radius:999px;background:var(--accent-soft);color:var(--accent);line-height:1.7}
-.badge.ok{background:var(--ok-soft);color:var(--ok)}.badge.draft{background:var(--warn-soft);color:var(--warn)}.badge.plain{background:var(--line);color:var(--muted)}
-.empty{display:none;padding:30px;text-align:center;color:var(--muted)}
+.badge.tag-neutral{background:var(--ok-soft);color:var(--ok)}.badge.tag-vendor{background:var(--warn-soft);color:var(--warn)}.badge.tag-ai{background:var(--ai-soft);color:var(--ai)}.badge.plain{background:var(--line);color:var(--muted)}.badge.src{margin-right:6px;font-size:.7rem}.badge.src-media{background:var(--line);color:var(--muted)}
+.chips-label{font-size:.8rem;color:var(--muted);font-weight:700;margin:10px 0 6px}.empty{display:none;padding:30px;text-align:center;color:var(--muted)}
 .crumb{font-size:.85rem;color:var(--muted);margin:26px 0 6px}.crumb a{color:var(--muted)}
 .article-head{margin-bottom:6px}.article-head h1{font-size:clamp(1.6rem,4vw,2.2rem);line-height:1.4;margin:6px 0 12px}
 .meta-line{color:var(--muted);font-size:.85rem;margin-top:10px}
@@ -84,7 +89,7 @@ a{color:var(--accent)}a:hover{text-decoration:none}
 .toc a{display:block;padding:5px 12px;border-left:2px solid var(--line);color:var(--muted);text-decoration:none}
 .toc a:hover{border-color:var(--accent);color:var(--accent)}
 .notice{border-radius:12px;padding:12px 16px;font-size:.9rem;margin:14px 0 20px}
-.notice.draft{background:var(--warn-soft);color:var(--warn)}.notice.ok{background:var(--ok-soft);color:var(--ok)}
+.notice{background:var(--accent-soft);color:var(--text)}.notice p{margin:.2em 0}.notice.draft{background:var(--warn-soft);color:var(--warn)}.legend{display:grid;gap:10px;padding:0;list-style:none}.legend li{display:flex;gap:10px;align-items:baseline}
 .sec{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:6px 24px 14px;margin-bottom:16px;box-shadow:var(--shadow)}
 .sec h2{font-size:1.15rem;margin:18px 0 8px;display:flex;align-items:center;gap:10px}
 .sec h2::before{content:"";width:5px;height:1.1em;border-radius:3px;background:var(--accent)}
@@ -118,7 +123,7 @@ ${jsonld ? `<script type="application/ld+json">${JSON.stringify(jsonld)}</script
 <header class="site-header"><div class="wrap">
 <a class="brand" href="${root}index.html"><span class="logo">CC</span>${SITE}</a>${nav(root, cur)}</div></header>
 ${body}
-<footer class="site-footer"><div class="wrap"><div>${SITE}(${TAGLINE})<br>AIが下書きし、人が出典を確認して公開しています。</div>
+<footer class="site-footer"><div class="wrap"><div>${SITE}(${TAGLINE})<br>AIがネット上の情報をもとに作成し、出典を明記しています。</div>
 <div><a href="${root}about.html">このサイトについて</a></div></div></footer>
 </body></html>`;
 }
@@ -128,7 +133,10 @@ fs.mkdirSync(path.join(OUT, 'entries'), { recursive: true });
 const write = (rel, html) => fs.writeFileSync(path.join(OUT, rel), html);
 
 const SEC_CLASS = h => /異論|注意/.test(h) ? 'sec-caution' : /出典/.test(h) ? 'sec-source' : '';
-const statusBadge = s => `<span class="badge ${s === '確認済み' ? 'ok' : 'draft'}">${esc(s || '下書き')}</span>`;
+const tagList = meta => (meta.tags || 'AI生成').split(/[,、]\s*/).map(t => t.trim()).filter(Boolean);
+const tagBadges = tags => tags.map(t => `<span class="badge ${(TAGS[t] || {}).cls || 'plain'}">${esc(t)}</span>`).join('');
+const SRC_CLS = { '中立出典': 'tag-neutral', 'ベンダー情報': 'tag-vendor', 'メディア記事': 'src-media' };
+const labelSources = html => html.replace(/<li>【(中立出典|ベンダー情報|メディア記事)】/g, (_, l) => `<li><span class="badge src ${SRC_CLS[l]}">${l}</span>`);
 
 const entries = [];
 for (const f of fs.readdirSync(SRC)) {
@@ -136,10 +144,11 @@ for (const f of fs.readdirSync(SRC)) {
   const slug = f.replace(/\.md$/, '');
   const { meta, body } = parse(fs.readFileSync(path.join(SRC, f), 'utf8'));
   if (!meta.title) throw new Error(`${f}: title がありません`);
-  entries.push({ slug, summary: summary(body), ...meta });
+  const tags = tagList(meta);
+  entries.push({ slug, summary: summary(body), ...meta, tags });
 
   // 見出しごとにカード化し、目次を作る
-  const chunks = marked.parse(body).split(/(?=<h2>)/).filter(s => s.trim());
+  const chunks = labelSources(marked.parse(body)).split(/(?=<h2>)/).filter(s => s.trim());
   const toc = [];
   const sections = chunks.map((c, i) => {
     const h = (c.match(/<h2>(.*?)<\/h2>/) || [])[1];
@@ -149,17 +158,18 @@ for (const f of fs.readdirSync(SRC)) {
     return `<section class="sec ${SEC_CLASS(h)}" id="${id}">${c}</section>`;
   }).join('\n');
 
-  const ok = meta.status === '確認済み';
-  const notice = ok
-    ? `<div class="notice ok">この項目は、出典を確認済みです(${esc(meta.updated || '')})。</div>`
-    : `<div class="notice draft">この項目は<b>下書き</b>です。未確認の部分や、ベンダー資料のみを出典とする部分を含みます。出典欄で、確認の範囲を示しています。</div>`;
+  const notes = [];
+  if (tags.includes('AI生成')) notes.push('この項目は、AIがネット上の情報をもとに作成したものです。');
+  if (tags.includes('中立出典')) notes.push('官公庁・自治体・提唱者本人の論文など、中立的な出典を含みます。出典欄で確認できます。');
+  if (tags.includes('ベンダー情報')) notes.push(tags.includes('中立出典') ? '一部の内容は、ベンダー(事業者)の資料に基づきます。' : '出典は、ベンダー(事業者)の資料のみです。中立的な出典は未確認です。');
+  const notice = `<div class="notice">${notes.map(n => `<p>${n}</p>`).join('')}<p><a href="../about.html#tags">タグの意味</a></p></div>`;
   write(`entries/${slug}.html`, page({
     title: `${meta.title} | ${SITE}`,
     desc: `${meta.title}の定義・通説・異論・出典`,
     root: '../', cur: 'dict',
     body: `<div class="wrap">
 <div class="crumb"><a href="../index.html">ホーム</a> › <a href="../index.html#dictionary">事典</a> › ${esc(meta.category || '')}</div>
-<div class="article-head"><div class="badges"><span class="badge">${esc(meta.category || '')}</span>${statusBadge(meta.status)}<span class="badge plain">合意度: ${esc(meta.consensus || '')}</span></div>
+<div class="article-head"><div class="badges"><span class="badge">${esc(meta.category || '')}</span>${tagBadges(tags)}<span class="badge plain">合意度: ${esc(meta.consensus || '')}</span></div>
 <h1>${esc(meta.title)}</h1><div class="meta-line">最終更新: ${esc(meta.updated || '')}</div></div>
 ${notice}
 <div class="layout"><article>${sections}</article><aside class="toc"><b>目次</b>${toc.join('')}</aside></div></div>`,
@@ -169,15 +179,15 @@ ${notice}
 
 entries.sort((a, b) => catIdx(a.category) - catIdx(b.category) || a.title.localeCompare(b.title, 'ja'));
 const usedCats = CATS.filter(c => entries.some(e => e.category === c));
-const cards = entries.map(e => `<a class="card" href="entries/${e.slug}.html" data-cat="${esc(e.category || '')}" data-q="${esc((e.title + ' ' + e.summary + ' ' + (e.category || '')).toLowerCase())}">
-<div class="badges"><span class="badge">${esc(e.category || '')}</span>${statusBadge(e.status)}</div>
+const cards = entries.map(e => `<a class="card" href="entries/${e.slug}.html" data-cat="${esc(e.category || '')}" data-tags="${esc(e.tags.join(','))}" data-q="${esc((e.title + ' ' + e.summary + ' ' + (e.category || '')).toLowerCase())}">
+<div class="badges"><span class="badge">${esc(e.category || '')}</span>${tagBadges(e.tags)}</div>
 <h3>${esc(e.title)}</h3><p>${esc(e.summary)}</p></a>`).join('\n');
 
 const SCRIPT = `<script>
-(function(){var q=document.getElementById('q'),cards=[].slice.call(document.querySelectorAll('.card')),chips=[].slice.call(document.querySelectorAll('.chip')),empty=document.getElementById('empty'),cat='';
-function apply(){var t=q.value.trim().toLowerCase(),n=0;cards.forEach(function(c){var ok=(!cat||c.dataset.cat===cat)&&(!t||c.dataset.q.indexOf(t)>-1);c.style.display=ok?'':'none';if(ok)n++});empty.style.display=n?'none':'block'}
+(function(){var q=document.getElementById('q'),cards=[].slice.call(document.querySelectorAll('.card')),empty=document.getElementById('empty'),sel={cat:'',tag:''};
+function apply(){var t=q.value.trim().toLowerCase(),n=0;cards.forEach(function(c){var ok=(!sel.cat||c.dataset.cat===sel.cat)&&(!sel.tag||c.dataset.tags.split(',').indexOf(sel.tag)>-1)&&(!t||c.dataset.q.indexOf(t)>-1);c.style.display=ok?'':'none';if(ok)n++});empty.style.display=n?'none':'block'}
 q.addEventListener('input',apply);
-chips.forEach(function(b){b.addEventListener('click',function(){cat=b.dataset.cat;chips.forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});apply()})})})();
+[].slice.call(document.querySelectorAll('.chip')).forEach(function(b){b.addEventListener('click',function(){var g=b.dataset.group;sel[g]=b.dataset.val;[].slice.call(document.querySelectorAll('.chip[data-group="'+g+'"]')).forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});apply()})})})();
 </script>`;
 
 write('index.html', page({
@@ -193,7 +203,8 @@ write('index.html', page({
 <a class="pillar soon" href="news.html"><span class="tag">準備中</span><b>ニュース</b><span>業界の最新動向をまとめて確認</span></a>
 <a class="pillar soon" href="tools.html"><span class="tag">準備中</span><b>ツール</b><span>現場で使える無料の計算ツール</span></a></div>
 <div class="sec-title" id="dictionary"><h2>事典</h2><small>${entries.length}項目</small></div>
-<div class="chips"><button class="chip" data-cat="" aria-pressed="true">すべて</button>${usedCats.map(c => `<button class="chip" data-cat="${esc(c)}" aria-pressed="false">${esc(c)}</button>`).join('')}</div>
+<div class="chips-label">分類</div><div class="chips"><button class="chip" data-group="cat" data-val="" aria-pressed="true">すべて</button>${usedCats.map(c => `<button class="chip" data-group="cat" data-val="${esc(c)}" aria-pressed="false">${esc(c)}</button>`).join('')}</div>
+<div class="chips-label">出典のタイプ</div><div class="chips"><button class="chip" data-group="tag" data-val="" aria-pressed="true">すべて</button>${Object.keys(TAGS).map(t => `<button class="chip" data-group="tag" data-val="${t}" aria-pressed="false">${t}</button>`).join('')}</div>
 <div class="cards">${cards}</div><div class="empty" id="empty">該当する項目が見つかりませんでした。</div></div>${SCRIPT}`,
 }));
 
@@ -207,7 +218,9 @@ simple('tools.html', 'tools', 'ツール', 'コンタクトセンター向け便
 simple('about.html', 'about', 'このサイトについて', `${SITE}の方針と運営について`,
   `<p>${SITE}は、コンタクトセンターの全貌が分かる日本語サイトを目指しています。</p>
 <h2>方針</h2><ul><li>「正解」を断定せず、通説・異論・合意度を出典つきで示します</li><li>出典のない数値は載せません</li><li>更新日と変更理由を残します</li></ul>
-<h2>運営</h2><p>AIが下書きし、人が出典を確認して公開しています。項目ごとの状態は「確認済み」「下書き」で示します。「下書き」には、未確認の部分や、ベンダー資料のみを出典とする部分が含まれます。</p>
+<h2>運営</h2><p>AIがネット上の情報をもとに下書きを作り、出典を確認しながら公開しています。確認の範囲は、各項目の出典欄に書いています。</p>
+<h2 id="tags">タグの意味</h2><ul class="legend">${Object.entries(TAGS).map(([t, v]) => `<li><span class="badge ${v.cls}">${t}</span><span>${v.desc}</span></li>`).join('')}</ul>
+<p>出典欄の各行にも、「中立出典」「ベンダー情報」「メディア記事」のラベルを付けています。複数のタグが付く項目もあります。</p>
 <p>誤りに気づかれた場合は、出典とあわせてお知らせいただけると助かります。</p>`);
 
 const urls = ['index.html', 'news.html', 'tools.html', 'about.html', ...entries.map(e => `entries/${e.slug}.html`)];

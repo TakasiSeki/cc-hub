@@ -3,7 +3,7 @@ title: AHT(平均処理時間)
 category: 指標
 consensus: 議論あり
 updated: 2026-11-03
-status: 下書き
+tags: AI生成, ベンダー情報
 ---
 
 ## 定義
@@ -24,8 +24,8 @@ Average Handling Time(Average Handle Time とも)。1件の対応にかかった
 - 「平均◯分が良い」といった統一的な目安は、確認できた資料では示されていない(目標値は業種・問い合わせ内容で大きく異なる)
 
 ## 出典
-- Salesforce「AHT(平均処理時間)とは」 https://www.salesforce.com/jp/hub/customer-service/what-is-aht/ (最終更新 2026-07-23、取得 2026-11-03、本文確認済み。定義・計算式・短縮の弊害)
-- Genesys「AHTとは?計算方法から改善まで」 https://www.genesys.com/ja-jp/blog/post/aht-guide (取得 2026-11-03。検索結果の要約でのみ確認、本文は未確認)
+- 【ベンダー情報】Salesforce「AHT(平均処理時間)とは」 https://www.salesforce.com/jp/hub/customer-service/what-is-aht/ (最終更新 2026-07-23、取得 2026-11-03、本文確認済み。定義・計算式・短縮の弊害)
+- 【ベンダー情報】Genesys「AHTとは?計算方法から改善まで」 https://www.genesys.com/ja-jp/blog/post/aht-guide (取得 2026-11-03。検索結果の要約でのみ確認、本文は未確認)
 - 注: 上記はいずれもベンダー資料。中立的な出典(業界団体・調査機関・学術資料)は未確認で、追加が必要
 
 ## 更新履歴

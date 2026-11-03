@@ -3,7 +3,7 @@ title: 応答率とサービスレベル
 category: 指標
 consensus: 議論あり
 updated: 2026-11-03
-status: 下書き
+tags: AI生成, ベンダー情報
 ---
 
 ## 定義
@@ -31,8 +31,8 @@ status: 下書き
 - 目標値は業種・センターで異なる。上記の目安は1社の見解で、業界標準とは確認できていない
 
 ## 出典
-- Salesforce「コールセンターの応答率とは」 https://www.salesforce.com/jp/service/contact-center/what-is-response-rate/ (最終更新 2024-04-03、取得 2026-11-03、本文確認済み。応答率の定義・式・目安・注意点)
-- Cisco「コールタイプのサービスレベル計算の実行方法」 https://www.cisco.com/c/ja_jp/support/docs/contact-center/unified-contact-center-enterprise/216240-how-to-perform-service-level-calculation.html (更新 2020-11-15、取得 2026-11-03、本文確認済み。特定製品での計算式。他製品や社内の定義は異なる場合がある)
+- 【ベンダー情報】Salesforce「コールセンターの応答率とは」 https://www.salesforce.com/jp/service/contact-center/what-is-response-rate/ (最終更新 2024-04-03、取得 2026-11-03、本文確認済み。応答率の定義・式・目安・注意点)
+- 【ベンダー情報】Cisco「コールタイプのサービスレベル計算の実行方法」 https://www.cisco.com/c/ja_jp/support/docs/contact-center/unified-contact-center-enterprise/216240-how-to-perform-service-level-calculation.html (更新 2020-11-15、取得 2026-11-03、本文確認済み。特定製品での計算式。他製品や社内の定義は異なる場合がある)
 - 注: ベンダー資料のみ。中立的な出典は未確認
 
 ## 更新履歴

@@ -3,7 +3,7 @@ title: カスタマーハラスメント対策の義務化
 category: 法規制
 consensus: 定説
 updated: 2026-11-03
-status: 下書き
+tags: AI生成, 中立出典
 ---
 
 ## 定義
@@ -32,9 +32,9 @@ status: 下書き
 - 自治体の条例(東京都など)が別にある場合がある(未調査)
 
 ## 出典
-- 厚生労働省 改正労働施策総合推進法等特設ページ https://www.no-harassment.mhlw.go.jp/foundation/law-amendment/ (取得 2026-11-03、本文確認済み。施行日と義務化の記載。措置の内容や定義は記載なし)
-- 茨城県「カスタマーハラスメント対策」 https://www.pref.ibaraki.jp/shokorodo/rosei/rodo/rodokeizaihukushi21/kasuhara.html (更新 2026-04-01、取得 2026-11-03、本文確認済み。定義の3要素と5つの措置。自治体による整理で、一次情報ではない)
-- 厚生労働省「カスタマーハラスメント対策企業マニュアル(令和8年度改訂版)」 https://www.mhlw.go.jp/content/11900000/000915233.pdf (検索結果で存在を確認したのみ、本文は未確認)
+- 【中立出典】厚生労働省 改正労働施策総合推進法等特設ページ https://www.no-harassment.mhlw.go.jp/foundation/law-amendment/ (取得 2026-11-03、本文確認済み。施行日と義務化の記載。措置の内容や定義は記載なし)
+- 【中立出典】茨城県「カスタマーハラスメント対策」 https://www.pref.ibaraki.jp/shokorodo/rosei/rodo/rodokeizaihukushi21/kasuhara.html (更新 2026-04-01、取得 2026-11-03、本文確認済み。定義の3要素と5つの措置。自治体による整理で、一次情報ではない)
+- 【中立出典】厚生労働省「カスタマーハラスメント対策企業マニュアル(令和8年度改訂版)」 https://www.mhlw.go.jp/content/11900000/000915233.pdf (検索結果で存在を確認したのみ、本文は未確認)
 - 指針(令和8年厚生労働省告示第51号) (本文未確認)
 
 ## 更新履歴

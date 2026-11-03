@@ -3,7 +3,7 @@ title: コンタクトセンターAI導入の失敗パターン
 category: AI導入
 consensus: 議論あり
 updated: 2026-11-03
-status: 下書き
+tags: AI生成, ベンダー情報
 ---
 
 ## 定義
@@ -24,8 +24,8 @@ status: 下書き
 - 日本国内の、解決率や利用率の信頼できる統計は見つかっていない
 
 ## 出典
-- NICE「コンタクトセンターAI導入でよくあるミス」 https://www.nice.com/answers/common-mistakes-in-contact-center-ai-implementation (記事日付 2026-08-07、取得 2026-11-03、本文確認済み。数値の根拠は記載なし)
-- Forbes JAPAN「コンタクトセンターAI、失敗の真因は『統合』にあり」 https://forbesjapan.com/articles/detail/92571 (2026-02-26、取得 2026-11-03、本文確認済み。寄稿者は事業者のCEO)
+- 【ベンダー情報】NICE「コンタクトセンターAI導入でよくあるミス」 https://www.nice.com/answers/common-mistakes-in-contact-center-ai-implementation (記事日付 2026-08-07、取得 2026-11-03、本文確認済み。数値の根拠は記載なし)
+- 【ベンダー情報】Forbes JAPAN「コンタクトセンターAI、失敗の真因は『統合』にあり」 https://forbesjapan.com/articles/detail/92571 (2026-02-26、取得 2026-11-03、本文確認済み。寄稿者は事業者のCEO)
 - RightTouch、Zoom、Shelf.io の各記事(検索結果の要約でのみ確認、本文は未確認)
 - 注: 事業者の資料のみ。中立的な調査は未確認
 

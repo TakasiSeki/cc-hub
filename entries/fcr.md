@@ -3,7 +3,7 @@ title: 一次解決率(FCR)
 category: 指標
 consensus: 議論あり
 updated: 2026-11-03
-status: 下書き
+tags: AI生成, ベンダー情報
 ---
 
 ## 定義
@@ -23,8 +23,8 @@ First Contact(Call)Resolution。顧客の問い合わせが、初回の対応で
 - 目標値は、確認できた日本語資料では示されていない。一部のベンダーブログには「70〜75%が理想」との記述があるが、業界標準かは未確認のため記載しない
 
 ## 出典
-- NICE「一次解決率(FCR)とは」 https://www.nice.com/ja/glossary/what-is-contact-center-first-contact-resolution-fcr (取得 2026-11-03、本文確認済み。定義と測定上の課題。日付表示なし)
-- Medallia Agent Connect FAQ https://docs.medallia.com/agent-connect/faqs/how-is-first-contact-resolution-fcr-calculated (取得 2026-11-03、検索結果の要約でのみ確認。計算式)
+- 【ベンダー情報】NICE「一次解決率(FCR)とは」 https://www.nice.com/ja/glossary/what-is-contact-center-first-contact-resolution-fcr (取得 2026-11-03、本文確認済み。定義と測定上の課題。日付表示なし)
+- 【ベンダー情報】Medallia Agent Connect FAQ https://docs.medallia.com/agent-connect/faqs/how-is-first-contact-resolution-fcr-calculated (取得 2026-11-03、検索結果の要約でのみ確認。計算式)
 - 注: いずれもベンダー資料。中立的な出典は未確認
 
 ## 更新履歴

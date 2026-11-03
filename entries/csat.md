@@ -3,7 +3,7 @@ title: 顧客満足度(CSAT)
 category: 指標
 consensus: 議論あり
 updated: 2026-11-03
-status: 下書き
+tags: AI生成, ベンダー情報
 ---
 
 ## 定義
@@ -25,7 +25,7 @@ CSAT(%) = (4または5と答えた人数 ÷ 総回答数) × 100
 - 上位何段階を「満足」とするか(上位2段階か、上位1段階か)で数値が変わるため、他社との比較には定義の確認が必要
 
 ## 出典
-- Qualtrics「CSAT(顧客満足度スコア)とは」 https://www.qualtrics.com/ja/experience-management/customer/what-is-csat/ (公開 2026-10-13、取得 2026-11-03、本文確認済み)
+- 【ベンダー情報】Qualtrics「CSAT(顧客満足度スコア)とは」 https://www.qualtrics.com/ja/experience-management/customer/what-is-csat/ (公開 2026-10-13、取得 2026-11-03、本文確認済み)
 - 注: ベンダー資料のみ。中立的な出典は未確認
 
 ## 更新履歴

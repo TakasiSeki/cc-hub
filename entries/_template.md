@@ -3,7 +3,7 @@ title:
 category: 用語 | 指標 | AI導入 | 法規制 | 運営
 consensus: 定説 | 議論あり | 少数説
 updated: YYYY-MM-DD
-status: 下書き | 確認済み
+tags: AI生成
 ---
 
 ## 定義

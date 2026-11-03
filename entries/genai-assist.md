@@ -3,7 +3,7 @@ title: 生成AIによるオペレーター支援(回答案の提示)
 category: AI導入
 consensus: 議論あり
 updated: 2026-11-03
-status: 下書き
+tags: AI生成, ベンダー情報
 ---
 
 ## 定義
@@ -21,8 +21,8 @@ status: 下書き
 - 複雑な質問の引き継ぎや、CRMへの記録といった後処理が減らない例もある
 
 ## 出典
-- NRI「生成AIによる応対品質向上とナレッジ活用の高度化」 https://www.nri.com/jp/service/solution/callcenter_ai_knowledge_enhancement.html (取得 2026-11-03、本文確認済み。ベンダーの紹介ページで、数値は自社実証)
-- 日経BP関連記事(NTT東日本とキューアンドエーの事例ほか) https://active.nikkeibp.co.jp/atcl/wp/b/24/11/05/05051/ (検索結果でのみ確認、本文は未確認)
+- 【ベンダー情報】NRI「生成AIによる応対品質向上とナレッジ活用の高度化」 https://www.nri.com/jp/service/solution/callcenter_ai_knowledge_enhancement.html (取得 2026-11-03、本文確認済み。ベンダーの紹介ページで、数値は自社実証)
+- 【メディア記事】日経BP関連記事(NTT東日本とキューアンドエーの事例ほか) https://active.nikkeibp.co.jp/atcl/wp/b/24/11/05/05051/ (検索結果でのみ確認、本文は未確認)
 - 注: ベンダー資料中心。生成AIの誤回答(ハルシネーション)に関する検証例は、見つからなかった
 
 ## 更新履歴
