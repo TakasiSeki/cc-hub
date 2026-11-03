@@ -9,8 +9,10 @@ const OUT = path.join(__dirname, 'dist');
 const SITE = 'CC Hub';
 const TAGLINE = 'コンタクトセンター・ハブ';
 const SITE_URL = (process.env.SITE_URL || '').replace(/\/$/, '');
+const CATS = ['用語', '指標', '運営', 'AI導入', '技術', '法規制', '人材'];
 
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const catIdx = c => { const i = CATS.indexOf(c); return i < 0 ? CATS.length : i; };
 
 function parse(text) {
   const m = text.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
@@ -23,30 +25,101 @@ function parse(text) {
   return { meta, body: m[2] };
 }
 
-const CSS = `body{font-family:system-ui,'Hiragino Sans','Yu Gothic',sans-serif;max-width:46rem;margin:0 auto;padding:1rem;line-height:1.8;color:#222}
-a{color:#0b5fa5}header{display:flex;flex-wrap:wrap;gap:.5rem 1.2rem;align-items:baseline;border-bottom:1px solid #ddd;padding-bottom:.5rem;margin-bottom:1rem}
-header .brand{font-weight:700;font-size:1.1rem;text-decoration:none}footer{margin:2rem 0 1rem;color:#555}
-h1{font-size:1.6rem}h2{font-size:1.2rem;border-bottom:1px solid #ddd;padding-bottom:.2rem;margin-top:2rem}
-.meta span{display:inline-block;margin-right:.5rem;padding:0 .5rem;background:#eef;border-radius:.3rem;font-size:.85rem}
-.draft{background:#fff4d6!important}li{margin:.2rem 0}
-.pillars{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));margin:1.5rem 0}
-.pillar{border:1px solid #ddd;border-radius:.5rem;padding:.8rem 1rem}.pillar h2{margin:0 0 .3rem;border:0;font-size:1.1rem}
-.soon{color:#777;font-size:.9rem}
-@media (prefers-color-scheme:dark){body{background:#16181b;color:#e6e6e6}a{color:#7ab8f0}header,.pillar,h2{border-color:#333}footer{color:#aaa}.meta span{background:#26304a}.draft{background:#4a3f1a!important}.soon{color:#999}}`;
+// 「## 定義」の最初の段落を、カード用の要約にする
+function summary(body) {
+  const m = body.match(/##\s*定義\s*\r?\n+([\s\S]*?)(?:\r?\n\r?\n|\r?\n##|$)/);
+  if (!m) return '';
+  const t = m[1].replace(/[*_`>#]/g, '').replace(/\[([^\]]*)\]\([^)]*\)/g, '$1').replace(/\s+/g, ' ').trim();
+  return t.length > 90 ? t.slice(0, 88) + '…' : t;
+}
 
-function page({ title, body, desc = '', jsonld = null, root = '' }) {
+const CSS = `
+:root{--bg:#f6f7f9;--surface:#fff;--text:#1d2330;--muted:#5d6678;--line:#e4e7ee;--accent:#2f5bea;--accent-soft:#e8eeff;
+--ok:#0f7a4b;--ok-soft:#e1f5ea;--warn:#8a5a00;--warn-soft:#fff1cc;--shadow:0 1px 2px rgba(20,30,60,.05),0 6px 20px rgba(20,30,60,.06);--r:14px}
+@media (prefers-color-scheme:dark){:root{--bg:#0f131a;--surface:#171c26;--text:#e8ebf2;--muted:#9aa4b8;--line:#272e3d;--accent:#7b9bff;--accent-soft:#1f2a4d;
+--ok:#5fd39a;--ok-soft:#14352a;--warn:#f0c15a;--warn-soft:#3a2f12;--shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25)}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Meiryo",system-ui,sans-serif;font-size:16px;line-height:1.85;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}a:hover{text-decoration:none}
+.wrap{max-width:68rem;margin:0 auto;padding:0 20px}
+.site-header{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.site-header .wrap{display:flex;align-items:center;gap:20px;min-height:58px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.15rem;color:var(--text);text-decoration:none;letter-spacing:.01em}
+.logo{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#2f5bea,#7a4dff);display:grid;place-items:center;color:#fff;font-size:.8rem;font-weight:800}
+.nav{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+.nav a{padding:6px 12px;border-radius:999px;color:var(--muted);text-decoration:none;font-size:.92rem;font-weight:600}
+.nav a:hover,.nav a[aria-current]{background:var(--accent-soft);color:var(--accent)}
+.hero{padding:48px 0 28px}
+.hero h1{font-size:clamp(1.7rem,4.5vw,2.5rem);line-height:1.35;margin:0 0 12px;letter-spacing:.01em}
+.hero p{margin:0;color:var(--muted);max-width:40rem;font-size:1.02rem}
+.search{margin-top:22px;position:relative;max-width:36rem}
+.search input{width:100%;padding:14px 16px 14px 44px;font:inherit;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--text);box-shadow:var(--shadow)}
+.search input:focus{outline:2px solid var(--accent);outline-offset:1px}
+.search svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--muted)}
+.pillars{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));margin:8px 0 8px}
+.pillar{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;box-shadow:var(--shadow);text-decoration:none;color:inherit;display:block}
+.pillar b{display:block;font-size:1.05rem;margin-bottom:2px}.pillar span{color:var(--muted);font-size:.9rem}
+.pillar.soon{opacity:.85}
+.pillar .tag{float:right;font-size:.72rem;padding:2px 8px;border-radius:999px;background:var(--line);color:var(--muted);font-weight:700}
+.sec-title{display:flex;align-items:baseline;gap:12px;margin:40px 0 14px}.sec-title h2{margin:0;font-size:1.3rem}.sec-title small{color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--text);padding:6px 14px;border-radius:999px;font:inherit;font-size:.88rem;font-weight:600;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:#fff}
+.cards{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(19rem,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;box-shadow:var(--shadow);text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:8px;transition:transform .15s,border-color .15s}
+.card:hover{transform:translateY(-2px);border-color:var(--accent)}
+.card h3{margin:0;font-size:1.05rem;line-height:1.5}.card p{margin:0;color:var(--muted);font-size:.9rem;line-height:1.7;flex:1}
+.badges{display:flex;gap:6px;flex-wrap:wrap}
+.badge{font-size:.72rem;font-weight:700;padding:2px 9px;border-radius:999px;background:var(--accent-soft);color:var(--accent);line-height:1.7}
+.badge.ok{background:var(--ok-soft);color:var(--ok)}.badge.draft{background:var(--warn-soft);color:var(--warn)}.badge.plain{background:var(--line);color:var(--muted)}
+.empty{display:none;padding:30px;text-align:center;color:var(--muted)}
+.crumb{font-size:.85rem;color:var(--muted);margin:26px 0 6px}.crumb a{color:var(--muted)}
+.article-head{margin-bottom:6px}.article-head h1{font-size:clamp(1.6rem,4vw,2.2rem);line-height:1.4;margin:6px 0 12px}
+.meta-line{color:var(--muted);font-size:.85rem;margin-top:10px}
+.layout{display:grid;gap:36px;grid-template-columns:minmax(0,1fr);margin-bottom:40px}
+@media (min-width:60rem){.layout{grid-template-columns:minmax(0,1fr) 14rem}}
+.toc{position:sticky;top:78px;align-self:start;font-size:.88rem;display:none}
+@media (min-width:60rem){.toc{display:block}}
+.toc b{display:block;margin-bottom:8px;color:var(--muted);font-size:.78rem;letter-spacing:.06em}
+.toc a{display:block;padding:5px 12px;border-left:2px solid var(--line);color:var(--muted);text-decoration:none}
+.toc a:hover{border-color:var(--accent);color:var(--accent)}
+.notice{border-radius:12px;padding:12px 16px;font-size:.9rem;margin:14px 0 20px}
+.notice.draft{background:var(--warn-soft);color:var(--warn)}.notice.ok{background:var(--ok-soft);color:var(--ok)}
+.sec{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:6px 24px 14px;margin-bottom:16px;box-shadow:var(--shadow)}
+.sec h2{font-size:1.15rem;margin:18px 0 8px;display:flex;align-items:center;gap:10px}
+.sec h2::before{content:"";width:5px;height:1.1em;border-radius:3px;background:var(--accent)}
+.sec-caution{background:var(--warn-soft);border-color:transparent}.sec-caution h2::before{background:var(--warn)}
+.sec-source h2::before{background:var(--ok)}.sec-source{font-size:.9rem;overflow-wrap:anywhere}
+.sec ul,.sec ol{padding-left:1.3em}.sec li{margin:.35em 0}
+.sec p{margin:.6em 0}
+.sec code{background:var(--line);padding:1px 6px;border-radius:5px;font-size:.9em}
+.page{max-width:44rem;margin:36px 0 60px}.page h1{font-size:1.8rem}.page h2{margin-top:30px}
+.site-footer{border-top:1px solid var(--line);margin-top:30px;padding:26px 0 40px;color:var(--muted);font-size:.85rem}
+.site-footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between}
+`;
+
+const SEARCH_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>';
+
+function nav(root, cur) {
+  const item = (href, label, key) => `<a href="${root}${href}"${cur === key ? ' aria-current="page"' : ''}>${label}</a>`;
+  return `<nav class="nav" aria-label="メイン">${item('index.html#dictionary', '事典', 'dict')}${item('news.html', 'ニュース', 'news')}${item('tools.html', 'ツール', 'tools')}${item('about.html', 'このサイトについて', 'about')}</nav>`;
+}
+
+function page({ title, body, desc = '', jsonld = null, root = '', cur = '' }) {
   return `<!doctype html>
 <html lang="ja"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}">
+<meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:type" content="website">
 <style>${CSS}</style>
 ${jsonld ? `<script type="application/ld+json">${JSON.stringify(jsonld)}</script>` : ''}
 </head><body>
-<header><a class="brand" href="${root}index.html">${SITE}</a>
-<nav><a href="${root}index.html#dictionary">事典</a> · <a href="${root}news.html">ニュース</a> · <a href="${root}tools.html">ツール</a> · <a href="${root}about.html">このサイトについて</a></nav></header>
-<main>${body}</main>
-<footer><small>AIが下書きし、人が出典を確認して公開しています。状態が「下書き」の項目は未確認の部分を含みます。</small></footer>
+<header class="site-header"><div class="wrap">
+<a class="brand" href="${root}index.html"><span class="logo">CC</span>${SITE}</a>${nav(root, cur)}</div></header>
+${body}
+<footer class="site-footer"><div class="wrap"><div>${SITE}(${TAGLINE})<br>AIが下書きし、人が出典を確認して公開しています。</div>
+<div><a href="${root}about.html">このサイトについて</a></div></div></footer>
 </body></html>`;
 }
 
@@ -54,66 +127,89 @@ fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(path.join(OUT, 'entries'), { recursive: true });
 const write = (rel, html) => fs.writeFileSync(path.join(OUT, rel), html);
 
+const SEC_CLASS = h => /異論|注意/.test(h) ? 'sec-caution' : /出典/.test(h) ? 'sec-source' : '';
+const statusBadge = s => `<span class="badge ${s === '確認済み' ? 'ok' : 'draft'}">${esc(s || '下書き')}</span>`;
+
 const entries = [];
 for (const f of fs.readdirSync(SRC)) {
   if (!f.endsWith('.md') || f.startsWith('_')) continue;
   const slug = f.replace(/\.md$/, '');
   const { meta, body } = parse(fs.readFileSync(path.join(SRC, f), 'utf8'));
   if (!meta.title) throw new Error(`${f}: title がありません`);
-  entries.push({ slug, ...meta });
+  entries.push({ slug, summary: summary(body), ...meta });
 
-  const head = `<h1>${esc(meta.title)}</h1>
-<p class="meta"><span>${esc(meta.category || '')}</span><span>合意度: ${esc(meta.consensus || '')}</span>
-<span class="${meta.status === '確認済み' ? '' : 'draft'}">${esc(meta.status || '')}</span><span>更新: ${esc(meta.updated || '')}</span></p>`;
+  // 見出しごとにカード化し、目次を作る
+  const chunks = marked.parse(body).split(/(?=<h2>)/).filter(s => s.trim());
+  const toc = [];
+  const sections = chunks.map((c, i) => {
+    const h = (c.match(/<h2>(.*?)<\/h2>/) || [])[1];
+    if (!h) return c;
+    const id = 's' + i;
+    toc.push(`<a href="#${id}">${h.replace(/<[^>]+>/g, '')}</a>`);
+    return `<section class="sec ${SEC_CLASS(h)}" id="${id}">${c}</section>`;
+  }).join('\n');
+
+  const ok = meta.status === '確認済み';
+  const notice = ok
+    ? `<div class="notice ok">この項目は、出典を確認済みです(${esc(meta.updated || '')})。</div>`
+    : `<div class="notice draft">この項目は<b>下書き</b>です。未確認の部分や、ベンダー資料のみを出典とする部分を含みます。出典欄で、確認の範囲を示しています。</div>`;
   write(`entries/${slug}.html`, page({
     title: `${meta.title} | ${SITE}`,
     desc: `${meta.title}の定義・通説・異論・出典`,
-    root: '../',
-    body: head + marked.parse(body),
+    root: '../', cur: 'dict',
+    body: `<div class="wrap">
+<div class="crumb"><a href="../index.html">ホーム</a> › <a href="../index.html#dictionary">事典</a> › ${esc(meta.category || '')}</div>
+<div class="article-head"><div class="badges"><span class="badge">${esc(meta.category || '')}</span>${statusBadge(meta.status)}<span class="badge plain">合意度: ${esc(meta.consensus || '')}</span></div>
+<h1>${esc(meta.title)}</h1><div class="meta-line">最終更新: ${esc(meta.updated || '')}</div></div>
+${notice}
+<div class="layout"><article>${sections}</article><aside class="toc"><b>目次</b>${toc.join('')}</aside></div></div>`,
     jsonld: { '@context': 'https://schema.org', '@type': 'Article', headline: meta.title, dateModified: meta.updated, inLanguage: 'ja' },
   }));
 }
 
-// 分類ごとに一覧
-const byCat = {};
-for (const e of entries) (byCat[e.category || 'その他'] ||= []).push(e);
-const dict = Object.entries(byCat).map(([cat, list]) =>
-  `<h3>${esc(cat)}</h3><ul>` + list.sort((a, b) => a.title.localeCompare(b.title, 'ja')).map(e =>
-    `<li><a href="entries/${e.slug}.html">${esc(e.title)}</a> <small>${esc(e.status || '')}</small></li>`).join('') + '</ul>').join('\n');
+entries.sort((a, b) => catIdx(a.category) - catIdx(b.category) || a.title.localeCompare(b.title, 'ja'));
+const usedCats = CATS.filter(c => entries.some(e => e.category === c));
+const cards = entries.map(e => `<a class="card" href="entries/${e.slug}.html" data-cat="${esc(e.category || '')}" data-q="${esc((e.title + ' ' + e.summary + ' ' + (e.category || '')).toLowerCase())}">
+<div class="badges"><span class="badge">${esc(e.category || '')}</span>${statusBadge(e.status)}</div>
+<h3>${esc(e.title)}</h3><p>${esc(e.summary)}</p></a>`).join('\n');
+
+const SCRIPT = `<script>
+(function(){var q=document.getElementById('q'),cards=[].slice.call(document.querySelectorAll('.card')),chips=[].slice.call(document.querySelectorAll('.chip')),empty=document.getElementById('empty'),cat='';
+function apply(){var t=q.value.trim().toLowerCase(),n=0;cards.forEach(function(c){var ok=(!cat||c.dataset.cat===cat)&&(!t||c.dataset.q.indexOf(t)>-1);c.style.display=ok?'':'none';if(ok)n++});empty.style.display=n?'none':'block'}
+q.addEventListener('input',apply);
+chips.forEach(function(b){b.addEventListener('click',function(){cat=b.dataset.cat;chips.forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});apply()})})})();
+</script>`;
 
 write('index.html', page({
   title: `${SITE}(${TAGLINE}) | コンタクトセンターの事典・ニュース・ツール`,
   desc: 'コンタクトセンターの全貌が分かる日本語サイト。用語・指標・法規制・AI導入を、通説・異論・出典つきで整理。',
-  body: `<h1>${SITE} <small>${TAGLINE}</small></h1>
-<p>コンタクトセンターの全貌が分かる日本語サイトです。用語・指標・法規制・AI導入を、通説と異論、出典を分けて整理しています。</p>
+  cur: '',
+  body: `<div class="wrap">
+<section class="hero"><h1>コンタクトセンターの全貌が、<br>ひとつで分かる。</h1>
+<p>用語・指標・法規制・AI導入を、通説と異論、出典を分けて整理した日本語の事典です。ニュースや便利ツールも順次公開します。</p>
+<div class="search">${SEARCH_ICON}<input id="q" type="search" placeholder="用語を検索(例: AHT、カスハラ、ボイスボット)" aria-label="事典内を検索"></div></section>
 <div class="pillars">
-<div class="pillar"><h2>事典</h2><p>${entries.length}項目を公開中。</p><a href="#dictionary">項目一覧へ</a></div>
-<div class="pillar"><h2>ニュース</h2><p class="soon">準備中</p><a href="news.html">詳細</a></div>
-<div class="pillar"><h2>ツール</h2><p class="soon">準備中</p><a href="tools.html">詳細</a></div>
-</div>
-<h2 id="dictionary">事典</h2>${dict}`,
+<a class="pillar" href="#dictionary"><b>事典</b><span>${entries.length}項目を公開中</span></a>
+<a class="pillar soon" href="news.html"><span class="tag">準備中</span><b>ニュース</b><span>業界の最新動向をまとめて確認</span></a>
+<a class="pillar soon" href="tools.html"><span class="tag">準備中</span><b>ツール</b><span>現場で使える無料の計算ツール</span></a></div>
+<div class="sec-title" id="dictionary"><h2>事典</h2><small>${entries.length}項目</small></div>
+<div class="chips"><button class="chip" data-cat="" aria-pressed="true">すべて</button>${usedCats.map(c => `<button class="chip" data-cat="${esc(c)}" aria-pressed="false">${esc(c)}</button>`).join('')}</div>
+<div class="cards">${cards}</div><div class="empty" id="empty">該当する項目が見つかりませんでした。</div></div>${SCRIPT}`,
 }));
 
-write('news.html', page({
-  title: `ニュース | ${SITE}`, desc: 'コンタクトセンター関連ニュース(準備中)',
-  body: `<h1>ニュース</h1><p>業界の最新動向を、タイトル・要約・元記事リンクの形で掲載する予定です(準備中)。本文の転載は行いません。</p>`,
+const simple = (file, key, title, desc, inner) => write(file, page({
+  title: `${title} | ${SITE}`, desc, cur: key, body: `<div class="wrap"><div class="page"><h1>${title}</h1>${inner}</div></div>`,
 }));
-write('tools.html', page({
-  title: `ツール | ${SITE}`, desc: 'コンタクトセンター向け便利ツール(準備中)',
-  body: `<h1>ツール</h1><p>サービスレベルやアーランCの計算など、現場で使える無料ツールを公開する予定です(準備中)。</p>`,
-}));
-write('about.html', page({
-  title: `このサイトについて | ${SITE}`, desc: `${SITE}の方針と運営について`,
-  body: `<h1>このサイトについて</h1>
-<p>${SITE}は、コンタクトセンターの全貌が分かる日本語サイトを目指しています。</p>
-<h2>方針</h2><ul>
-<li>「正解」を断定せず、通説・異論・合意度を出典つきで示します</li>
-<li>出典のない数値は載せません</li>
-<li>更新日と変更理由を残します</li></ul>
-<h2>運営</h2><p>AIが下書きし、人が出典を確認して公開しています。項目ごとの状態は「確認済み」「下書き」で示します。「下書き」には、未確認の部分や、ベンダー資料のみを出典とする部分が含まれます。誤りに気づかれた場合は、出典とあわせてお知らせいただけると助かります。</p>`,
-}));
+simple('news.html', 'news', 'ニュース', 'コンタクトセンター関連ニュース(準備中)',
+  '<div class="notice draft">準備中です。</div><p>業界の最新動向を、タイトル・要約・元記事へのリンクの形で掲載する予定です。本文の転載は行いません。</p>');
+simple('tools.html', 'tools', 'ツール', 'コンタクトセンター向け便利ツール(準備中)',
+  '<div class="notice draft">準備中です。</div><p>サービスレベルやアーランCの計算など、現場で使える無料ツールを公開する予定です。事典の項目からも、関連するツールへ移動できるようにします。</p>');
+simple('about.html', 'about', 'このサイトについて', `${SITE}の方針と運営について`,
+  `<p>${SITE}は、コンタクトセンターの全貌が分かる日本語サイトを目指しています。</p>
+<h2>方針</h2><ul><li>「正解」を断定せず、通説・異論・合意度を出典つきで示します</li><li>出典のない数値は載せません</li><li>更新日と変更理由を残します</li></ul>
+<h2>運営</h2><p>AIが下書きし、人が出典を確認して公開しています。項目ごとの状態は「確認済み」「下書き」で示します。「下書き」には、未確認の部分や、ベンダー資料のみを出典とする部分が含まれます。</p>
+<p>誤りに気づかれた場合は、出典とあわせてお知らせいただけると助かります。</p>`);
 
-// sitemap / robots
 const urls = ['index.html', 'news.html', 'tools.html', 'about.html', ...entries.map(e => `entries/${e.slug}.html`)];
 if (SITE_URL) {
   write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(u => `<url><loc>${SITE_URL}/${u}</loc></url>`).join('\n')}\n</urlset>\n`);
