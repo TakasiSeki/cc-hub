@@ -11,6 +11,7 @@ const TAGLINE = 'コンタクトセンター・ハブ';
 const SITE_URL = (process.env.SITE_URL || '').replace(/\/$/, '');
 const TAGS = {
   '中立出典': { cls: 'tag-neutral', desc: '官公庁・自治体・公益法人・論文など、販売利益と無関係な出典を含む' },
+  '業界団体': { cls: 'tag-assoc', desc: '業界団体(協会)が公開しているガイドラインや調査を含む。業界の自主的な見解で、会員企業の立場が反映される場合がある' },
   '調査レポート': { cls: 'tag-report', desc: '調査会社・コンサルティング会社などが実施した調査の結果を含む' },
   'ベンダー情報': { cls: 'tag-vendor', desc: '製品・サービスを販売する事業者の資料や、その解説記事を出典とする' },
   'メディア記事': { cls: 'tag-media', desc: '新聞・雑誌・Webメディアの記事を出典とする' },
@@ -20,6 +21,7 @@ const SRC_LABELS = {
   '公的資料': { tag: '中立出典', cls: 'tag-neutral' },
   '公益法人': { tag: '中立出典', cls: 'tag-neutral' },
   '論文': { tag: '中立出典', cls: 'tag-neutral' },
+  '業界団体': { tag: '業界団体', cls: 'tag-assoc' },
   '調査レポート': { tag: '調査レポート', cls: 'tag-report' },
   'ベンダー情報': { tag: 'ベンダー情報', cls: 'tag-vendor' },
   'メディア記事': { tag: 'メディア記事', cls: 'tag-media' },
@@ -50,9 +52,9 @@ function summary(body) {
 
 const CSS = `
 :root{--bg:#f6f7f9;--surface:#fff;--text:#1d2330;--muted:#5d6678;--line:#e4e7ee;--accent:#2f5bea;--accent-soft:#e8eeff;
---ok:#0f7a4b;--ok-soft:#e1f5ea;--rep:#0b6e99;--rep-soft:#dff2fb;--warn:#8a5a00;--warn-soft:#fff1cc;--shadow:0 1px 2px rgba(20,30,60,.05),0 6px 20px rgba(20,30,60,.06);--r:14px}
+--ok:#0f7a4b;--ok-soft:#e1f5ea;--rep:#0b6e99;--rep-soft:#dff2fb;--asc:#6b3fc7;--asc-soft:#efe8ff;--warn:#8a5a00;--warn-soft:#fff1cc;--shadow:0 1px 2px rgba(20,30,60,.05),0 6px 20px rgba(20,30,60,.06);--r:14px}
 @media (prefers-color-scheme:dark){:root{--bg:#0f131a;--surface:#171c26;--text:#e8ebf2;--muted:#9aa4b8;--line:#272e3d;--accent:#7b9bff;--accent-soft:#1f2a4d;
---ok:#5fd39a;--ok-soft:#14352a;--rep:#74c7ec;--rep-soft:#12334a;--warn:#f0c15a;--warn-soft:#3a2f12;--shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25)}}
+--ok:#5fd39a;--ok-soft:#14352a;--rep:#74c7ec;--rep-soft:#12334a;--asc:#c0a6ff;--asc-soft:#2c2250;--warn:#f0c15a;--warn-soft:#3a2f12;--shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25)}}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--text);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Meiryo",system-ui,sans-serif;font-size:16px;line-height:1.85;-webkit-font-smoothing:antialiased}
 a{color:var(--accent)}a:hover{text-decoration:none}
@@ -86,7 +88,7 @@ a{color:var(--accent)}a:hover{text-decoration:none}
 .card h3{margin:0;font-size:1.05rem;line-height:1.5}.card p{margin:0;color:var(--muted);font-size:.9rem;line-height:1.7;flex:1}
 .badges{display:flex;gap:6px;flex-wrap:wrap}
 .badge{font-size:.72rem;font-weight:700;padding:2px 9px;border-radius:999px;background:var(--accent-soft);color:var(--accent);line-height:1.7}
-.badge.tag-neutral{background:var(--ok-soft);color:var(--ok)}.badge.tag-vendor{background:var(--warn-soft);color:var(--warn)}.badge.tag-report{background:var(--rep-soft);color:var(--rep)}.badge.tag-media{background:var(--line);color:var(--muted)}.badge.plain{background:var(--line);color:var(--muted)}.badge.src{margin-right:6px;font-size:.7rem}
+.badge.tag-neutral{background:var(--ok-soft);color:var(--ok)}.badge.tag-vendor{background:var(--warn-soft);color:var(--warn)}.badge.tag-assoc{background:var(--asc-soft);color:var(--asc)}.badge.tag-report{background:var(--rep-soft);color:var(--rep)}.badge.tag-media{background:var(--line);color:var(--muted)}.badge.plain{background:var(--line);color:var(--muted)}.badge.src{margin-right:6px;font-size:.7rem}
 .chips-label{font-size:.8rem;color:var(--muted);font-weight:700;margin:10px 0 6px}.empty{display:none;padding:30px;text-align:center;color:var(--muted)}
 .crumb{font-size:.85rem;color:var(--muted);margin:26px 0 6px}.crumb a{color:var(--muted)}
 .article-head{margin-bottom:6px}.article-head h1{font-size:clamp(1.6rem,4vw,2.2rem);line-height:1.4;margin:6px 0 12px}
@@ -236,7 +238,7 @@ simple('about.html', 'about', 'このサイトについて', `${SITE}の方針�
 <h2>方針</h2><ul><li>「正解」を断定せず、通説・異論・合意度を出典つきで示します</li><li>出典のない数値は載せません</li><li>更新日と変更理由を残します</li></ul>
 <h2>運営</h2><p>AIがネット上の情報をもとに下書きを作り、出典を確認しながら公開しています。確認の範囲は、各項目の出典欄に書いています。ページの内容は、出典に基づいて随時更新します。</p>
 <h2 id="tags">タグの意味</h2><ul class="legend">${Object.entries(TAGS).map(([t, v]) => `<li><span class="badge ${v.cls}">${t}</span><span>${v.desc}</span></li>`).join('')}</ul>
-<p>出典欄の各行にも、「公的資料」「公益法人」「論文」「調査レポート」「ベンダー情報」「メディア記事」のラベルを付けています。項目のタグは、出典欄のラベルから自動で決まります。複数のタグが付く項目もあります。タグの種類は、必要に応じて増やします。</p>
+<p>出典欄の各行にも、「公的資料」「公益法人」「論文」「業界団体」「調査レポート」「ベンダー情報」「メディア記事」のラベルを付けています。項目のタグは、出典欄のラベルから自動で決まります。複数のタグが付く項目もあります。タグの種類は、必要に応じて増やします。</p>
 <p>誤りに気づかれた場合は、出典とあわせてお知らせいただけると助かります。</p>`);
 
 const urls = ['index.html', 'news.html', 'tools.html', 'about.html', ...entries.map(e => `entries/${e.slug}.html`)];
