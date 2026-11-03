@@ -250,6 +250,7 @@ a{color:var(--accent)}a:hover{text-decoration:none}
 .figsvg .bd{fill:var(--muted)}
 .figsvg .ar{stroke:var(--muted);stroke-width:2}.figsvg .ar.da{stroke-dasharray:5 4}
 .figsvg .ah{fill:var(--muted)}
+.figsvg .dot{fill:var(--accent)}
 .table-wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:.92rem}th,td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}th:first-child,td:first-child{text-align:left}
 th{color:var(--muted);font-size:.8rem}
 .cell{width:6rem;padding:6px 8px;font:inherit;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text);text-align:right}
