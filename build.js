@@ -73,6 +73,9 @@ const NEWS_KEYS = {
 };
 // 事典の項目から、関連する項目へのリンク(内部リンク)
 const RELATED = {
+  'phone-line-types': ['isdn-ins', 'sip-trunk', 'dial-in-representative', 'toll-free-navidial', 'erlang-c'], 'isdn-ins': ['phone-line-types', 'sip-trunk', 'dial-in-representative', 'ccaas'],
+  'sip-trunk': ['phone-line-types', 'isdn-ins', 'ccaas', 'erlang-c'], 'dial-in-representative': ['phone-line-types', 'isdn-ins', 'toll-free-navidial', 'acd'],
+  'toll-free-navidial': ['phone-line-types', 'dial-in-representative', 'inbound-outbound'],
   'aht': ['acw', 'fcr', 'occupancy-utilization', 'erlang-c', 'kpi-design'], 'acw': ['aht', 'voice-recognition', 'genai-assist'],
   'fcr': ['aht', 'csat', 'knowledge-management'], 'csat': ['nps', 'fcr', 'voc'], 'nps': ['csat', 'voc'],
   'response-rate': ['abandon-rate', 'erlang-c', 'aht'], 'abandon-rate': ['response-rate', 'ivr', 'erlang-c', 'callback'],
