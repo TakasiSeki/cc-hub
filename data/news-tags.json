@@ -1140,5 +1140,16 @@
    "アドバンストメディア",
    "AmiVoice"
   ]
+ },
+ {
+  "tag": "クレジットカード情報・PCI DSS",
+  "type": "topic",
+  "entry": "card-info-phone-payment",
+  "match": [
+   "PCI DSS",
+   "クレジットカード情報",
+   "カード情報"
+  ],
+  "caseSensitive": true
  }
 ]
