@@ -950,7 +950,7 @@
  {
   "tag": "NEC",
   "type": "company",
-  "entry": null,
+  "entry": "nec",
   "match": [
    "NEC",
    "日本電気"
@@ -968,7 +968,7 @@
  {
   "tag": "Cisco・Webex",
   "type": "company",
-  "entry": null,
+  "entry": "cisco-webex",
   "match": [
    "Cisco",
    "Webex"
