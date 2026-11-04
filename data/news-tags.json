@@ -684,7 +684,7 @@
  {
   "tag": "クラウドPBX",
   "type": "topic",
-  "entry": null,
+  "entry": "cloud-pbx",
   "match": [
    "クラウドPBX",
    "PBX"
@@ -694,10 +694,11 @@
  {
   "tag": "督促",
   "type": "topic",
-  "entry": null,
+  "entry": "debt-collection-rules",
   "match": [
    "督促",
-   "債権回収"
+   "債権回収",
+   "貸金業"
   ]
  },
  {

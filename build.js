@@ -46,7 +46,7 @@ const NEWS_KEYS = {
   'customer-harassment': ['カスハラ', 'カスタマーハラスメント'],
   'chatbot': ['チャットボット', 'チャット問い合わせ'],
   'voicebot': ['ボイスボット', 'AIオペレーター', '電話をAI', '夜間電話'],
-  'genai-assist': ['生成AI', 'オペレーター支援'], 'ai-agent': ['AIエージェント', 'エージェンティック'], 'customer-experience': ['顧客体験', 'CX'],
+  'genai-assist': ['生成AI', 'オペレーター支援'], 'ai-agent': ['AIエージェント', 'エージェンティック'], 'cloud-pbx': ['クラウドPBX'], 'debt-collection-rules': ['督促', '債権回収', '貸金業'], 'customer-experience': ['顧客体験', 'CX'],
   'ai-failure': ['AI導入', 'AIが失敗', '失敗する', '盲点'],
   'voc': ['VoC', 'VOC', '顧客の声'],
   'qa-monitoring': ['品質', '評価業務'],
@@ -122,6 +122,8 @@ const RELATED = {
 };
 Object.assign(RELATED, {
   'chatbot': [...RELATED['chatbot'], 'ai-agent'], 'genai-assist': [...RELATED['genai-assist'], 'ai-agent'], 'ai-business-guidelines': [...RELATED['ai-business-guidelines'], 'ai-agent'],
+  'cloud-pbx': ['sip-trunk', 'ccaas', 'phone-line-types', 'remote-contact-center', 'cti'], 'debt-collection-rules': ['inbound-outbound', 'talk-script', 'tokushoho-telemarketing', 'complaint-claim', 'customer-harassment'],
+  'sip-trunk': [...RELATED['sip-trunk'], 'cloud-pbx'], 'ccaas': [...RELATED['ccaas'], 'cloud-pbx'], 'inbound-outbound': [...RELATED['inbound-outbound'], 'debt-collection-rules'],
   'csat': [...RELATED['csat'], 'customer-experience'], 'nps': [...RELATED['nps'], 'customer-experience'], 'voc': [...RELATED['voc'], 'customer-experience'],
 });
 const NEWS_FILE = path.join(__dirname, 'data', 'news.json');
