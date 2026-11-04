@@ -1109,5 +1109,35 @@
    "Claude"
   ],
   "caseSensitive": true
+ },
+ {
+  "tag": "OKI",
+  "type": "company",
+  "entry": "oki",
+  "match": [
+   "OKI",
+   "沖電気"
+  ],
+  "caseSensitive": true
+ },
+ {
+  "tag": "テクマトリックス",
+  "type": "company",
+  "entry": "techmatrix",
+  "match": [
+   "テクマトリックス",
+   "FastHelp",
+   "FastBot"
+  ]
+ },
+ {
+  "tag": "アドバンスト・メディア",
+  "type": "company",
+  "entry": "advanced-media",
+  "match": [
+   "アドバンスト・メディア",
+   "アドバンストメディア",
+   "AmiVoice"
+  ]
  }
 ]
