@@ -1,0 +1,46 @@
+<div class="wrap">
+<div class="crumb"><a href="../index.html">ホーム</a> › <a href="../tools.html">ツール</a> › AHT改善効果の試算</div>
+<div class="article-head"><div class="badges"><span class="badge">計算ツール</span><span class="badge plain">ブラウザ内で計算(入力値は送信されません)</span></div>
+<h1>AHT改善効果の試算(必要席数と人件費)</h1>
+<p class="lead">平均処理時間(AHT)を短縮した場合に、同じサービスレベルを保つのに必要な席数と、人件費がどれだけ変わるかを、アーランC式で試算します。</p></div>
+
+<div class="tool">
+<form class="tool-form" id="f" autocomplete="off" onsubmit="return false">
+<h2>入力</h2>
+<div class="tool-grid">
+<label>月間の着信数(件)<input id="monthly" type="number" inputmode="decimal" min="1" step="any" value="12000"></label>
+<label>月の営業日数(日)<input id="days" type="number" inputmode="decimal" min="1" max="31" step="any" value="22"></label>
+<label>1日の営業時間(時間)<input id="hours" type="number" inputmode="decimal" min="1" max="24" step="any" value="9"></label>
+<label>現在のAHT(秒)<input id="ahtNow" type="number" inputmode="decimal" min="1" step="any" value="300"></label>
+<label>改善後のAHT(秒)<input id="ahtNew" type="number" inputmode="decimal" min="1" step="any" value="270"></label>
+<label>目標サービスレベル(%)<input id="sl" type="number" inputmode="decimal" min="1" max="99.9" step="any" value="80"></label>
+<label>目標応答時間(秒)<input id="target" type="number" inputmode="decimal" min="0" step="any" value="20"></label>
+<label>シュリンケージ(%)<input id="shrink" type="number" inputmode="decimal" min="0" max="90" step="any" value="30"></label>
+<label>1席あたりの月額コスト(円・任意)<input id="cost" type="number" inputmode="decimal" min="0" step="any" placeholder="空欄でもOK"></label>
+</div>
+<p class="hint">例: 月12,000件、AHTを300秒から270秒(10%短縮)にする場合。1席あたりのコストは、人件費、席の設備費、管理費などを含めた、自社の数字を入れてください(空欄の場合は、席数と作業時間のみ表示します)。</p>
+</form>
+
+<div id="msg" class="notice draft" style="display:none"></div>
+
+<section id="out" class="tool-out" aria-live="polite">
+<h2>結果</h2>
+<div class="stats" id="stats"></div>
+<h3>改善前後の比較(1時間あたりの平均で計算)</h3>
+<div class="table-wrap"><table id="tbl"><thead><tr><th>項目</th><th>改善前</th><th>改善後</th><th>差</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section class="sec">
+<h2>この計算の前提と限界</h2>
+<ul>
+<li><b>営業時間内に、着信が均等に入る前提</b>です。実際は、時間帯や曜日による波があり、ピーク時間帯の必要席数は、平均より多くなります。時間帯別の計算は、<a href="staffing.html">時間帯別の必要席数 計算ツール</a>を使ってください</li>
+<li>アーランC式の前提(到着はポアソン過程、処理時間は指数分布、待つ人は放棄しない、単一スキル)は、<a href="erlang-c.html">アーランC計算機</a>と同じです</li>
+<li>AHTを短くしても、着信数が変わらない前提です。AHTの短縮が、再問い合わせの増加や、満足度の低下につながるかは、この計算では分かりません</li>
+<li>人数は、整数に切り上げて計算します。このため、AHTの短縮が小さいと、必要席数が変わらないことがあります</li>
+<li>席数の差と、コストの差は、同じ人数が増減できる前提です。実際は、採用、配置転換、契約の単位などの制約があります</li>
+<li>結果は目安です。実際の判断は、過去の実績や現場の事情とあわせて行ってください</li>
+</ul>
+<p>関連する項目: <a href="../entries/aht.html">AHT(平均処理時間)</a> / <a href="../entries/acw.html">ACW(後処理時間)</a> / <a href="../entries/erlang-c.html">アーランC式と要員計画</a> / <a href="../entries/occupancy-utilization.html">稼働率と占有率</a> / <a href="../entries/fcr.html">一次解決率</a></p>
+</section>
+</div>
+</div>

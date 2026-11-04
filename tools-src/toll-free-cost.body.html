@@ -1,0 +1,57 @@
+<div class="wrap">
+<div class="crumb"><a href="../index.html">ホーム</a> › <a href="../tools.html">ツール</a> › 通話料の比較(フリーダイヤルとナビダイヤル)</div>
+<div class="article-head"><div class="badges"><span class="badge">計算ツール</span><span class="badge plain">ブラウザ内で計算(入力値は送信されません)</span></div>
+<h1>通話料の比較(フリーダイヤルとナビダイヤル)</h1>
+<p class="lead">着信数と通話時間から、フリーダイヤル(企業が通話料を負担)と、ナビダイヤル(発信者が通話料を負担)の、企業の月額の負担と、顧客の負担を試算します。料金の初期値は、NTTドコモビジネスの例(税込)です。契約前に、最新の料金で入れ直してください。</p></div>
+
+<div class="tool">
+<form class="tool-form" id="f" autocomplete="off" onsubmit="return false">
+<h2>入力(着信の条件)</h2>
+<div class="tool-grid">
+<label>月間の着信数(件)<input id="calls" type="number" inputmode="decimal" min="0" step="any" value="1000"></label>
+<label>携帯電話からの割合(%)<input id="mobile" type="number" inputmode="decimal" min="0" max="100" step="any" value="50"></label>
+<label>1件あたりの課金対象の時間(秒)<input id="sec" type="number" inputmode="decimal" min="1" step="any" value="300"></label>
+<label>ナビダイヤルの契約回線数(回線)<input id="lines" type="number" inputmode="decimal" min="0" step="1" value="10"></label>
+</div>
+<p class="hint">課金対象の時間は、会話の時間だけでなく、自動音声のガイダンスや、待ち時間を含むかを、契約の約款で確認してください(本サイトでは、ナビダイヤルのガイダンス中の課金の扱いを、確認できていません)。残りの割合は、固定電話(一般回線)からの着信として計算します。公衆電話からの着信は扱いません。</p>
+<details class="tool-adv"><summary>料金の設定(初期値はNTTドコモビジネスの例・税込。変更できます)</summary>
+<div class="tool-grid">
+<label>フリーダイヤル 基本料(円/月)<input id="fBase" type="number" inputmode="decimal" min="0" step="any" value="2200"></label>
+<label>フリーダイヤル 固定からの通話料(円)<input id="fFixRate" type="number" inputmode="decimal" min="0" step="any" value="9.35"></label>
+<label>…の課金単位(秒)<input id="fFixUnit" type="number" inputmode="decimal" min="1" step="any" value="180"></label>
+<label>フリーダイヤル 携帯からの通話料(円)<input id="fMobRate" type="number" inputmode="decimal" min="0" step="any" value="11"></label>
+<label>…の課金単位(秒)<input id="fMobUnit" type="number" inputmode="decimal" min="1" step="any" value="20"></label>
+<label>ナビダイヤル 基本料(円/月・番号ごと)<input id="nBase" type="number" inputmode="decimal" min="0" step="any" value="11000"></label>
+<label>ナビダイヤル 回線数ごとの加算(円/月)<input id="nLine" type="number" inputmode="decimal" min="0" step="any" value="1100"></label>
+<label>ナビダイヤル 固定からの通話料(円)<input id="nFixRate" type="number" inputmode="decimal" min="0" step="any" value="9.35"></label>
+<label>…の課金単位(秒)<input id="nFixUnit" type="number" inputmode="decimal" min="1" step="any" value="180"></label>
+<label>ナビダイヤル 携帯からの通話料(円)<input id="nMobRate" type="number" inputmode="decimal" min="0" step="any" value="22"></label>
+<label>…の課金単位(秒)<input id="nMobUnit" type="number" inputmode="decimal" min="1" step="any" value="30"></label>
+</div>
+<p class="hint">ナビダイヤルの携帯からの通話料は、2026年10月1日の改定後(22円/30秒)。改定前は11円/20秒でした。フリーダイヤルの料金は、NTTドコモビジネスの例(基本サービス料金プラン1)として、比較メディアが示している値です。最新の料金は、事業者のページで確認してください。</p>
+</details>
+</form>
+
+<div id="msg" class="notice draft" style="display:none"></div>
+
+<section id="out" class="tool-out" aria-live="polite">
+<h2>結果(月額・税込)</h2>
+<div class="stats" id="stats"></div>
+<h3>内訳</h3>
+<div class="table-wrap"><table id="tbl"><thead><tr><th>項目</th><th>フリーダイヤル</th><th>ナビダイヤル</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section class="sec">
+<h2>この計算の前提と限界</h2>
+<ul>
+<li><b>通話料は、すべての通話が同じ長さ(入力した時間)として計算</b>します。実際は、通話ごとに課金単位で切り上げるため、通話時間のばらつきによって、金額が変わります</li>
+<li>フリーダイヤルの料金は、<b>企業(着信側)の負担</b>です。ナビダイヤルの通話料は、<b>発信者の負担</b>とする前提で計算します。ナビダイヤルのページには、「一部着信側が負担」という記載があり、その内容は確認できていません</li>
+<li>ユニバーサルサービス料、電話リレーサービス料、工事費、オプションの料金は含みません</li>
+<li>ナビダイヤルの携帯電話からの通話料は、2026年10月1日に改定されました(11円/20秒から22円/30秒)。フリーダイヤルの携帯電話からの着信の料金の改定は、確認していません</li>
+<li>この計算は、顧客が受ける負担と、企業が受ける負担を比べるもので、顧客の離脱や、問い合わせ数の変化は分かりません</li>
+<li>事業者や、契約のプランによって、料金は異なります。結果は目安です</li>
+</ul>
+<p>関連する項目: <a href="../entries/toll-free-navidial.html">フリーダイヤルとナビダイヤル</a> / <a href="../entries/phone-line-types.html">電話回線の種類</a> / <a href="../entries/dial-in-representative.html">ダイヤルインと代表組</a> / <a href="../entries/telephone-relay-service.html">電話リレーサービス</a></p>
+</section>
+</div>
+</div>
