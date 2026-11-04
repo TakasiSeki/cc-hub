@@ -46,7 +46,7 @@ const NEWS_KEYS = {
   'customer-harassment': ['カスハラ', 'カスタマーハラスメント'],
   'chatbot': ['チャットボット', 'チャット問い合わせ'],
   'voicebot': ['ボイスボット', 'AIオペレーター', '電話をAI', '夜間電話'],
-  'genai-assist': ['生成AI', 'オペレーター支援'], 'ai-agent': ['AIエージェント', 'エージェンティック'], 'cloud-pbx': ['クラウドPBX'], 'card-info-phone-payment': ['PCI DSS', 'クレジットカード情報', 'カード情報'], 'debt-collection-rules': ['督促', '債権回収', '貸金業'], 'customer-experience': ['顧客体験', 'CX'],
+  'genai-assist': ['生成AI', 'オペレーター支援'], 'ai-agent': ['AIエージェント', 'エージェンティック'], 'cloud-pbx': ['クラウドPBX'], 'voice-phishing': ['ボイスフィッシング', 'フィッシング', 'なりすまし', '詐欺電話'], 'card-info-phone-payment': ['PCI DSS', 'クレジットカード情報', 'カード情報'], 'debt-collection-rules': ['督促', '債権回収', '貸金業'], 'customer-experience': ['顧客体験', 'CX'],
   'ai-failure': ['AI導入', 'AIが失敗', '失敗する', '盲点'],
   'voc': ['VoC', 'VOC', '顧客の声'],
   'qa-monitoring': ['品質', '評価業務'],
@@ -122,6 +122,7 @@ const RELATED = {
 };
 Object.assign(RELATED, {
   'chatbot': [...RELATED['chatbot'], 'ai-agent'], 'genai-assist': [...RELATED['genai-assist'], 'ai-agent'], 'ai-business-guidelines': [...RELATED['ai-business-guidelines'], 'ai-agent'],
+  'voice-phishing': ['ivr', 'talk-script', 'knowledge-management', 'data-breach-report', 'card-info-phone-payment'],
   'card-info-phone-payment': ['call-recording', 'outsourcing-supervision', 'bpo-outsourcing', 'data-breach-report', 'mail-order'],
   'cloud-pbx': ['sip-trunk', 'ccaas', 'phone-line-types', 'remote-contact-center', 'cti'], 'debt-collection-rules': ['inbound-outbound', 'talk-script', 'tokushoho-telemarketing', 'complaint-claim', 'customer-harassment'],
   'call-recording': [...RELATED['call-recording'], 'card-info-phone-payment'], 'bpo-outsourcing': [...RELATED['bpo-outsourcing'], 'card-info-phone-payment'], 'outsourcing-supervision': [...RELATED['outsourcing-supervision'], 'card-info-phone-payment'],

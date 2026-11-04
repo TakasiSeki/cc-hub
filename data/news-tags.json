@@ -1151,5 +1151,16 @@
    "カード情報"
   ],
   "caseSensitive": true
+ },
+ {
+  "tag": "ボイスフィッシング・詐欺電話",
+  "type": "topic",
+  "entry": "voice-phishing",
+  "match": [
+   "ボイスフィッシング",
+   "フィッシング",
+   "詐欺電話",
+   "なりすまし"
+  ]
  }
 ]
