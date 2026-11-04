@@ -941,7 +941,7 @@
  {
   "tag": "KDDI",
   "type": "company",
-  "entry": null,
+  "entry": "kddi",
   "match": [
    "KDDI"
   ],
