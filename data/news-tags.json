@@ -997,7 +997,7 @@
  {
   "tag": "ベルシステム24",
   "type": "company",
-  "entry": null,
+  "entry": "bell24",
   "match": [
    "ベルシステム24"
   ]
@@ -1005,7 +1005,7 @@
  {
   "tag": "トランスコスモス",
   "type": "company",
-  "entry": null,
+  "entry": "transcosmos",
   "match": [
    "トランスコスモス"
   ]
@@ -1013,7 +1013,7 @@
  {
   "tag": "TMJ",
   "type": "company",
-  "entry": null,
+  "entry": "tmj",
   "match": [
    "TMJ"
   ],

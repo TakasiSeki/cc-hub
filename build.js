@@ -415,7 +415,7 @@ fs.mkdirSync(path.join(OUT, 'articles'), { recursive: true });
 
 // 企業(companies/*.md): コンタクトセンターに関わる企業と、そのサービスのまとめ。frontmatter: title, kind, tags(| 区切り), updated, point
 const CO_SRC = path.join(__dirname, 'companies');
-const CO_TAGS = ['コンタクトセンター基盤', '電話回線・番号', 'CRM・顧客管理', 'AI・自動応答'];
+const CO_TAGS = ['コンタクトセンター基盤', '電話回線・番号', 'CRM・顧客管理', 'AI・自動応答', 'BPO・運営受託'];
 const companies = fs.existsSync(CO_SRC) ? fs.readdirSync(CO_SRC).filter(f => f.endsWith('.md') && !f.startsWith('_')).map(f => {
   const { meta, body } = parse(fs.readFileSync(path.join(CO_SRC, f), 'utf8'));
   if (!meta.title) throw new Error(`companies/${f}: title がありません`);
