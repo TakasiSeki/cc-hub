@@ -100,6 +100,9 @@ async function fromCcaj(year) {
   fs.mkdirSync(path.dirname(FILE), { recursive: true });
   const old = fs.existsSync(FILE) ? JSON.parse(fs.readFileSync(FILE, 'utf8')) : [];
   const seen = new Set(old.map(n => n.link));
+  // 同じ媒体・同じ題名・同じ日付は、リンクが違っても同一記事とみなす
+  const tkey = n => [n.source, n.date, (n.title || '').replace(/[^\p{L}\p{N}]/gu, '')].join('|');
+  const seenT = new Set(old.map(tkey));
   const added = [];
   const jobs = [...RSS_FEEDS.map(f => [f, fromRss]), ...LIST_PAGES.map(p => [p, fromList]), ...CCAJ_YEARS.map(y => [{ name: `CCAJ ${y}`, url: `${y}` }, () => fromCcaj(y)])];
   for (const [src, fn] of jobs) {
@@ -107,8 +110,8 @@ async function fromCcaj(year) {
       const { total, hits } = await fn(src);
       console.log(`${src.name}: 取得${total}件 / 対象${hits.length}件 (${src.url})`);
       for (const i of hits) {
-        if (!i.title || seen.has(i.link)) continue;
-        seen.add(i.link);
+        if (!i.title || seen.has(i.link) || seenT.has(tkey(i))) continue;
+        seen.add(i.link); seenT.add(tkey(i));
         added.push({ ...i, fetched: new Date().toISOString().slice(0, 10) });
       }
     } catch (e) { console.error(String(e.message || e)); }

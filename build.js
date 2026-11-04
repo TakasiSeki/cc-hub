@@ -44,7 +44,7 @@ const NEWS_KEYS = {
   'customer-harassment': ['カスハラ', 'カスタマーハラスメント'],
   'chatbot': ['チャットボット', 'チャット問い合わせ'],
   'voicebot': ['ボイスボット', 'AIオペレーター', '電話をAI', '夜間電話'],
-  'genai-assist': ['生成AI', 'AIエージェント', 'オペレーター支援'],
+  'genai-assist': ['生成AI', 'オペレーター支援'], 'ai-agent': ['AIエージェント', 'エージェンティック'], 'customer-experience': ['顧客体験', 'CX'],
   'ai-failure': ['AI導入', 'AIが失敗', '失敗する', '盲点'],
   'voc': ['VoC', 'VOC', '顧客の声'],
   'qa-monitoring': ['品質', '評価業務'],
@@ -116,7 +116,12 @@ const RELATED = {
   'callback': ['ivr', 'abandon-rate', 'acd', 'response-rate'],
   'supervisor': ['coaching', 'training', 'qa-monitoring', 'escalation', 'overtime-limit'], 'attrition': ['training', 'stress-check', 'customer-harassment', 'remote-contact-center', 'part-time-act', 'recruiting'],
   'training': ['coaching', 'supervisor', 'knowledge-management', 'attrition', 'talk-script'], 'coaching': ['supervisor', 'qa-monitoring', 'training', 'csat'],
+  'ai-agent': ['chatbot', 'genai-assist', 'ai-business-guidelines', 'ai-failure', 'voicebot'], 'customer-experience': ['csat', 'nps', 'voc', 'omnichannel', 'fcr'],
 };
+Object.assign(RELATED, {
+  'chatbot': [...RELATED['chatbot'], 'ai-agent'], 'genai-assist': [...RELATED['genai-assist'], 'ai-agent'], 'ai-business-guidelines': [...RELATED['ai-business-guidelines'], 'ai-agent'],
+  'csat': [...RELATED['csat'], 'customer-experience'], 'nps': [...RELATED['nps'], 'customer-experience'], 'voc': [...RELATED['voc'], 'customer-experience'],
+});
 const NEWS_FILE = path.join(__dirname, 'data', 'news.json');
 const NEWS = (fs.existsSync(NEWS_FILE) ? JSON.parse(fs.readFileSync(NEWS_FILE, 'utf8')) : [])
   .map(n => ({ ...n, title: n.title.replace(/[\u3000\s]+/g, ' ').trim() }))

@@ -600,7 +600,7 @@
  {
   "tag": "AIエージェント",
   "type": "topic",
-  "entry": null,
+  "entry": "ai-agent",
   "match": [
    "AIエージェント",
    "エージェンティック"
@@ -742,7 +742,7 @@
  {
   "tag": "顧客体験(CX)",
   "type": "topic",
-  "entry": null,
+  "entry": "customer-experience",
   "match": [
    "顧客体験",
    "CX"
