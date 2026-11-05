@@ -10,7 +10,15 @@ const FILE = path.join(__dirname, 'data', 'news.json');
 const RSS_FEEDS = [
   { name: 'PR TIMES', url: 'https://prtimes.jp/index.rdf' },
   { name: 'ITmedia', url: 'https://rss.itmedia.co.jp/rss/2.0/itmedia_all.xml' },
+  { name: '厚生労働省', url: 'https://www.mhlw.go.jp/stf/news.rdf' },
+  { name: '総務省', url: 'https://www.soumu.go.jp/news.rdf' },
+  { name: '経済産業省', url: 'https://www.meti.go.jp/ml_index_release_atom.xml' },
 ];
+// Googleニュースの検索RSS: 媒体名は題名の末尾(" - 媒体名")から取る。セミナー告知などは除く
+const GOOGLE_QUERIES = ['コンタクトセンター', 'コールセンター', 'カスハラ (コンタクトセンター OR コールセンター OR オペレーター)', 'ボイスボット', 'AIオペレーター'];
+const GOOGLE_EXCLUDE = ['ウェビナー', 'セミナー', '開催', '資料ダウンロード', '求人', '採用', '説明会', 'デモ＆コンファレンス', 'デモ&コンファレンス', '市場規模', '市場予測', '世界市場', '市場の動向', '続伸', '続落', '急伸', '急落', 'データベースを狙う攻撃', '富澤たけし'];
+// 転載サイト(元記事の複製が多い)は除く
+const GOOGLE_MIRRORS = ['Yahoo!ニュース', 'ライブドアニュース', 'ニコニコニュース', 'Infoseek', 'Excite エキサイト', '47NEWS', 'TVer', 'Googleニュース'];
 // すでにテーマで絞られた一覧ページ(HTML): そのまま採用する
 const LIST_PAGES = [
   { name: 'ITmedia', url: 'https://www.itmedia.co.jp/keywords/contactcenter.html' },
@@ -59,12 +67,28 @@ async function get(url) {
 
 async function fromRss(feed) {
   const xml = await get(feed.url);
-  const blocks = xml.match(/<item[\s>][\s\S]*?<\/item>/g) || [];
+  const blocks = xml.match(/<(?:item|entry)[\s>][\s\S]*?<\/(?:item|entry)>/g) || [];
   const items = blocks.map(b => {
     const title = tag(b, 'title');
-    return { source: feed.name, title, link: tag(b, 'link'), date: toDate(tag(b, 'dc:date') || tag(b, 'pubDate')), keywords: matchKeywords(title, title + ' ' + tag(b, 'description')) };
+    return { source: feed.name, title, link: tag(b, 'link') || ((b.match(/<link[^>]*href="([^"]+)"/) || [])[1] || ''), date: toDate(tag(b, 'dc:date') || tag(b, 'pubDate') || tag(b, 'updated')), keywords: matchKeywords(title, title + ' ' + tag(b, 'description') + ' ' + tag(b, 'summary')) };
   });
   return { total: items.length, hits: items.filter(i => i.link && i.keywords.length) };
+}
+
+async function fromGoogle(q) {
+  const url = `https://news.google.com/rss/search?q=${encodeURIComponent(q.name + ' when:30d')}&hl=ja&gl=JP&ceid=JP:ja`;
+  const xml = await get(url);
+  const blocks = xml.match(/<item[\s>][\s\S]*?<\/item>/g) || [];
+  const items = [];
+  for (const b of blocks) {
+    const raw = tag(b, 'title');
+    const m = raw.match(/^([\s\S]*) - ([^-]+)$/);
+    const title = (m ? m[1] : raw).replace(/（\d+\/\d+ ページ）/, '').trim();
+    const source = m ? m[2].trim() : 'Googleニュース';
+    if (GOOGLE_EXCLUDE.some(k => title.includes(k)) || GOOGLE_MIRRORS.includes(source) || /\[\d{4}\]/.test(title)) continue;
+    items.push({ source, title, link: tag(b, 'link'), date: toDate(tag(b, 'pubDate')), keywords: matchKeywords(title, title) });
+  }
+  return { total: items.length, hits: items.filter(i => i.link && i.keywords.length), url };
 }
 
 async function fromList(page) {
@@ -103,15 +127,18 @@ async function fromCcaj(year) {
   // 同じ媒体・同じ題名・同じ日付は、リンクが違っても同一記事とみなす
   const tkey = n => [n.source, n.date, (n.title || '').replace(/[^\p{L}\p{N}]/gu, '')].join('|');
   const seenT = new Set(old.map(tkey));
+  // Googleニュース経由の記事は、媒体が違っても同じ題名の先頭が同じなら、同一記事とみなす
+  const hkey = n => (n.title || '').replace(/[^\p{L}\p{N}]/gu, '').slice(0, 24);
+  const seenH = new Set(old.map(hkey));
   const added = [];
-  const jobs = [...RSS_FEEDS.map(f => [f, fromRss]), ...LIST_PAGES.map(p => [p, fromList]), ...CCAJ_YEARS.map(y => [{ name: `CCAJ ${y}`, url: `${y}` }, () => fromCcaj(y)])];
+  const jobs = [...RSS_FEEDS.map(f => [f, fromRss]), ...LIST_PAGES.map(p => [p, fromList]), ...GOOGLE_QUERIES.map(q => [{ name: `Google「${q}」`, url: q }, () => fromGoogle({ name: q })]), ...CCAJ_YEARS.map(y => [{ name: `CCAJ ${y}`, url: `${y}` }, () => fromCcaj(y)])];
   for (const [src, fn] of jobs) {
     try {
       const { total, hits } = await fn(src);
       console.log(`${src.name}: 取得${total}件 / 対象${hits.length}件 (${src.url})`);
       for (const i of hits) {
-        if (!i.title || seen.has(i.link) || seenT.has(tkey(i))) continue;
-        seen.add(i.link); seenT.add(tkey(i));
+        if (!i.title || seen.has(i.link) || seenT.has(tkey(i)) || seenH.has(hkey(i))) continue;
+        seen.add(i.link); seenT.add(tkey(i)); seenH.add(hkey(i));
         added.push({ ...i, fetched: new Date().toISOString().slice(0, 10) });
       }
     } catch (e) { console.error(String(e.message || e)); }
