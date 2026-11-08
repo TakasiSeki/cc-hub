@@ -358,6 +358,28 @@ for (const f of fs.readdirSync(SRC)) {
   if (!f.endsWith('.md') || f.startsWith('_')) continue;
   TITLES[f.replace(/\.md$/, '')] = parse(fs.readFileSync(path.join(SRC, f), 'utf8')).meta.title;
 }
+// 事典・記事・企業の相互リンク: 記事の本文のリンクと、企業ページの「関連する事典の項目」から、逆向きの関連を作る
+const XLINK = { artByEntry: {}, coByEntry: {}, artByCo: {}, entByCo: {}, ART_TITLES: {}, CO_TITLES: {} };
+{
+  const push = (o, k, v) => { (o[k] = o[k] || []).includes(v) || o[k].push(v); };
+  const ALIAS = { 'KPI設計': 'kpi-design', 'AI導入の失敗事例': 'ai-failure' };
+  const findEntry = n => ALIAS[n] || Object.keys(TITLES).find(k => TITLES[k] === n) || Object.keys(TITLES).find(k => TITLES[k].includes(n) || n.includes(TITLES[k]));
+  const read = dir => fs.existsSync(dir) ? fs.readdirSync(dir).filter(f => f.endsWith('.md') && !f.startsWith('_')).map(f => ({ slug: f.replace(/\.md$/, ''), ...parse(fs.readFileSync(path.join(dir, f), 'utf8')) })) : [];
+  for (const a of read(path.join(__dirname, 'articles'))) {
+    XLINK.ART_TITLES[a.slug] = a.meta.title;
+    for (const m of a.body.matchAll(/\(\.\.\/entries\/([\w-]+)\.html\)/g)) push(XLINK.artByEntry, m[1], a.slug);
+    for (const m of a.body.matchAll(/\(\.\.\/companies\/([\w-]+)\.html\)/g)) push(XLINK.artByCo, m[1], a.slug);
+  }
+  for (const c of read(path.join(__dirname, 'companies'))) {
+    XLINK.CO_TITLES[c.slug] = c.meta.title;
+    for (const m of c.body.matchAll(/関連する事典の項目[:：]\s*([^)）]*)[)）]/g)) {
+      for (const n of m[1].split(/[、,，]/).map(x => x.trim()).filter(Boolean)) {
+        const k = findEntry(n);
+        if (k) { push(XLINK.coByEntry, k, c.slug); push(XLINK.entByCo, c.slug, k); }
+      }
+    }
+  }
+}
 const entries = [];
 for (const f of fs.readdirSync(SRC)) {
   if (!f.endsWith('.md') || f.startsWith('_')) continue;
@@ -382,9 +404,12 @@ for (const f of fs.readdirSync(SRC)) {
   let relHtml = relNews.length ? `<section class="sec" id="news"><h2>関連ニュース</h2><p><small>題名の語と、記事ページから抽出したタグから自動で選んでいます(注目度の高い順)。関連の薄い記事が出ることがあります。</small></p><ul class="news-list">${relNews.map(n => newsItem(n, 0, '../')).join('')}</ul></section>` : '';
   const relItems = (RELATED[slug] || []).filter(x => TITLES[x]);
   const relItemsHtml = relItems.length ? `<section class="sec" id="related"><h2>関連する項目</h2><ul class="rel-list">${relItems.map(x => `<li><a href="${x}.html">${esc(TITLES[x])}</a></li>`).join('')}</ul></section>` : '';
-  relHtml = relItemsHtml + relHtml;
+  const relArts = XLINK.artByEntry[slug] || [], relCos = XLINK.coByEntry[slug] || [];
+  const relArtsHtml = relArts.length ? `<section class="sec" id="rel-articles"><h2>関連する記事</h2><ul class="rel-list">${relArts.map(x => `<li><a href="../articles/${x}.html">${esc(XLINK.ART_TITLES[x])}</a></li>`).join('')}</ul></section>` : '';
+  const relCosHtml = relCos.length ? `<section class="sec" id="rel-companies"><h2>関連する企業</h2><ul class="rel-list">${relCos.map(x => `<li><a href="../companies/${x}.html">${esc(XLINK.CO_TITLES[x])}</a></li>`).join('')}</ul></section>` : '';
+  relHtml = relItemsHtml + relArtsHtml + relCosHtml + relHtml;
   const sectionsFull = relHtml && sections.includes('<section class="sec sec-source"') ? sections.replace('<section class="sec sec-source"', relHtml + '<section class="sec sec-source"') : sections + relHtml;
-  { const add = [relItems.length ? '<a href="#related">関連する項目</a>' : '', relNews.length ? '<a href="#news">関連ニュース</a>' : ''].filter(Boolean); const ti = toc.findIndex(t => t.includes('出典')); toc.splice(ti >= 0 ? ti : toc.length, 0, ...add); }
+  { const add = [relItems.length ? '<a href="#related">関連する項目</a>' : '', relArts.length ? '<a href="#rel-articles">関連する記事</a>' : '', relCos.length ? '<a href="#rel-companies">関連する企業</a>' : '',relNews.length ? '<a href="#news">関連ニュース</a>' : ''].filter(Boolean); const ti = toc.findIndex(t => t.includes('出典')); toc.splice(ti >= 0 ? ti : toc.length, 0, ...add); }
   const notes = [];
   if (tags.includes('中立出典')) notes.push('官公庁・自治体・公益法人・論文・標準化団体の規格など、中立的な出典を含みます。');
   if (tags.includes('調査レポート')) notes.push('調査会社・コンサルティング会社による調査結果を含みます。');
@@ -496,12 +521,20 @@ for (const c of companies) {
     toc.push(`<a href="#s${i}">${h.replace(/<[^>]+>/g, '')}</a>`);
     return `<section class="sec ${SEC_CLASS(h)}" id="s${i}">${x}</section>`;
   }).join('\n');
+  // 関連する事典の項目・記事へのリンク
+  let extra = '';
+  {
+    const ents = (XLINK.entByCo[c.slug] || []).filter(x => TITLES[x]), arts = XLINK.artByCo[c.slug] || [];
+    const sec = (id, h, items) => `<section class="sec" id="${id}"><h2>${h}</h2><ul class="rel-list">${items.join('')}</ul></section>`;
+    if (ents.length) { extra += sec('rel-entries', '関連する事典の項目', ents.map(x => `<li><a href="../entries/${x}.html">${esc(TITLES[x])}</a></li>`)); toc.push('<a href="#rel-entries">関連する事典の項目</a>'); }
+    if (arts.length) { extra += sec('rel-articles', '関連する記事', arts.map(x => `<li><a href="../articles/${x}.html">${esc(XLINK.ART_TITLES[x])}</a></li>`)); toc.push('<a href="#rel-articles">関連する記事</a>'); }
+  }
   write(`companies/${c.slug}.html`, page({
     title: `${c.title}のコンタクトセンター関連サービス | ${SITE}`, desc: c.point || c.title, root: '../', cur: 'companies',
     body: `<div class="wrap"><div class="crumb"><a href="../index.html">ホーム</a> › <a href="../companies.html">企業</a></div>
 <div class="article-head"><div class="badges"><span class="badge">${esc(c.kind || '企業')}</span>${c.tagList.map(t => `<span class="badge plain">${esc(t)}</span>`).join('')}</div><h1>${esc(c.title)}</h1><div class="meta-line">最終更新: ${esc(c.updated || '')}</div></div>
 ${c.point ? `<div class="point"><b>この企業のサービス</b><p>${esc(c.point)}</p></div>` : ''}
-<div class="layout"><article>${secs}</article><aside class="toc"><b>目次</b>${toc.join('')}</aside></div></div>`,
+<div class="layout"><article>${secs}${extra}</article><aside class="toc"><b>目次</b>${toc.join('')}</aside></div></div>`,
     jsonld: { '@context': 'https://schema.org', '@type': 'Article', headline: c.title, description: c.point || undefined, dateModified: c.updated, inLanguage: 'ja' },
   }));
 }
