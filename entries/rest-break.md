@@ -1,5 +1,6 @@
 ---
 title: 休憩時間(労働基準法第34条)
+seo_title: コールセンターの休憩時間のルール(労働基準法第34条)
 category: 法規制
 consensus: 定説
 updated: 2026-11-03

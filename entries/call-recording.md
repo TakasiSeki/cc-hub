@@ -1,5 +1,6 @@
 ---
 title: 通話録音と個人情報保護法
+seo_title: コールセンターの通話録音と個人情報保護法
 category: 法規制
 consensus: 定説
 updated: 2026-11-03

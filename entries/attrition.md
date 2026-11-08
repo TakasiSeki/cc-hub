@@ -1,5 +1,6 @@
 ---
 title: オペレーターの離職
+seo_title: コールセンターのオペレーター離職の原因と対策の考え方
 category: 人材
 consensus: 議論あり
 updated: 2026-11-03

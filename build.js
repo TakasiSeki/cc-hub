@@ -418,7 +418,7 @@ for (const f of fs.readdirSync(SRC)) {
   if (!notes.length) notes.push('出典の種類が分類されていません。');
   const notice = `<div class="notice">${notes.map(n => `<p>${n}</p>`).join('')}<p>出典ごとのラベルは出典欄にあります。<a href="../about.html#tags">タグの意味</a></p></div>`;
   write(`entries/${slug}.html`, page({
-    title: `${meta.title}とは？定義・通説・注意点 | ${SITE}`,
+    title: `${meta.seo_title || `${meta.title}とは？定義・通説・注意点`} | ${SITE}`,
     desc: meta.point || summary(body) || `${meta.title}の定義・通説・異論・出典`,
     root: '../', cur: 'dict',
     body: `<div class="wrap">

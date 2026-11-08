@@ -1,5 +1,6 @@
 ---
 title: ステルスマーケティング規制(景品表示法)
+seo_title: ステルスマーケティング規制(景品表示法)の要点
 category: 法規制
 consensus: 定説
 updated: 2026-11-03

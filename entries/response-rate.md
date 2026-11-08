@@ -1,5 +1,6 @@
 ---
 title: 応答率とサービスレベル
+seo_title: 応答率とサービスレベルとは？コールセンターの指標の違い
 category: 指標
 consensus: 議論あり
 updated: 2026-11-03

@@ -1,5 +1,6 @@
 ---
 title: 時間外労働の上限規制と36協定
+seo_title: コールセンターの時間外労働の上限規制と36協定
 category: 法規制
 consensus: 定説
 updated: 2026-11-03

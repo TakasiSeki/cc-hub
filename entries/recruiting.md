@@ -1,5 +1,6 @@
 ---
 title: オペレーターの採用と人手不足
+seo_title: コールセンターの採用と人手不足
 category: 人材
 consensus: 議論あり
 updated: 2026-11-03

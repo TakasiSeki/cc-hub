@@ -1,5 +1,6 @@
 ---
 title: 放棄呼率
+seo_title: 放棄呼率とは？コールセンターの指標の定義と注意点
 category: 指標
 consensus: 議論あり
 updated: 2026-11-03

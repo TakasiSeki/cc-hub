@@ -1,5 +1,6 @@
 ---
 title: ISDN(INSネット64・INSネット1500)と2028年の終了
+seo_title: ISDN(INSネット)の2028年終了とは？対象と移行先・注意点
 category: 技術
 consensus: 定説
 updated: 2026-11-05
